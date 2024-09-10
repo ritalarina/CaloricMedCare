@@ -6,7 +6,7 @@ Caloric Need Calculator is designed for use in burn wards in medical facilities 
 ## Input
 - VCO2,
 - Age, 
-- Weight (kg or pounds), 
+- Weight (kg or lbs), 
 - Percent of body affected by burns, 
 - Number of days since trauma,
 - Whether the patient is intubated or not,
@@ -31,4 +31,4 @@ Caloric Need Calculator is designed for use in burn wards in medical facilities 
    ```bash
    npm start
    ```
-> ℹ️ **_NOTE:_**  Node.js must be installed for app to run.
+> ℹ️ **_NOTE:_**  Node.js must be installed for the app to run.
