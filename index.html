@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Nutrition Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input, select { margin: 10px 0; padding: 5px; }
+        .error { color: red; font-size: 0.8em; }
+    </style>
+</head>
+<body>
+    <h1>Patient Nutrition Calculator</h1>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" min="0" max="120">
+    <span id="age-error" class="error"></span><br>
+
+    <label for="weight">Weight (kg):</label>
+    <input type="number" id="weight" step="0.1" min="1" max="300">
+    <select id="weight-unit">
+        <option value="kg">kg</option>
+        <option value="lbs">lbs</option>
+    </select>
+    <span id="weight-error" class="error"></span><br>
+
+    <label for="burns">Percent of Body Affected by Burns:</label>
+    <input type="number" id="burns" min="1" max="100">
+    <span id="burns-error" class="error"></span><br>
+
+	<label for="days-after-trauma">Days After Trauma:</label>
+    <input type="number" id="days-after-trauma" />
+    <span id="days-after-trauma-error" class="error"></span><br>
+
+    <label>Is Patient Intubated?</label>
+    <select id="intubation">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+    </select>
+	<span id="intubation-error" class="error"></span>
+	<br>
+
+    <label>Other Illnesses:</label>
+    <select id="illness">
+        <option value="none">None</option>
+        <option value="illness1">Lorem Ipsum 1</option>
+        <option value="illness2">Lorem Ipsum 2</option>
+        <option value="illness3">Lorem Ipsum 3</option>
+        <option value="illness4">Lorem Ipsum 4</option>
+        <option value="illness5">Lorem Ipsum 5</option>
+    </select><br>
+
+    <label>Necrotomy Phase:</label>
+    <select id="necro-phase">
+        <option value="early">Early</option>
+        <option value="late">Late</option>
+    </select><br>
+
+    <label for="temperature">Body Temperature (°C):</label>
+    <input type="number" id="temperature" step="0.1">
+    <select id="temperature-unit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+    </select>
+    <span id="temperature-error" class="error"></span><br>
+
+    <label for="vco2">VCO₂ (L/min):</label>
+    <input type="number" id="vco2" step="0.1">
+    <span id="vco2-error" class="error"></span><br>
+
+    <label for="nutrition">Nutrition:</label>
+    <select id="nutrition"></select><br>
+
+    <h3>Results:</h3>
+    <p>Daily Caloric Requirement: <span id="caloric-output">0</span> kcal/day</p>
+    <p>Required Weight of Selected Nutrition: <span id="volume-output">0</span> g/day</p>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

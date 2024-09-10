@@ -1,0 +1,14 @@
+{
+  "name": "caloric-need-calculator",
+  "version": "1.0.0",
+  "description": "The app will calculate daily caloric need of a patient in a burn ward based on entered patient data including VCO2 measured using idirect calorimeter.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Rita Larina",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^32.0.2"
+  }
+}

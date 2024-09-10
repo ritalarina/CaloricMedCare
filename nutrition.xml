@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nutritions>
+    <nutrition>
+        <name>Lorem Ipsum A</name>
+        <caloricDensity>150</caloricDensity> <!-- kcal per 100 g -->
+    </nutrition>
+    <nutrition>
+        <name>Lorem Ipsum B</name>n
+        <caloricDensity>200</caloricDensity> <!-- kcal per 100 g -->
+    </nutrition>
+    <nutrition>
+        <name>Lorem Ipsum C</name>
+        <caloricDensity>180</caloricDensity> <!-- kcal per 100 g -->
+    </nutrition>
+    <nutrition>
+        <name>Lorem Ipsum D</name>
+        <caloricDensity>120</caloricDensity> <!-- kcal per 100 g -->
+    </nutrition>
+    <nutrition>
+        <name>Lorem Ipsum E</name>
+        <caloricDensity>250</caloricDensity> <!-- kcal per 100 g -->
+    </nutrition>
+</nutritions>
