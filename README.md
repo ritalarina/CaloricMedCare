@@ -1,22 +1,23 @@
-# Caloric Need Calculator
+# Burn Patient Caloric Need Calculator
 
 ## Description
-Caloric Need Calculator is designed for use in burn wards in medical facilities to calculate daily nutrition needs based on various patient inputs.
+Burn Patient Caloric Need Calculator is designed for use in medical facilities to calculate daily nutrition needs based on various patient inputs.
 
 ## Input
-- VCO2,
+- Gender (f/m), 
 - Age, 
-- Weight (kg or lbs), 
-- Percent of body affected by burns, 
-- Number of days since trauma,
-- Whether the patient is intubated or not,
+- Weight (kg), 
+- Height (cm), 
+- Total Burn Surface Area (%), 
+- Days since trauma,
 - Other illnesses,
-- Necrectomy stage,
-- Body temperature (Celsius and Fahrenheit)
+- Body temperature (Celsius),
+- Energy Intake (kcal)
 
 ## Output
-- Calculates and displays daily caloric needs.
-- Display required nutrition volume based on caloric density.
+- Calculates and displays Basal Metabolic Rate via Harris-Benedict formula.
+- (TBD) Calculates and displays daily caloric needs via Toronto formula for major burns.
+- (TBD) Displays required nutrition volume based on caloric density.
 
 
 ## Running the app
