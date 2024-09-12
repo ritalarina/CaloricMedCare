@@ -5,7 +5,8 @@ let inputsFilled = {
     'weight': false,
     'burns': false,
     'days-after-trauma': false, // Use 'days-after-trauma'
-    'temperature': false
+    'temperature': false,
+	'height': false
 };
 
 const noValidationNeeded = new Set(['illness', 'gender']);
@@ -103,6 +104,7 @@ function getMinValue(id) {
         case 'burns': return 1;
         case 'days-after-trauma': return 0;
         case 'temperature': return 24;
+		case 'height': return 50;
     }
 }
 
@@ -113,7 +115,7 @@ function getMaxValue(id) {
         case 'burns': return 100;
         case 'days-after-trauma': return Infinity;
         case 'temperature': return 46;
-        case 'vco2': return 8;
+		case 'height': return 300;
     }
 }
 
@@ -128,6 +130,7 @@ function calculate() {
     const daysAfterTrauma = parseFloat(document.getElementById('days-after-trauma').value);
     const temperature = parseFloat(document.getElementById('temperature').value);
 	const gender = document.getElementById('gender').value;
+	const height = parseFloat(document.getElementById('height').value);
 
     const selectedNutrition = document.getElementById('nutrition').value;
 
