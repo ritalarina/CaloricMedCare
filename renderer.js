@@ -8,7 +8,7 @@ let inputsFilled = {
     'temperature': false
 };
 
-const noValidationNeeded = new Set(['illness']);
+const noValidationNeeded = new Set(['illness', 'gender']);
 
 ipcRenderer.on('nutrition-data', (event, data) => {
     try {
@@ -45,14 +45,14 @@ document.querySelectorAll('input, select').forEach(element => {
 });
 
 function requiresValidation(id) {
-    return id != 'illness';
+    return !noValidationNeeded.has(id);
 }
 
 function handleInputChange() {
     const id = this.id;
     console.log(`Input changed: ${id}`); // Log input change
 
-    if (id != 'illness') {
+    if (!requiresValidation(id)) {
         inputsFilled[id] = true;
     } else if (validateField(id)) {
         inputsFilled[id] = true;
@@ -67,7 +67,7 @@ function handleInputChange() {
 }
 
 function validateField(id) {
-    if (id != 'illness') {
+    if (!requiresValidation(id)) {
         return true; // No validation needed for drop-downs
     } else {
         const min = getMinValue(id);
@@ -127,6 +127,7 @@ function calculate() {
     const burns = parseFloat(document.getElementById('burns').value);
     const daysAfterTrauma = parseFloat(document.getElementById('days-after-trauma').value);
     const temperature = parseFloat(document.getElementById('temperature').value);
+	const gender = document.getElementById('gender').value;
 
     const selectedNutrition = document.getElementById('nutrition').value;
 

@@ -13,7 +13,13 @@
 <body>
     <h1>Patient Nutrition Calculator</h1>
 
-    <label for="age">Age:</label>
+	<label for="gender">Gender:</label>
+    <select id="gender">
+        <option value="none">Female</option>
+        <option value="illness1">Male</option>
+    </select><br>
+	
+	<label for="age">Age:</label>
     <input type="number" id="age" min="0" max="120">
     <span id="age-error" class="error"></span><br>
 
@@ -29,7 +35,7 @@
     <input type="number" id="days-after-trauma" />
     <span id="days-after-trauma-error" class="error"></span><br>
 
-    <label>Other Illnesses:</label>
+    <label for="illness">Other Illnesses:</label>
     <select id="illness">
         <option value="none">None</option>
         <option value="illness1">Lorem Ipsum 1</option>
