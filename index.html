@@ -19,10 +19,6 @@
 
     <label for="weight">Weight (kg):</label>
     <input type="number" id="weight" step="0.1" min="1" max="300">
-    <select id="weight-unit">
-        <option value="kg">kg</option>
-        <option value="lbs">lbs</option>
-    </select>
     <span id="weight-error" class="error"></span><br>
 
     <label for="burns">Percent of Body Affected by Burns:</label>
@@ -32,14 +28,6 @@
 	<label for="days-after-trauma">Days After Trauma:</label>
     <input type="number" id="days-after-trauma" />
     <span id="days-after-trauma-error" class="error"></span><br>
-
-    <label>Is Patient Intubated?</label>
-    <select id="intubation">
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-    </select>
-	<span id="intubation-error" class="error"></span>
-	<br>
 
     <label>Other Illnesses:</label>
     <select id="illness">
@@ -51,30 +39,16 @@
         <option value="illness5">Lorem Ipsum 5</option>
     </select><br>
 
-    <label>Necrotomy Phase:</label>
-    <select id="necro-phase">
-        <option value="early">Early</option>
-        <option value="late">Late</option>
-    </select><br>
-
     <label for="temperature">Body Temperature (°C):</label>
     <input type="number" id="temperature" step="0.1">
-    <select id="temperature-unit">
-        <option value="celsius">Celsius</option>
-        <option value="fahrenheit">Fahrenheit</option>
-    </select>
     <span id="temperature-error" class="error"></span><br>
-
-    <label for="vco2">VCO₂ (L/min):</label>
-    <input type="number" id="vco2" step="0.1">
-    <span id="vco2-error" class="error"></span><br>
 
     <label for="nutrition">Nutrition:</label>
     <select id="nutrition"></select><br>
 
     <h3>Results:</h3>
     <p>Daily Caloric Requirement: <span id="caloric-output">0</span> kcal/day</p>
-    <p>Required Weight of Selected Nutrition: <span id="volume-output">0</span> g/day</p>
+    <!-- <p>Required Weight of Selected Nutrition: <span id="volume-output">0</span> g/day</p> -->
 
     <script src="renderer.js"></script>
 </body>

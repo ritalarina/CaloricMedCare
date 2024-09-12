@@ -5,22 +5,10 @@ let inputsFilled = {
     'weight': false,
     'burns': false,
     'days-after-trauma': false, // Use 'days-after-trauma'
-    'temperature': false,
-    'vco2': false
+    'temperature': false
 };
 
-// Define coefficients
-const intubationCoefficient = {
-    'yes': 1.2, // Example coefficient for intubation
-    'no': 1
-};
-
-const necroctomyCoefficient = {
-    'early': 1.1, // Example coefficient for early necroctomy
-    'late': 1.2 // Example coefficient for late necroctomy
-};
-
-const noValidationNeeded = new Set(['nutrition', 'intubation', 'necro-phase', 'illness']);
+const noValidationNeeded = new Set(['illness']);
 
 ipcRenderer.on('nutrition-data', (event, data) => {
     try {
@@ -57,14 +45,14 @@ document.querySelectorAll('input, select').forEach(element => {
 });
 
 function requiresValidation(id) {
-    return !noValidationNeeded.has(id);
+    return id != 'illness';
 }
 
 function handleInputChange() {
     const id = this.id;
     console.log(`Input changed: ${id}`); // Log input change
 
-    if (!requiresValidation(id)) {
+    if (id != 'illness') {
         inputsFilled[id] = true;
     } else if (validateField(id)) {
         inputsFilled[id] = true;
@@ -79,7 +67,7 @@ function handleInputChange() {
 }
 
 function validateField(id) {
-    if (!requiresValidation(id)) {
+    if (id != 'illness') {
         return true; // No validation needed for drop-downs
     } else {
         const min = getMinValue(id);
@@ -111,21 +99,20 @@ function validateNumber(id, min, max) {
 function getMinValue(id) {
     switch (id) {
         case 'age': return 0;
-        case 'weight': return document.getElementById('weight-unit').value === 'kg' ? 1 : 2.2;
+        case 'weight': return 1;
         case 'burns': return 1;
         case 'days-after-trauma': return 0;
-        case 'temperature': return document.getElementById('temperature-unit').value === 'celsius' ? 24 : 75.2;
-        case 'vco2': return 0.1;
+        case 'temperature': return 24;
     }
 }
 
 function getMaxValue(id) {
     switch (id) {
         case 'age': return 120;
-        case 'weight': return document.getElementById('weight-unit').value === 'kg' ? 300 : 660;
+        case 'weight': return 300;
         case 'burns': return 100;
         case 'days-after-trauma': return Infinity;
-        case 'temperature': return document.getElementById('temperature-unit').value === 'celsius' ? 46 : 114.8;
+        case 'temperature': return 46;
         case 'vco2': return 8;
     }
 }
@@ -136,17 +123,12 @@ function areAllInputsFilled() {
 
 function calculate() {
     const age = parseFloat(document.getElementById('age').value);
-    const weightUnit = document.getElementById('weight-unit').value;
     const weight = parseFloat(document.getElementById('weight').value);
     const burns = parseFloat(document.getElementById('burns').value);
     const daysAfterTrauma = parseFloat(document.getElementById('days-after-trauma').value);
-    const temperatureUnit = document.getElementById('temperature-unit').value;
     const temperature = parseFloat(document.getElementById('temperature').value);
-    const vco2 = parseFloat(document.getElementById('vco2').value);
 
     const selectedNutrition = document.getElementById('nutrition').value;
-    const intubation = document.getElementById('intubation').value;
-    const necroctomy = document.getElementById('necro-phase').value;
 
     if (!selectedNutrition) {
         console.error('No nutrition selected.');
@@ -155,19 +137,15 @@ function calculate() {
 
     const caloricDensity = parseFloat(selectedNutrition); // kcal per 100 g
 
-    // Apply coefficients based on drop-down selections
-    const intubationCoef = intubationCoefficient[intubation] || 1;
-    const necroctomyCoef = necroctomyCoefficient[necroctomy] || 1;
-
-    const caloricNeed = calculateCalories(age, weight, burns, daysAfterTrauma, vco2, temperature) * intubationCoef * necroctomyCoef;
-    document.getElementById('caloric-output').textContent = caloricNeed.toFixed(2);
+    const caloricNeed = calculateCalories(age, weight, burns, daysAfterTrauma, temperature);
+    document.getElementById('caloric-output').textContent = Math.round(caloricNeed);
 
     // Calculate grams of nutrition needed
-    const gramsRequired = (caloricNeed / caloricDensity) * 100; // Since caloric density is per 100 g
-    document.getElementById('volume-output').textContent = gramsRequired.toFixed(2) + " g";
+    // const gramsRequired = (caloricNeed / caloricDensity) * 100; // Since caloric density is per 100 g
+    // document.getElementById('volume-output').textContent = Math.round(gramsRequired);
 }
 
-function calculateCalories(age, weight, burns, daysAfterTrauma, vco2, temperature) {
+function calculateCalories(age, weight, burns, daysAfterTrauma, temperature) {
     // Random formula to calculate daily caloric requirement
-    return (age * 10) + (weight * 8) + (burns * 12) + (daysAfterTrauma * 5) + (vco2 * 15) + (temperature * 3);
+    return (age * 10) + (weight * 8) + (burns * 12) + (daysAfterTrauma * 5) + (temperature * 3);
 }
