@@ -142,8 +142,11 @@ function calculate() {
         console.error('No nutrition selected.');
         return;
     }
-
+	
     const caloricDensity = parseFloat(selectedNutrition); // kcal per 100 g
+	
+	const bmr = calculateBMR(gender, weight, height, age);
+	document.getElementById('bmr-output').textContent = Math.round(bmr);
 
     const caloricNeed = calculateCalories(age, weight, burns, daysAfterTrauma, temperature);
     document.getElementById('caloric-output').textContent = Math.round(caloricNeed);
@@ -156,4 +159,13 @@ function calculate() {
 function calculateCalories(age, weight, burns, daysAfterTrauma, temperature) {
     // Random formula to calculate daily caloric requirement
     return (age * 10) + (weight * 8) + (burns * 12) + (daysAfterTrauma * 5) + (temperature * 3);
+}
+
+function calculateBMR(gender, weight, height, age) {
+	// BMR - Basal Metabolic Rate aka Harris-Benedict
+	if (gender === 'male') {
+		return 66.5 + (13.75 * weight) + (5.003 * height) - (6.75 * age);
+	} else {
+		return 655.1 + (9.563 * weight) + (1.850 * height) - (4.676 * age);
+	}
 }
