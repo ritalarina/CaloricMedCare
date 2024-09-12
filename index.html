@@ -30,6 +30,10 @@
 	<label for="height">Height (cm):</label>
     <input type="number" id="height" min="50" max="300">
     <span id="height-error" class="error"></span><br>
+	
+    <label for="temperature">Body Temperature (°C):</label>
+    <input type="number" id="temperature" step="0.1">
+    <span id="temperature-error" class="error"></span><br>
 
     <label for="burns">Total Burn Surface Area (%):</label>
     <input type="number" id="burns" min="1" max="100">
@@ -38,6 +42,10 @@
 	<label for="days-after-trauma">Days After Trauma:</label>
     <input type="number" id="days-after-trauma" />
     <span id="days-after-trauma-error" class="error"></span><br>
+	
+	<label for="energy-intake">Energy Intake (kcal):</label>
+    <input type="number" id="energy-intake" min="500" max="5000">
+    <span id="energy-intake-error" class="error"></span><br>
 
     <label for="illness">Other Illnesses:</label>
     <select id="illness">
@@ -48,10 +56,6 @@
         <option value="illness4">Lorem Ipsum 4</option>
         <option value="illness5">Lorem Ipsum 5</option>
     </select><br>
-
-    <label for="temperature">Body Temperature (°C):</label>
-    <input type="number" id="temperature" step="0.1">
-    <span id="temperature-error" class="error"></span><br>
 
     <label for="nutrition">Nutrition:</label>
     <select id="nutrition"></select><br>
