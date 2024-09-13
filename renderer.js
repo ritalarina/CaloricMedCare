@@ -148,7 +148,7 @@ function calculate() {
 	const bmr = calculateBMR(gender, weight, height, age);
 	document.getElementById('bmr-output').textContent = Math.round(bmr);
 
-    const caloricNeed = calculateCalories(age, weight, burns, daysAfterTrauma, temperature);
+    const caloricNeed = calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma);
     document.getElementById('caloric-output').textContent = Math.round(caloricNeed);
 
     // Calculate grams of nutrition needed
@@ -156,9 +156,9 @@ function calculate() {
     // document.getElementById('volume-output').textContent = Math.round(gramsRequired);
 }
 
-function calculateCalories(age, weight, burns, daysAfterTrauma, temperature) {
-    // Random formula to calculate daily caloric requirement
-    return (age * 10) + (weight * 8) + (burns * 12) + (daysAfterTrauma * 5) + (temperature * 3);
+function calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma) {
+    // following Toronto formula for major burns
+    return -4343 + (10.5 * burns) + (0.23 * energyIntake) + (0.84 * bmr) + (114 * temperature) - (4.5 * daysAfterTrauma);
 }
 
 function calculateBMR(gender, weight, height, age) {
