@@ -1,7 +1,7 @@
 Main functionality:
 - ~~Formula for calculation (without calorimeter) Toronto formula for major burns: $−4343 + (10.5 × \\%TBSA) + (0.23 × energy intake in kcal) + (0.84 × Harris-Benedict) + (114 × T) − (4.5 × days post-burn)$. 
 > ℹ️ **_NOTE:_** This formula uses the information of the previous day, where T is body temperature in °C.~~
-- Calculate necessary protein amount (1-15 days - 2g per body kg, afterwards - 1.5 g per body kg)
+- ~~Calculate necessary protein amount (1-15 days - 2g per body kg, afterwards - 1.5 g per body kg)~~
 - Calculate necessary daily nutrition formula volume
 	- Start with base nutrition.
 	- Make other illness selection multiple-choice.
@@ -22,5 +22,6 @@ Other:
 - Unit selection for weight, height, energy (kcal or kJ), VCO2 (L/min or ml/min) in settings.
 - Info about fields/setting on hover
 - Adding custom nutrition formula (supplementing nutrition XML)
+- Setting for protein amount per body kg depending on number of days since trauma
 
 

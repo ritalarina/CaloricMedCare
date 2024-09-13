@@ -150,6 +150,9 @@ function calculate() {
 
     const caloricNeed = calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma);
     document.getElementById('caloric-output').textContent = Math.round(caloricNeed);
+	
+	const proteinNeed = calculateProtein(weight, daysAfterTrauma);
+    document.getElementById('protein-output').textContent = Math.round(proteinNeed);
 
     // Calculate grams of nutrition needed
     // const gramsRequired = (caloricNeed / caloricDensity) * 100; // Since caloric density is per 100 g
@@ -167,5 +170,13 @@ function calculateBMR(gender, weight, height, age) {
 		return 66.5 + (13.75 * weight) + (5.003 * height) - (6.75 * age);
 	} else {
 		return 655.1 + (9.563 * weight) + (1.850 * height) - (4.676 * age);
+	}
+}
+
+function calculateProtein(weight, daysAfterTrauma) {
+	if (daysAfterTrauma <= 15) {
+		return weight * 2;
+	} else {
+		return weight * 1.5;
 	}
 }
