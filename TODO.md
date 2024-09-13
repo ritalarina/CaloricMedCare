@@ -3,8 +3,8 @@ Main functionality:
 > ℹ️ **_NOTE:_** This formula uses the information of the previous day, where T is body temperature in °C.~~
 - ~~Calculate necessary protein amount (1-15 days - 2g per body kg, afterwards - 1.5 g per body kg)~~
 - Calculate necessary daily nutrition formula volume
-	- Start with base nutrition.
-	- Make other illness selection multiple-choice.
+	- ~~Start with base nutrition.~~
+	- ~~Make other illness selection multiple-choice.~~
 	- setting for which nutrition to consider base in which days of treatment
 	- setting for nutrition for various ilnesses as add-on to main nutrition
 - calculate nutrition speed
@@ -23,5 +23,6 @@ Other:
 - Info about fields/setting on hover
 - Adding custom nutrition formula (supplementing nutrition XML)
 - Setting for protein amount per body kg depending on number of days since trauma
+- Saving patient data locally
 
 

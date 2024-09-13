@@ -16,8 +16,10 @@ Burn Patient Caloric Need Calculator is designed for use in medical facilities t
 
 ## Output
 - Calculates and displays Basal Metabolic Rate via Harris-Benedict formula.
-- (TBD) Calculates and displays daily caloric needs via Toronto formula for major burns.
-- (TBD) Displays required nutrition volume based on caloric density.
+- Calculates and displays daily caloric needs via Toronto formula for major burns.
+- Calculates required daily protein amount.
+- Displays required nutrition volume based on caloric density.
+- (TBD) Displays nutrition combos to fullfil daily caloric and protein need as well as their volume/weight and speed.
 
 
 ## Running the app

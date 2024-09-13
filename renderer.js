@@ -17,7 +17,7 @@ ipcRenderer.on('nutrition-data', (event, data) => {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data, "application/xml");
         const nutritionSelect = document.getElementById("nutrition");
-		const illnessesContainer = document.getElementById("illnesses-container"); // The illness drop-down
+		const illnessesContainer = document.getElementById("illnesses-container"); 
 
         // Clear previous options
         nutritionSelect.innerHTML = '';
