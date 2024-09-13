@@ -17,9 +17,13 @@ ipcRenderer.on('nutrition-data', (event, data) => {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data, "application/xml");
         const nutritionSelect = document.getElementById("nutrition");
+		const illnessSelect = document.getElementById("illness"); // The illness drop-down
 
         // Clear previous options
         nutritionSelect.innerHTML = '';
+		illnessSelect.innerHTML = ''; // Clear the illness drop-down
+		
+		const illnessSet = new Set(); // Using a Set to avoid duplicate illnesses
 
         const nutrients = xmlDoc.getElementsByTagName("nutrition");
         if (nutrients.length === 0) {
@@ -30,11 +34,44 @@ ipcRenderer.on('nutrition-data', (event, data) => {
         Array.from(nutrients).forEach(nutrition => {
             const name = nutrition.getElementsByTagName("name")[0].textContent;
             const caloricDensity = parseFloat(nutrition.getElementsByTagName("caloricDensity")[0].textContent); // kcal per 100 g
-            nutritionData.push({ name, caloricDensity });
+			const protein = parseFloat(nutrition.getElementsByTagName("protein")[0].textContent); // g per 100 ml
+            const indication = nutrition.getElementsByTagName("indication")[0].textContent;
+            const contraindication = nutrition.getElementsByTagName("contraindication")[0].textContent;
+            const nutritionForm = nutrition.getElementsByTagName("form")[0].textContent; // Changed to nutritionForm
+            const src = nutrition.getElementsByTagName("src")[0].textContent;
+			
+			 // Get packaging volumes
+            const volumes = Array.from(nutrition.getElementsByTagName("volume")).map(vol => parseInt(vol.textContent));
+			
+             // Store nutrition data
+            nutritionData.push({ 
+                name, 
+                caloricDensity, 
+                protein, 
+                indication, 
+                contraindication, 
+                packaging: volumes, 
+                nutritionForm, // Updated to use nutritionForm
+                src 
+            });
+			
             const option = document.createElement("option");
             option.textContent = name;
             option.value = caloricDensity; // Store caloric density per 100g in the value
             nutritionSelect.appendChild(option);
+			
+			// Add indications to the Set for unique illness options
+            if (indication !== "none") {
+                illnessSet.add(indication);
+            }
+        });
+		
+		// Populate illness drop-down with unique indications
+        illnessSet.forEach(indication => {
+            const illnessOption = document.createElement("option");
+            illnessOption.textContent = indication;
+            illnessOption.value = indication;
+            illnessSelect.appendChild(illnessOption);
         });
     } catch (error) {
         console.error('Error parsing XML:', error);
