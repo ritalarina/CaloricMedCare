@@ -1,23 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nutritions>
     <nutrition>
-        <name>Lorem Ipsum A</name>
-        <caloricDensity>150</caloricDensity> <!-- kcal per 100 g -->
+        <name>Nutrison Protein Intense</name>
+        <caloricDensity>126</caloricDensity> <!-- kcal/100 ml -->
+		<protein>10</protein> <!-- g/100 ml -->
+		<indication>none</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>500</volume> <!-- ml -->
+			<volume>1000</volume> <!-- ml -->
+		</packaging>
+		<form>liquid</form>
+		<src>https://www.nutricia.lv/produkti/nutrison-protein-intense-126-kcal-ml/</src>
     </nutrition>
     <nutrition>
-        <name>Lorem Ipsum B</name>
-        <caloricDensity>200</caloricDensity> <!-- kcal per 100 g -->
+        <name>Nutrison Advanced Diason</name>
+        <caloricDensity>100</caloricDensity> <!-- kcal/100 ml -->
+		<protein>4.3</protein> <!-- g/100 ml -->
+		<indication>diabetes</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>500</volume> <!-- ml -->
+		</packaging>
+		<form>liquid</form>
+		<src>https://www.nutricia.co.za/upload/product%20pdfs/Nutrison%20Advanced%20Diason%201L%20Fact%20Sheet%20SA%20-%20FC.pdf</src>
     </nutrition>
-    <nutrition>
-        <name>Lorem Ipsum C</name>
-        <caloricDensity>180</caloricDensity> <!-- kcal per 100 g -->
+	<nutrition>
+        <name>Nutrison Multi Fibre</name>
+        <caloricDensity>103</caloricDensity> <!-- kcal/100 ml -->
+		<protein>4</protein> <!-- g/100 ml -->
+		<indication>constipation</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>500</volume> <!-- ml -->
+			<volume>1000</volume> <!-- ml -->
+		</packaging>
+		<form>liquid</form>
+		<src>https://www.nutricia.lv/produkti/nutricia-nutrison-multi-fibre-10-kcal-ml/</src>
     </nutrition>
-    <nutrition>
-        <name>Lorem Ipsum D</name>
-        <caloricDensity>120</caloricDensity> <!-- kcal per 100 g -->
+	<nutrition>
+        <name>Nutrison Energy Multi Fibre</name>
+        <caloricDensity>153</caloricDensity> <!-- kcal/100 ml -->
+		<protein>6</protein> <!-- g/100 ml -->
+		<indication>swelling</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>500</volume> <!-- ml -->
+			<volume>1000</volume> <!-- ml -->
+		</packaging>
+		<form>liquid</form>
+		<src>https://www.nutricia.lv/produkti/nutricia-nutrison-energy-multi-fibre-15-kcal-ml-2/</src>
     </nutrition>
-    <nutrition>
-        <name>Lorem Ipsum E</name>
-        <caloricDensity>250</caloricDensity> <!-- kcal per 100 g -->
+	<nutrition>
+        <name>Nutrison</name>
+        <caloricDensity>100</caloricDensity> <!-- kcal/100 ml -->
+		<protein>4</protein> <!-- g/100 ml -->
+		<indication>none</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>500</volume> <!-- ml -->
+			<volume>1000</volume> <!-- ml -->
+		</packaging>
+		<form>liquid</form>
+		<src>https://www.nutricia.lv/produkti/nutricia-nutrison-10-kcal-ml/</src>
+    </nutrition>
+	<nutrition>
+        <name>Protifar</name>
+        <caloricDensity>368</caloricDensity> <!-- kcal/100 g -->
+		<protein>87.2</protein> <!-- g/100 g -->
+		<indication>none</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>225</volume> <!-- g -->
+		</packaging>
+		<form>powder</form>
+		<src>https://www.nutricia.lv/produkti/nutricia-protifar/</src>
+    </nutrition>
+	<nutrition>
+        <name>PreOp</name>
+        <caloricDensity>50</caloricDensity> <!-- kcal/100 ml -->
+		<protein>0</protein> <!-- g/100 ml -->
+		<indication>none</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>200</volume> <!-- ml -->
+		</packaging>
+		<form>liquid</form>
+		<src>https://www.nutricia.lv/produkti/nutricia-preop-ar-citronu-garsu/</src>
+    </nutrition>
+	<nutrition>
+        <name>Nutridrink</name>
+        <caloricDensity>240</caloricDensity> <!-- kcal/100 ml -->
+		<protein>9.6</protein> <!-- g/100 ml -->
+		<indication>diabetes</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>125</volume> <!-- ml -->
+		</packaging>
+		<form>liquid</form>
+		<src>https://www.nutricia.lv/produkti/nutricia-nutridrink-bez-specifiskas-garsas/</src>
+    </nutrition>
+	<nutrition>
+        <name>Cubitan</name>
+        <caloricDensity>124</caloricDensity> <!-- kcal/100 ml -->
+		<protein>8.8</protein> <!-- g/100 ml -->
+		<indication>none</indication>
+		<contraindication>diabetes</contraindication>
+		<packaging>
+			<volume>200</volume> <!-- ml -->
+		</packaging>
+		<src>https://www.nutricia.lv/produkti/nutricia-cubitan-ar-vanilas-garsu/</src>
+		<form>liquid</form>
+    </nutrition>
+	<nutrition>
+        <name>Nutricomp Hepa</name>
+        <caloricDensity>132</caloricDensity> <!-- kcal/100 ml -->
+		<protein>4</protein> <!-- g/100 ml -->
+		<indication>liver failure</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>500</volume> <!-- ml -->
+		</packaging>
+		<src>https://catalogs.bbraun.com/en-01/p/PRID00000390/nutricomp-hepa</src>
+		<form>liquid</form>
+    </nutrition>
+	<nutrition>
+	<!-- this one is a dud for now -->
+        <name>Glutamine+</name>
+        <caloricDensity>120</caloricDensity> <!-- kcal/100 ml -->
+		<protein>6</protein> <!-- g/100 ml -->
+		<indication>none</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>500</volume> <!-- ml -->
+		</packaging>
+		<src></src>
+		<form>liquid</form>
+    </nutrition>
+	<nutrition>
+	<!-- this one is a dud for now -->
+        <name>Nutri Combo D</name>
+        <caloricDensity>120</caloricDensity> <!-- kcal/100 ml -->
+		<protein>6</protein> <!-- g/100 ml -->
+		<indication>diabetes</indication>
+		<contraindication>none</contraindication>
+		<packaging>
+			<volume>500</volume> <!-- ml -->
+		</packaging>
+		<src></src>
+		<form>liquid</form>
     </nutrition>
 </nutritions>

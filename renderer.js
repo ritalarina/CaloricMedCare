@@ -10,7 +10,7 @@ let inputsFilled = {
 	'energy-intake': false
 };
 
-const noValidationNeeded = new Set(['illness', 'gender']);
+const noValidationNeeded = new Set(['illness', 'gender', 'nutrition']);
 
 ipcRenderer.on('nutrition-data', (event, data) => {
     try {
@@ -154,9 +154,9 @@ function calculate() {
 	const proteinNeed = calculateProtein(weight, daysAfterTrauma);
     document.getElementById('protein-output').textContent = Math.round(proteinNeed);
 
-    // Calculate grams of nutrition needed
-    // const gramsRequired = (caloricNeed / caloricDensity) * 100; // Since caloric density is per 100 g
-    // document.getElementById('volume-output').textContent = Math.round(gramsRequired);
+    // Calculate nutrition needed
+    const nutritionRequired = (caloricNeed / caloricDensity) * 100; // Since caloric density is per 100 g or ml
+    document.getElementById('nutrition-output').textContent = Math.round(nutritionRequired);
 }
 
 function calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma) {
