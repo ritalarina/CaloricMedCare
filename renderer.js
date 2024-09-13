@@ -17,11 +17,11 @@ ipcRenderer.on('nutrition-data', (event, data) => {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data, "application/xml");
         const nutritionSelect = document.getElementById("nutrition");
-		const illnessSelect = document.getElementById("illness"); // The illness drop-down
+		const illnessesContainer = document.getElementById("illnesses-container"); // The illness drop-down
 
         // Clear previous options
         nutritionSelect.innerHTML = '';
-		illnessSelect.innerHTML = ''; // Clear the illness drop-down
+		illnessesContainer.innerHTML = ''; // Clear the illness drop-down
 		
 		const illnessSet = new Set(); // Using a Set to avoid duplicate illnesses
 
@@ -66,12 +66,25 @@ ipcRenderer.on('nutrition-data', (event, data) => {
             }
         });
 		
-		// Populate illness drop-down with unique indications
+		// Populate illness checkboxes
         illnessSet.forEach(indication => {
-            const illnessOption = document.createElement("option");
-            illnessOption.textContent = indication;
-            illnessOption.value = indication;
-            illnessSelect.appendChild(illnessOption);
+            const checkboxWrapper = document.createElement("div");
+            checkboxWrapper.className = "checkbox-wrapper"; // Optional: for styling
+            
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.id = indication;
+            checkbox.name = "illnesses";
+            checkbox.value = indication;
+            
+            const label = document.createElement("label");
+            label.htmlFor = indication;
+            label.textContent = indication;
+            
+            checkboxWrapper.appendChild(checkbox);
+            checkboxWrapper.appendChild(label);
+            
+            illnessesContainer.appendChild(checkboxWrapper);
         });
     } catch (error) {
         console.error('Error parsing XML:', error);

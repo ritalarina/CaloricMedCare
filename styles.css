@@ -1,0 +1,22 @@
+body { 
+	font-family: Arial, 
+	sans-serif; padding: 20px; 
+}
+
+input, select { 
+	margin: 10px 0; 
+	padding: 5px; 
+}
+
+.error { 
+	color: red; 
+	font-size: 0.8em; 
+}
+
+.checkbox-wrapper {
+    margin-left: 20px;
+}
+
+.checkbox-wrapper label {
+    margin-left: 5px;
+}

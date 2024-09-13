@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medical Nutrition Calculator</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        input, select { margin: 10px 0; padding: 5px; }
-        .error { color: red; font-size: 0.8em; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Burn Patient Nutrition Calculator</h1>
@@ -47,15 +43,8 @@
     <input type="number" id="energy-intake" min="500" max="5000">
     <span id="energy-intake-error" class="error"></span><br>
 
-    <label for="illness">Other Conditions:</label>
-    <select id="illness">
-        <option value="none">None</option>
-        <option value="illness1">Lorem Ipsum 1</option>
-        <option value="illness2">Lorem Ipsum 2</option>
-        <option value="illness3">Lorem Ipsum 3</option>
-        <option value="illness4">Lorem Ipsum 4</option>
-        <option value="illness5">Lorem Ipsum 5</option>
-    </select><br>
+	<label for="illnesses-container">Other conditions:</label>
+    <div id="illnesses-container"></div>
 
     <label for="nutrition">Nutrition:</label>
     <select id="nutrition"></select><br>
