@@ -3,9 +3,18 @@ body {
 	sans-serif; padding: 20px; 
 }
 
-input, select { 
-	margin: 10px 0; 
+input:not([type="checkbox"]), select { 
 	padding: 5px; 
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center; /* Center align the items vertically */
+    margin-bottom: 10px; /* Add some space between checkboxes */
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px; /* Add space between the checkbox and the label */
 }
 
 .error { 
@@ -13,10 +22,23 @@ input, select {
 	font-size: 0.8em; 
 }
 
-.checkbox-wrapper {
-    margin-left: 20px;
+/* Form group layout to align label and input */
+.form-group {
+    display: flex;
+	align-items: flex-start; /* Center align the items vertically */
+    margin-bottom: 5px;      /* Add spacing between fields */
 }
 
-.checkbox-wrapper label {
-    margin-left: 5px;
+.input-error-group {
+	display: flex;
+	flex-direction: column;
+	width: 80%;          /* Set maximum width for all inputs */
+	max-width: 200px;
+}
+
+.form-group label {
+    width: 150px;             /* Adjust the label width */
+    margin-right: 15px;
+    text-align: right;        /* Align labels to the right */
+	margin-top: 5px;
 }

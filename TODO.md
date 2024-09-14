@@ -1,6 +1,6 @@
 Main functionality:
-- ~~Formula for calculation (without calorimeter) Toronto formula for major burns: $−4343 + (10.5 × \\%TBSA) + (0.23 × energy intake in kcal) + (0.84 × Harris-Benedict) + (114 × T) − (4.5 × days post-burn)$. 
-> ℹ️ **_NOTE:_** This formula uses the information of the previous day, where T is body temperature in °C.~~
+- ~~Formula for calculation (without calorimeter) Toronto formula for major burns~~: $−4343 + (10.5 × \\%TBSA) + (0.23 × energy intake in kcal) + (0.84 × Harris-Benedict) + (114 × T) − (4.5 × days post-burn)$. 
+> ℹ️ **_NOTE:_** This formula uses the information of the previous day, where T is body temperature in °C.
 - ~~Calculate necessary protein amount (1-15 days - 2g per body kg, afterwards - 1.5 g per body kg)~~
 - Calculate necessary daily nutrition formula volume
 	- ~~Start with base nutrition.~~
@@ -11,7 +11,8 @@ Main functionality:
 	- settings for 24h shift start time
 
 UI:
-- Make all the input fields aligned and the same size (based on largest necessary).
+- ~~Make all the input fields aligned and the same size (based on largest necessary).~~
+- Define min screen size.
 - In the beginning open app in a size that fits all elements if screen size allows it.
 - Move daily caloric requirement to the right side of the screen if screen size allows. Make it large.
 - Move Required Nutrition Volume to the right side of the screen if screen size allows.
