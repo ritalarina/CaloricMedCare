@@ -42,3 +42,20 @@ input:not([type="checkbox"]), select {
     text-align: right;        /* Align labels to the right */
 	margin-top: 5px;
 }
+
+.input-output-container {
+  display: flex;
+  justify-content: space-between; 
+  gap: 20px; 
+}
+
+.output-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center; 
+	width: 45%; 
+}
+
+.form-container {
+	width: 45%; 
+}
