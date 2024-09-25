@@ -12,8 +12,7 @@ Main functionality:
 
 UI:
 - ~~Make all the input fields aligned and the same size (based on largest necessary).~~
-- Define min screen size.
-- In the beginning open app in a size that fits all elements if screen size allows it.
+- ~~In the beginning open app in a size that fits all elements if screen size allows it.~~
 - ~~Move daily caloric requirement to the right side of the screen if screen size allows. Make it large.~~
 - ~~Move Required Nutrition Volume to the right side of the screen if screen size allows.~~
 
