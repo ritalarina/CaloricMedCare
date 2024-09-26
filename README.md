@@ -35,3 +35,6 @@ Burn Patient Caloric Need Calculator is designed for use in medical facilities t
    npm start
    ```
 > ℹ️ **_NOTE:_**  Node.js must be installed for the app to run.
+
+## Credits
+Icon used in this app is by [Freepik - Flaticon](https://www.flaticon.com/free-icons/nutrient).

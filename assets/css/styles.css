@@ -59,3 +59,21 @@ input:not([type="checkbox"]), select {
 .form-container {
 	width: 45%; 
 }
+
+footer .attribution {
+  font-size: 0.8em;    /* Makes the text smaller */
+  color: #888;         /* Light gray color to make it less prominent */
+  text-align: center;  /* Centers the attribution text */
+  margin-top: 20px;    /* Adds some space at the top */
+}
+
+/* Style the link (so it's also subtle) */
+footer .attribution a {
+  color: #888;         /* Make the link color match the text */
+  text-decoration: none; /* Remove underline from the link */
+}
+
+footer .attribution a:hover {
+  color: #555;         /* Slightly darker color on hover */
+  text-decoration: underline; /* Add underline on hover for accessibility */
+}
