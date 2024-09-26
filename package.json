@@ -1,13 +1,13 @@
 {
-  "name": "caloric-need-calculator",
+  "name": "NutriCalc",
   "version": "1.0.0",
-  "description": "The app will calculate daily caloric need of a patient in a burn ward based on entered patient data including VCO2 measured using idirect calorimeter.",
+  "description": "An Electron app to calculate daily caloric need of a patient in a burn ward based on entered patient data.",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "author": "Rita Larina",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "devDependencies": {
     "electron": "^32.0.2"
   }
