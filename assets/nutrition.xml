@@ -80,7 +80,7 @@
         <name>PreOp</name>
         <caloricDensity>50</caloricDensity> <!-- kcal/100 ml -->
 		<protein>0</protein> <!-- g/100 ml -->
-		<indication>none</indication>
+		<indication>surgery planned in 24h</indication>
 		<contraindication>none</contraindication>
 		<packaging>
 			<volume>200</volume> <!-- ml -->

@@ -17,6 +17,7 @@ UI:
 - ~~Move Required Nutrition Volume to the right side of the screen if screen size allows.~~
 
 Other:
+- Make nutrition.xml file editable either via direct file edit or from app settings.
 - Add language support.
 - calculator if calorimetry is available
 - Unit selection for weight, height, energy (kcal or kJ), VCO2 (L/min or ml/min) in settings.
