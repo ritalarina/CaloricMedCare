@@ -1,14 +1,43 @@
 {
-  "name": "NutriCalc",
-  "version": "1.0.0",
+  "name": "nutricalc",
+  "version": "0.1.0",
   "description": "An Electron app to calculate daily caloric need of a patient in a burn ward based on entered patient data.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+	"package": "electron-builder",
+    "build": "electron-builder --win"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ritalarina/caloric-need-calculator.git"
+  },
+  "homepage": "https://github.com/ritalarina/caloric-need-calculator",
+  "bugs": {
+    "url": "https://github.com/ritalarina/caloric-need-calculator/issues"
+  },
+  "build": {
+    "appId": "io.github.ritalarina.nutricalc",
+    "productName": "NutriCalc",
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icons/nutrient.ico" 
+    },
+    "directories": {
+      "output": "release-builds"
+    },
+    "files": [
+      "main.js",
+      "renderer.js",
+	  "index.html",
+	  "package.json",
+      "assets/**/*"
+    ]
   },
   "author": "Rita Larina",
   "license": "GPL-3.0",
   "devDependencies": {
-    "electron": "^32.0.2"
+    "electron": "^32.0.2",
+    "electron-builder": "^25.0.5"
   }
 }
