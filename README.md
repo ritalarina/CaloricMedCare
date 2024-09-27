@@ -1,7 +1,7 @@
-# NutriCalc
+# CaloricMedCare
 
 ## Description
-**NutriCalc** is a tool designed for medical professionals to calculate the caloric needs and nutritional intake of burn patients. This application takes patient data, calculates daily caloric requirements using established formulas, and determines the required nutrition formula volumes.
+**CaloricMedCare** is a tool designed for medical professionals to calculate the caloric needs and nutritional intake of burn patients. This application takes patient data, calculates daily caloric requirements using established formulas, and determines the required nutrition formula volumes.
 
 ## Input
   - **Gender** (Male/Female)
@@ -25,7 +25,7 @@
 
 ## Running the app
 ### Option 1. Running the App from a Published Release
-1. Go to the [Releases](https://github.com/ritalarina/nutricalc/releases) page and download the latest release for Windows (e.g., .exe file).
+1. Go to the [Releases](https://github.com/ritalarina/caloricmedcare/releases) page and download the latest release for Windows (e.g., .exe file).
 2. Once downloaded, run the installer and follow the instructions.
 3. Launch the app after installation.
 
@@ -34,7 +34,7 @@
 2. Navigate to desired folder.
 3. Clone the repository:
    ```bash
-   git clone https://github.com/ritalarina/caloric-need-calculator
+   git clone https://github.com/ritalarina/caloricmedcare
    ```
 4. Install dependencies:
    ```bash
@@ -51,7 +51,7 @@ Once the app is running, input the following data to calculate patient caloric n
 3. Once all input fields are complete, the app will automatically calculate the Basal Metabolic Rate (BMR), necessary kcal intake during treatment, protein requirements, and daily volume of nutrition.
 
 ## Contributing
-- Check out the [TODO](https://github.com/ritalarina/nutricalc/blob/master/TODO.md) file to see what's planned.
+- Check out the [TODO](https://github.com/ritalarina/caloricmedcare/blob/master/TODO.md) file to see what's planned.
 - If you want to contribute to this project, feel free to open issues or submit pull requests.
 - I am currently working using GitHub Flow method (master and feature branches), so if you want to make a feature, make a new branch and when ready merge it back to master.
 

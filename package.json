@@ -1,5 +1,5 @@
 {
-  "name": "nutricalc",
+  "name": "caloricmedcare",
   "version": "0.1.0",
   "description": "An Electron app to calculate daily caloric need of a patient in a burn ward based on entered patient data.",
   "main": "main.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ritalarina/caloric-need-calculator.git"
+    "url": "https://github.com/ritalarina/caloricmedcare.git"
   },
-  "homepage": "https://github.com/ritalarina/caloric-need-calculator",
+  "homepage": "https://github.com/ritalarina/caloricmedcare",
   "bugs": {
-    "url": "https://github.com/ritalarina/caloric-need-calculator/issues"
+    "url": "https://github.com/ritalarina/caloricmedcare/issues"
   },
   "build": {
-    "appId": "io.github.ritalarina.nutricalc",
-    "productName": "NutriCalc",
+    "appId": "io.github.ritalarina.caloricmedcare",
+    "productName": "CaloricMedCare",
     "win": {
       "target": "nsis",
       "icon": "assets/icons/nutrient.ico" 
