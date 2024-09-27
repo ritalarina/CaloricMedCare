@@ -29,6 +29,13 @@ jobs:
         with:
           name: my-electron-app
           path: release-builds/
+          
+      - name: Extract release notes from CHANGELOG.md
+        id: notes
+        run: |
+          # Extract the first section from CHANGELOG.md
+          NOTES=$(awk '/^## /{if (p) exit; p=1} p' CHANGELOG.md)
+          echo "::set-output name=notes::$NOTES"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
