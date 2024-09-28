@@ -41,5 +41,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: release-builds/*.exe
-        env:
+        with:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
