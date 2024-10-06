@@ -84,13 +84,6 @@
 					<span id="illness-error" class="error"></span><br>
 				</div>
 			</div>
-			
-			<div class="form-group">
-				<label for="nutrition">Nutrition:</label>
-				<div class="input-error-group">
-					<select id="nutrition"></select><br>
-				</div>
-			</div>
 		</div>
 		
 		<div class="output-container">
@@ -98,7 +91,18 @@
 			<p>BMR: <span id="bmr-output">0</span> kcal/day</p>
 			<p>Daily Caloric Requirement: <span id="caloric-output">0</span> kcal/day</p>
 			<p>Daily Protein Requirement: <span id="protein-output">0</span> g/day</p>
-			<p>Required Volume of Selected Nutrition: <span id="nutrition-output">0</span> ml/day</p>
+			
+			<table id="nutrition-table">
+				<thead>
+					<tr>
+						<th>Nutrition Name</th>
+						<th>Required Volume (ml/day)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Nutrition formulas and volumes will be populated here -->
+				</tbody>
+			</table>
 		</div>
 	</div>
 

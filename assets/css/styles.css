@@ -77,3 +77,28 @@ footer .attribution a:hover {
   color: #555;         /* Slightly darker color on hover */
   text-decoration: underline; /* Add underline on hover for accessibility */
 }
+
+/* Styles for the nutrition table */
+#nutrition-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#nutrition-table th, #nutrition-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#nutrition-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+#nutrition-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#nutrition-table tr:hover {
+    background-color: #f1f1f1;
+}

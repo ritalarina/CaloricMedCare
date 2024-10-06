@@ -16,11 +16,9 @@ ipcRenderer.on('nutrition-data', (event, data) => {
     try {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data, "application/xml");
-        const nutritionSelect = document.getElementById("nutrition");
 		const illnessesContainer = document.getElementById("illnesses-container"); 
 
         // Clear previous options
-        nutritionSelect.innerHTML = '';
 		illnessesContainer.innerHTML = ''; // Clear the illness drop-down
 		
 		const illnessSet = new Set(); // Using a Set to avoid duplicate illnesses
@@ -55,11 +53,6 @@ ipcRenderer.on('nutrition-data', (event, data) => {
                 src 
             });
 			
-            const option = document.createElement("option");
-            option.textContent = name;
-            option.value = caloricDensity; // Store caloric density per 100g in the value
-            nutritionSelect.appendChild(option);
-			
 			// Add indications to the Set for unique illness options
             if (indication !== "none") {
                 illnessSet.add(indication);
@@ -86,6 +79,9 @@ ipcRenderer.on('nutrition-data', (event, data) => {
             
             illnessesContainer.appendChild(checkboxWrapper);
         });
+		
+		addCheckboxListeners();
+		populateNutritionTable(nutritionData);
     } catch (error) {
         console.error('Error parsing XML:', error);
     }
@@ -95,6 +91,19 @@ document.querySelectorAll('input, select').forEach(element => {
     element.addEventListener('input', handleInputChange);
     element.addEventListener('change', handleInputChange);
 });
+
+function addCheckboxListeners() {
+    const illnessCheckboxes = document.querySelectorAll('input[name="illnesses"]');
+
+    // Attach event listeners to each checkbox
+    illnessCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            // Call the update function when the checkbox is checked/unchecked
+            updateNutritionFormulasForOptimization();  // Trigger filtering and update output
+        });
+    });
+}
+
 
 function requiresValidation(id) {
     return !noValidationNeeded.has(id);
@@ -185,15 +194,6 @@ function calculate() {
 	const gender = document.getElementById('gender').value;
 	const height = parseFloat(document.getElementById('height').value);
 	const energyIntake = parseFloat(document.getElementById('energy-intake').value);
-
-    const selectedNutrition = document.getElementById('nutrition').value;
-
-    if (!selectedNutrition) {
-        console.error('No nutrition selected.');
-        return;
-    }
-	
-    const caloricDensity = parseFloat(selectedNutrition); // kcal per 100 g
 	
 	const bmr = calculateBMR(gender, weight, height, age);
 	document.getElementById('bmr-output').textContent = Math.round(bmr);
@@ -203,10 +203,6 @@ function calculate() {
 	
 	const proteinNeed = calculateProtein(weight, daysAfterTrauma);
     document.getElementById('protein-output').textContent = Math.round(proteinNeed);
-
-    // Calculate nutrition needed
-    const nutritionRequired = (caloricNeed / caloricDensity) * 100; // Since caloric density is per 100 g or ml
-    document.getElementById('nutrition-output').textContent = Math.round(nutritionRequired);
 }
 
 function calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma) {
@@ -230,3 +226,56 @@ function calculateProtein(weight, daysAfterTrauma) {
 		return weight * 1.5;
 	}
 }
+
+function populateNutritionTable(nutritionData) {
+    const tableBody = document.querySelector('#nutrition-table tbody');
+    tableBody.innerHTML = ''; // Clear existing rows
+
+    nutritionData.forEach(nutrition => {
+        const row = document.createElement('tr');
+
+        // Nutrition name cell
+        const nameCell = document.createElement('td');
+        nameCell.textContent = nutrition.name;
+        row.appendChild(nameCell);
+
+        // Volume cell (empty for now)
+        const volumeCell = document.createElement('td');
+        volumeCell.textContent = ''; // You will fill this when volume is calculated
+        row.appendChild(volumeCell);
+
+        // Append the row to the table body
+        tableBody.appendChild(row);
+    });
+}
+
+function updateNutritionFormulasForOptimization() {
+    const filteredFormulas = filterNutritionFormulas();
+
+    // Populate the table with the filtered nutrition formulas
+    populateNutritionTable(filteredFormulas);
+
+    // Log for debugging
+    console.log("Filtered nutrition formulas for optimization:", filteredFormulas);
+}
+
+function filterNutritionFormulas() {
+    const selectedIllnesses = getSelectedIllnesses();
+
+    // Filter the nutritionData array based on selected illnesses
+    const filteredFormulas = nutritionData.filter(nutrition => {
+        // Check if the nutrition formula is indicated for any of the selected illnesses
+        return selectedIllnesses.includes(nutrition.indication) || nutrition.indication === "none";
+    });
+
+    return filteredFormulas;
+}
+
+function getSelectedIllnesses() {
+    const selectedIllnesses = [];
+    document.querySelectorAll('input[name="illnesses"]:checked').forEach(checkbox => {
+        selectedIllnesses.push(checkbox.value);
+    });
+    return selectedIllnesses;
+}
+
