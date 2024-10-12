@@ -10,6 +10,7 @@ let inputsFilled = {
 	'energy-intake': false
 };
 let selectedIllnesses = [];
+let daysAfterTrauma;
 
 const noValidationNeeded = new Set(['illness', 'gender']);
 
@@ -190,7 +191,7 @@ function calculate() {
     const age = parseFloat(document.getElementById('age').value);
     const weight = parseFloat(document.getElementById('weight').value);
     const burns = parseFloat(document.getElementById('burns').value);
-    const daysAfterTrauma = parseFloat(document.getElementById('days-after-trauma').value);
+    daysAfterTrauma = parseFloat(document.getElementById('days-after-trauma').value);
     const temperature = parseFloat(document.getElementById('temperature').value);
 	const gender = document.getElementById('gender').value;
 	const height = parseFloat(document.getElementById('height').value);
@@ -262,14 +263,20 @@ function updateNutritionFormulasForOptimization() {
 
 function filterNutritionFormulas() {
     getSelectedIllnesses();
-
-    // Filter the nutritionData array based on selected illnesses
-    const filteredFormulas = nutritionData.filter(nutrition => {
-        // Check if the nutrition formula is indicated for any of the selected illnesses
-        return selectedIllnesses.includes(nutrition.indication) || nutrition.indication === "none";
-    });
 	
+	let filteredFormulas = [nutritionData.find(nutrition => nutrition.name === "Nutrison Protein Intense")]
 	
+	if (daysAfterTrauma <= 15) {
+		filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === "Glutamine+"));
+	}
+	
+	selectedIllnesses.forEach(illness => {
+		let nutritionName = getNutritionNameByIllness(illness);
+		
+		if (nutritionName) {
+			filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === nutritionName));
+		}
+	});	
 
     return filteredFormulas;
 }
@@ -281,3 +288,18 @@ function getSelectedIllnesses() {
     });
 }
 
+function getNutritionNameByIllness(illness) {
+    switch (illness) {
+        case 'diabetes':
+            return 'Nutrison Advanced Diason';
+        case 'constipation':
+            return 'Nutrison Multi Fibre';
+        case 'swelling':
+            return 'Nutrison Energy Multi Fibre';
+        case 'liver failure':
+            return 'Nutricomp Hepa';
+
+        default:
+            return null;
+    }
+}
