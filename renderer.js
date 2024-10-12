@@ -126,6 +126,7 @@ function handleInputChange() {
     console.log(`Inputs Filled:`, inputsFilled); // Log filled status
     if (areAllInputsFilled()) {
         calculate();
+		updateNutritionFormulasForOptimization();
     }
 }
 
