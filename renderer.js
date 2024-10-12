@@ -9,8 +9,9 @@ let inputsFilled = {
 	'height': false,
 	'energy-intake': false
 };
+let selectedIllnesses = [];
 
-const noValidationNeeded = new Set(['illness', 'gender', 'nutrition']);
+const noValidationNeeded = new Set(['illness', 'gender']);
 
 ipcRenderer.on('nutrition-data', (event, data) => {
     try {
@@ -260,22 +261,23 @@ function updateNutritionFormulasForOptimization() {
 }
 
 function filterNutritionFormulas() {
-    const selectedIllnesses = getSelectedIllnesses();
+    getSelectedIllnesses();
 
     // Filter the nutritionData array based on selected illnesses
     const filteredFormulas = nutritionData.filter(nutrition => {
         // Check if the nutrition formula is indicated for any of the selected illnesses
         return selectedIllnesses.includes(nutrition.indication) || nutrition.indication === "none";
     });
+	
+	
 
     return filteredFormulas;
 }
 
 function getSelectedIllnesses() {
-    const selectedIllnesses = [];
+	selectedIllnesses = [];
     document.querySelectorAll('input[name="illnesses"]:checked').forEach(checkbox => {
         selectedIllnesses.push(checkbox.value);
     });
-    return selectedIllnesses;
 }
 
