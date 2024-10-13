@@ -1,4 +1,7 @@
 const { ipcRenderer } = require('electron');
+const GLPK = require('glpk.js');
+const glpk = GLPK();
+
 let nutritionData = [];
 let inputsFilled = {
     'age': false,
@@ -11,6 +14,9 @@ let inputsFilled = {
 };
 let selectedIllnesses = [];
 let daysAfterTrauma;
+let caloricNeed;
+let proteinNeed;
+let filteredFormulas = [];
 
 const noValidationNeeded = new Set(['illness', 'gender']);
 
@@ -29,7 +35,7 @@ ipcRenderer.on('nutrition-data', (event, data) => {
         if (nutrients.length === 0) {
             console.error('No nutrition data found.');
             return;
-        }
+        }0
 
         Array.from(nutrients).forEach(nutrition => {
             const name = nutrition.getElementsByTagName("name")[0].textContent;
@@ -126,6 +132,7 @@ function handleInputChange() {
     if (areAllInputsFilled()) {
         calculate();
 		updateNutritionFormulasForOptimization();
+		calculateNutritionVolumes();
     }
 }
 
@@ -200,10 +207,10 @@ function calculate() {
 	const bmr = calculateBMR(gender, weight, height, age);
 	document.getElementById('bmr-output').textContent = Math.round(bmr);
 
-    const caloricNeed = calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma);
+    caloricNeed = calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma);
     document.getElementById('caloric-output').textContent = Math.round(caloricNeed);
 	
-	const proteinNeed = calculateProtein(weight, daysAfterTrauma);
+	proteinNeed = calculateProtein(weight, daysAfterTrauma);
     document.getElementById('protein-output').textContent = Math.round(proteinNeed);
 }
 
@@ -260,7 +267,7 @@ function populateNutritionTable(nutritionData) {
 }
 
 function updateNutritionFormulasForOptimization() {
-    const filteredFormulas = filterNutritionFormulas();
+    filterNutritionFormulas();
 
     // Populate the table with the filtered nutrition formulas
     populateNutritionTable(filteredFormulas);
@@ -272,7 +279,7 @@ function updateNutritionFormulasForOptimization() {
 function filterNutritionFormulas() {
     getSelectedIllnesses();
 	
-	let filteredFormulas = [nutritionData.find(nutrition => nutrition.name === "Nutrison Protein Intense")]
+	filteredFormulas = [nutritionData.find(nutrition => nutrition.name === "Nutrison Protein Intense")];
 	
 	if (daysAfterTrauma <= 15) {
 		filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === "Glutamine+"));
@@ -311,3 +318,94 @@ function getNutritionNameByIllness(illness) {
             return null;
     }
 }
+
+function populateNutritionTableWithResults(results) {
+    const tableBody = document.querySelector('#nutrition-table tbody');
+    tableBody.innerHTML = ''; // Clear existing rows
+
+    results.forEach(result => {
+        const row = document.createElement('tr');
+
+        // Nutrition name
+        const nameCell = document.createElement('td');
+        nameCell.textContent = result.nutrition;
+        row.appendChild(nameCell);
+
+        // Required volume
+        const volumeCell = document.createElement('td');
+        volumeCell.textContent = result.volume.toFixed(2); // Show two decimal places
+        row.appendChild(volumeCell);
+
+        // Provided calories
+        const caloriesCell = document.createElement('td');
+        caloriesCell.textContent = result.calories.toFixed(2);
+        row.appendChild(caloriesCell);
+
+        // Provided protein
+        const proteinCell = document.createElement('td');
+        proteinCell.textContent = result.protein.toFixed(2);
+        row.appendChild(proteinCell);
+
+        // Append row to table
+        tableBody.appendChild(row);
+    });
+}
+
+function calculateNutritionVolumes() {
+	const lpProblem = {
+		name: 'Nutrition Optimization',
+		objective: {
+			direction: glpk.GLP_MIN,
+			name: 'minimize_volume',
+			vars: filteredFormulas.map((nutrition, index) => ({
+				name: `x${index}`, 
+				coef: 1 
+			}))
+		},
+		subjectTo: [
+			{
+				name: 'caloric_constraint',
+				vars: filteredFormulas.map((nutrition, index) => ({
+					name: `x${index}`,
+					coef: nutrition.caloricDensity / 100 // kcal/ml 
+				})),
+				bnds: { type: glpk.GLP_DB, lb: 0.9 * caloricNeed, ub: 1.1 * caloricNeed }
+			},
+			{
+				name: "protein_constraint",
+				vars: filteredFormulas.map((nutrition, index) => ({
+					name: `x${index}`,
+					coef: nutrition.protein / 100 // grams/ml
+				})),
+				bnds: { type: glpk.GLP_DB, lb: 0.9 * proteinNeed, ub: 1.1 * proteinNeed }
+			}
+		]
+	};
+	
+	const options = {
+		msglev: glpk.GLP_MSG_ALL,
+		presol: true
+	};
+	
+	const result = glpk.solve(lpProblem, options);
+
+	console.log(result.result);
+	
+	const volumes = Object.keys(result.result.vars).map((key, index) => {
+		const variable = result.result.vars[key];  // Access the variable by key
+
+		return {
+			nutrition: filteredFormulas[index].name,
+			volume: variable,  // variable.value is likely just `variable`
+			calories: variable * filteredFormulas[index].caloricDensity / 100,
+			protein: variable * filteredFormulas[index].protein / 100
+		};
+	});
+	
+	console.log(volumes);
+
+	// Display the result in the UI
+	populateNutritionTableWithResults(volumes);
+}
+
+
