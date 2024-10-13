@@ -83,7 +83,6 @@ ipcRenderer.on('nutrition-data', (event, data) => {
         });
 		
 		addCheckboxListeners();
-		populateNutritionTable(nutritionData);
     } catch (error) {
         console.error('Error parsing XML:', error);
     }
