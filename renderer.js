@@ -379,7 +379,12 @@ function calculateNutritionVolumes() {
 				})),
 				bnds: { type: glpk.GLP_DB, lb: 0.9 * proteinNeed, ub: 1.1 * proteinNeed }
 			}
-		]
+		],
+		bounds: filteredFormulas.map((nutrition, index) => ({
+			name: `x${index}`,
+			type: glpk.GLP_LO,
+			lb: 250
+		}))
 	};
 	
 	const options = {
