@@ -333,17 +333,17 @@ function populateNutritionTableWithResults(results) {
 
         // Required volume
         const volumeCell = document.createElement('td');
-        volumeCell.textContent = result.volume.toFixed(2); // Show two decimal places
+        volumeCell.textContent = Math.round(result.volume);
         row.appendChild(volumeCell);
 
         // Provided calories
         const caloriesCell = document.createElement('td');
-        caloriesCell.textContent = result.calories.toFixed(2);
+        caloriesCell.textContent = Math.round(result.calories);
         row.appendChild(caloriesCell);
 
         // Provided protein
         const proteinCell = document.createElement('td');
-        proteinCell.textContent = result.protein.toFixed(2);
+        proteinCell.textContent = Math.round(result.protein);
         row.appendChild(proteinCell);
 
         // Append row to table
