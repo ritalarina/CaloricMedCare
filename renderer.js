@@ -134,7 +134,11 @@ function handleInputChange() {
 		
 		if (!calculateNutritionVolumes()) {
 			filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
-			calculateNutritionVolumes();
+			if (!calculateNutritionVolumes()) {
+				filteredFormulas.pop();
+				filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
+				calculateNutritionVolumes();
+			}
 		}
     }
 }
@@ -391,7 +395,7 @@ function calculateNutritionVolumes() {
 	};
 	
 	const options = {
-		msglev: glpk.GLP_MSG_ALL,
+		msglev: glpk.GLP_MSG_ON,
 		presol: true
 	};
 	
