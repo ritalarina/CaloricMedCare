@@ -57,7 +57,7 @@ ipcRenderer.on('nutrition-data', (event, data) => {
                 indication, 
                 contraindication, 
                 packaging: volumes, 
-                nutritionForm, // Updated to use nutritionForm
+                nutritionForm,
                 src 
             });
 			
@@ -390,7 +390,7 @@ function calculateNutritionVolumes() {
 		bounds: filteredFormulas.map((nutrition, index) => ({
 			name: `x${index}`,
 			type: glpk.GLP_LO,
-			lb: 200
+			lb: (nutrition.nutritionForm === 'liquid') ? Math.min(...nutrition.packaging) / 2 : 0
 		}))
 	};
 	
