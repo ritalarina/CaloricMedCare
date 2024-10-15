@@ -111,7 +111,6 @@ function addCheckboxListeners() {
     });
 }
 
-
 function requiresValidation(id) {
     return !noValidationNeeded.has(id);
 }
@@ -132,7 +131,11 @@ function handleInputChange() {
     if (areAllInputsFilled()) {
         calculate();
 		updateNutritionFormulasForOptimization();
-		calculateNutritionVolumes();
+		
+		if (!calculateNutritionVolumes()) {
+			filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
+			calculateNutritionVolumes();
+		}
     }
 }
 
@@ -383,7 +386,7 @@ function calculateNutritionVolumes() {
 		bounds: filteredFormulas.map((nutrition, index) => ({
 			name: `x${index}`,
 			type: glpk.GLP_LO,
-			lb: 250
+			lb: 200
 		}))
 	};
 	
@@ -394,7 +397,24 @@ function calculateNutritionVolumes() {
 	
 	const result = glpk.solve(lpProblem, options);
 
-	console.log(result.result);
+	console.log(result);
+	
+	if (result.result.status === glpk.GLP_OPT) {
+		console.log("Optimal solution found.");
+	} else {
+		if (result.result.status === glpk.GLP_FEAS) {
+			console.log("Feasible solution found, but it might not be optimal.");
+		} else if (result.result.status === glpk.GLP_INFEAS) {
+			console.log("The problem is infeasible.");
+		} else if (result.result.status === glpk.GLP_NOFEAS) {
+			console.log("No feasible solution exists.");
+		} else if (result.result.status === glpk.GLP_UNBND) {
+			console.log("The solution is unbounded.");
+		} else if (result.result.status === glpk.GLP_UNDEF) {
+			console.log("The solution is undefined.");
+		}
+		return false;
+	}
 	
 	const volumes = Object.keys(result.result.vars).map((key, index) => {
 		const variable = result.result.vars[key];  // Access the variable by key
@@ -411,6 +431,8 @@ function calculateNutritionVolumes() {
 
 	// Display the result in the UI
 	populateNutritionTableWithResults(volumes);
+	
+	return true;
 }
 
 
