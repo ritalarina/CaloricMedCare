@@ -92,7 +92,7 @@
         <name>Nutridrink</name>
         <caloricDensity>240</caloricDensity> <!-- kcal/100 ml -->
 		<protein>9.6</protein> <!-- g/100 ml -->
-		<indication>diabetes</indication>
+		<indication>none</indication>
 		<contraindication>none</contraindication>
 		<packaging>
 			<volume>125</volume> <!-- ml -->
@@ -105,7 +105,7 @@
         <caloricDensity>124</caloricDensity> <!-- kcal/100 ml -->
 		<protein>8.8</protein> <!-- g/100 ml -->
 		<indication>none</indication>
-		<contraindication>diabetes</contraindication>
+		<contraindication>none</contraindication>
 		<packaging>
 			<volume>200</volume> <!-- ml -->
 		</packaging>
