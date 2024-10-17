@@ -390,7 +390,8 @@ function calculateNutritionVolumes() {
 		bounds: filteredFormulas.map((nutrition, index) => ({
 			name: `x${index}`,
 			type: glpk.GLP_LO,
-			lb: (nutrition.nutritionForm === 'liquid') ? Math.min(...nutrition.packaging) / 2 : 0
+			lb: (nutrition.nutritionForm === 'liquid') ? Math.min(...nutrition.packaging) / 2 : 0,
+			ub: (nutrition.nutritionForm === 'powder') ? 1.5 * weight : Infinity 
 		}))
 	};
 	
