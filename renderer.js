@@ -14,6 +14,7 @@ let inputsFilled = {
 };
 let selectedIllnesses = [];
 let daysAfterTrauma;
+let weight;
 let caloricNeed;
 let proteinNeed;
 let filteredFormulas = [];
@@ -203,7 +204,7 @@ function areAllInputsFilled() {
 
 function calculate() {
     const age = parseFloat(document.getElementById('age').value);
-    const weight = parseFloat(document.getElementById('weight').value);
+    weight = parseFloat(document.getElementById('weight').value);
     const burns = parseFloat(document.getElementById('burns').value);
     daysAfterTrauma = parseFloat(document.getElementById('days-after-trauma').value);
     const temperature = parseFloat(document.getElementById('temperature').value);
