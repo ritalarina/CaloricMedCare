@@ -300,8 +300,6 @@ function filterNutritionFormulas() {
 			filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === nutritionName));
 		}
 	});	
-
-    return filteredFormulas;
 }
 
 function getSelectedIllnesses() {
@@ -390,11 +388,13 @@ function calculateNutritionVolumes() {
 		],
 		bounds: filteredFormulas.map((nutrition, index) => ({
 			name: `x${index}`,
-			type: glpk.GLP_LO,
+			type: glpk.GLP_DB,
 			lb: (nutrition.nutritionForm === 'liquid') ? Math.min(...nutrition.packaging) / 2 : 0,
-			ub: (nutrition.nutritionForm === 'powder') ? 1.5 * weight : Infinity 
+			ub: (nutrition.nutritionForm === 'powder') ? 1.5 * weight : ((nutrition.name === 'Nutridrink') ? 600 : Infinity)
 		}))
 	};
+
+    console.log(lpProblem);
 	
 	const options = {
 		msglev: glpk.GLP_MSG_ON,
