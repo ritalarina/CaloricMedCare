@@ -12,9 +12,6 @@ let inputsFilled = {
     'height': false,
     'energy-intake': false
 };
-let selectedIllnesses = [];
-let daysAfterTrauma;
-let weight;
 let caloricNeed;
 let proteinNeed;
 let filteredFormulas = [];
@@ -185,9 +182,9 @@ function getMaxValue(id) {
 
 function calculate() {
     const age = parseFloat(document.getElementById('age').value);
-    weight = parseFloat(document.getElementById('weight').value);
+    const weight = parseFloat(document.getElementById('weight').value);
     const burns = parseFloat(document.getElementById('burns').value);
-    daysAfterTrauma = parseFloat(document.getElementById('days-after-trauma').value);
+    const daysAfterTrauma = parseFloat(document.getElementById('days-after-trauma').value);
     const temperature = parseFloat(document.getElementById('temperature').value);
     const gender = document.getElementById('gender').value;
     const height = parseFloat(document.getElementById('height').value);
@@ -202,16 +199,16 @@ function calculate() {
     proteinNeed = calculateProtein(weight, daysAfterTrauma);
     document.getElementById('protein-output').textContent = Math.round(proteinNeed);
 
-    updateNutritionFormulasForOptimization();
+    filterNutritionFormulas(daysAfterTrauma);
 
-    if (!calculateNutritionVolumes()) {
+    if (!calculateNutritionVolumes(weight)) {
         filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
-        if (!calculateNutritionVolumes()) {
-            filteredFormulas.pop();
+        if (!calculateNutritionVolumes(weight)) {
+            filteredFormulas.pop(weight);
             filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
-            if (!calculateNutritionVolumes()) {
+            if (!calculateNutritionVolumes(weight)) {
                 filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
-                calculateNutritionVolumes();
+                calculateNutritionVolumes(weight);
             }
         }
     }
@@ -269,18 +266,8 @@ function populateNutritionTable(nutritionData) {
     });
 }
 
-function updateNutritionFormulasForOptimization() {
-    filterNutritionFormulas();
-
-    // Populate the table with the filtered nutrition formulas
-    populateNutritionTable(filteredFormulas);
-
-    // Log for debugging
-    console.log("Filtered nutrition formulas for optimization:", filteredFormulas);
-}
-
-function filterNutritionFormulas() {
-    getSelectedIllnesses();
+function filterNutritionFormulas(daysAfterTrauma) {
+    const selectedIllnesses = getSelectedIllnesses();
 
     filteredFormulas = [nutritionData.find(nutrition => nutrition.name === "Nutrison Protein Intense")];
 
@@ -298,10 +285,12 @@ function filterNutritionFormulas() {
 }
 
 function getSelectedIllnesses() {
-    selectedIllnesses = [];
+    let selectedIllnesses = [];
     document.querySelectorAll('input[name="illnesses"]:checked').forEach(checkbox => {
         selectedIllnesses.push(checkbox.value);
     });
+
+    return selectedIllnesses; 
 }
 
 function getNutritionNameByIllness(illness) {
@@ -352,7 +341,7 @@ function populateNutritionTableWithResults(results) {
     });
 }
 
-function calculateNutritionVolumes() {
+function calculateNutritionVolumes(weight) {
     const lpProblem = {
         name: 'Nutrition Optimization',
         objective: {
@@ -389,10 +378,11 @@ function calculateNutritionVolumes() {
         }))
     };
 
-    console.log(lpProblem);
+    console.log("Filtered nutrition formulas for optimization:", filteredFormulas);
+    console.log("lpProblem", lpProblem);
 
     const options = {
-        msglev: glpk.GLP_MSG_ON,
+        msglev: glpk.GLP_MSG_ERR,
         presol: true
     };
 
