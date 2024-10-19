@@ -212,9 +212,13 @@ function calculate() {
             if (!calculateNutritionVolumes(weight)) {
                 filteredFormulas.pop();
                 filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutrison'));
-                if (!calculateNutritionVolumes(weight, true)) {
-                    emptyNutritionTable();
-                    errorSpan.textContent = `Calculation failed`;
+                if (!calculateNutritionVolumes(weight)) {
+                    filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
+                    filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
+                    if (!calculateNutritionVolumes(weight, true)) {
+                        emptyNutritionTable();
+                        errorSpan.textContent = `Calculation failed`;
+                    }
                 }
             }
         }
@@ -385,7 +389,7 @@ function calculateNutritionVolumes(weight, ignoreLimits = false) {
         bounds: filteredFormulas.map((nutrition, index) => ({
             name: `x${index}`,
             type: glpk.GLP_DB,
-            lb: (nutrition.nutritionForm === 'liquid') ? ((ignoreLimits) ? 0 : Math.min(...nutrition.packaging)) / 3 : 0,
+            lb: (nutrition.nutritionForm === 'liquid') ? ((ignoreLimits) ? 0 : Math.min(...nutrition.packaging) / 2) : 0,
             ub: (nutrition.nutritionForm === 'powder') ? 1.5 * weight : ((nutrition.name === 'Nutridrink') ? 600 : Infinity)
         }))
     };
