@@ -189,7 +189,7 @@ function calculate() {
     const gender = document.getElementById('gender').value;
     const height = parseFloat(document.getElementById('height').value);
     const energyIntake = parseFloat(document.getElementById('energy-intake').value);
-    
+
     const errorSpan = document.getElementById(`nutrition-table-error`);
     errorSpan.textContent = '';
 
@@ -207,11 +207,15 @@ function calculate() {
     if (!calculateNutritionVolumes(weight)) {
         filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
         if (!calculateNutritionVolumes(weight)) {
-            filteredFormulas.pop(weight);
+            filteredFormulas.pop();
             filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
             if (!calculateNutritionVolumes(weight)) {
+                filteredFormulas.pop();
+                filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutrison'));
+                if (!calculateNutritionVolumes(weight, true)) {
                     emptyNutritionTable();
                     errorSpan.textContent = `Calculation failed`;
+                }
             }
         }
     }
@@ -293,7 +297,7 @@ function getSelectedIllnesses() {
         selectedIllnesses.push(checkbox.value);
     });
 
-    return selectedIllnesses; 
+    return selectedIllnesses;
 }
 
 function getNutritionNameByIllness(illness) {
@@ -349,7 +353,7 @@ function emptyNutritionTable() {
     return tableBody;
 }
 
-function calculateNutritionVolumes(weight) {
+function calculateNutritionVolumes(weight, ignoreLimits = false) {
     const lpProblem = {
         name: 'Nutrition Optimization',
         objective: {
@@ -381,7 +385,7 @@ function calculateNutritionVolumes(weight) {
         bounds: filteredFormulas.map((nutrition, index) => ({
             name: `x${index}`,
             type: glpk.GLP_DB,
-            lb: (nutrition.nutritionForm === 'liquid') ? Math.min(...nutrition.packaging) / 2 : 0,
+            lb: (nutrition.nutritionForm === 'liquid') ? ((ignoreLimits) ? 0 : Math.min(...nutrition.packaging)) / 3 : 0,
             ub: (nutrition.nutritionForm === 'powder') ? 1.5 * weight : ((nutrition.name === 'Nutridrink') ? 600 : Infinity)
         }))
     };
