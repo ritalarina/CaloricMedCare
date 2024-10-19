@@ -106,19 +106,21 @@ function addCheckboxListeners() {
     // Attach event listeners to each checkbox
     illnessCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
-            calculate();
+            handleInputChange();
         });
     });
 }
 
 function handleInputChange() {
     const id = this.id;
-    console.log(`Input changed: ${id}`); // Log input change
+    if (id) {
+        console.log(`Input changed: ${id}`); // Log input change
 
-    if (validateField(id)) {
-        inputsFilled[id] = true;
-    } else {
-        inputsFilled[id] = false;
+        if (validateField(id)) {
+            inputsFilled[id] = true;
+        } else {
+            inputsFilled[id] = false;
+        }
     }
 
     let areAllInputsFilled = Object.values(inputsFilled).every(value => value === true);
