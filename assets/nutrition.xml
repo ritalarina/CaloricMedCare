@@ -76,6 +76,7 @@
 		<form>powder</form>
 		<src>https://www.nutricia.lv/produkti/nutricia-protifar/</src>
     </nutrition>
+	<?ignore
 	<nutrition>
         <name>PreOp</name>
         <caloricDensity>50</caloricDensity> <!-- kcal/100 ml -->
@@ -88,6 +89,7 @@
 		<form>liquid</form>
 		<src>https://www.nutricia.lv/produkti/nutricia-preop-ar-citronu-garsu/</src>
     </nutrition>
+	?>
 	<nutrition>
         <name>Nutridrink</name>
         <caloricDensity>240</caloricDensity> <!-- kcal/100 ml -->
