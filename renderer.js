@@ -121,7 +121,8 @@ function handleInputChange() {
         inputsFilled[id] = false;
     }
 
-    if (areAllInputsFilled()) {
+    let areAllInputsFilled = Object.values(inputsFilled).every(value => value === true);
+    if (areAllInputsFilled) {
         calculate();
     }
 }
@@ -178,10 +179,6 @@ function getMaxValue(id) {
         case 'height': return 300;
         case 'energy-intake': return 5000;
     }
-}
-
-function areAllInputsFilled() {
-    return Object.values(inputsFilled).every(value => value === true);
 }
 
 function calculate() {
