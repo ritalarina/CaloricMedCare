@@ -111,15 +111,11 @@ function addCheckboxListeners() {
     });
 }
 
-function requiresValidation(id) {
-    return !noValidationNeeded.has(id);
-}
-
 function handleInputChange() {
     const id = this.id;
     console.log(`Input changed: ${id}`); // Log input change
 
-    if (!requiresValidation(id)) {
+    if (noValidationNeeded.has(id)) {
         inputsFilled[id] = true;
     } else if (validateField(id)) {
         inputsFilled[id] = true;
@@ -133,7 +129,7 @@ function handleInputChange() {
 }
 
 function validateField(id) {
-    if (!requiresValidation(id)) {
+    if (noValidationNeeded.has(id)) {
         return true; // No validation needed for drop-downs
     } else {
         const min = getMinValue(id);
