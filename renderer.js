@@ -247,36 +247,6 @@ function calculateProtein(weight, daysAfterTrauma) {
     }
 }
 
-function populateNutritionTable(nutritionData) {
-    const tableBody = document.querySelector('#nutrition-table tbody');
-    tableBody.innerHTML = ''; // Clear existing rows
-
-    nutritionData.forEach(nutrition => {
-        const row = document.createElement('tr');
-
-        // Nutrition name cell
-        const nameCell = document.createElement('td');
-        nameCell.textContent = nutrition.name;
-        row.appendChild(nameCell);
-
-        // Volume cell (empty for now)
-        const volumeCell = document.createElement('td');
-        volumeCell.textContent = ''; // You will fill this when volume is calculated
-        row.appendChild(volumeCell);
-
-        const caloriesCell = document.createElement('td');
-        caloriesCell.textContent = ''; // You will fill this when volume is calculated
-        row.appendChild(caloriesCell);
-
-        const proteinCell = document.createElement('td');
-        proteinCell.textContent = ''; // You will fill this when volume is calculated
-        row.appendChild(proteinCell);
-
-        // Append the row to the table body
-        tableBody.appendChild(row);
-    });
-}
-
 function filterNutritionFormulas(daysAfterTrauma) {
     const selectedIllnesses = getSelectedIllnesses();
 
