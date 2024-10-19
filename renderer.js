@@ -106,8 +106,7 @@ function addCheckboxListeners() {
     // Attach event listeners to each checkbox
     illnessCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', () => {
-            // Call the update function when the checkbox is checked/unchecked
-            updateNutritionFormulasForOptimization();  // Trigger filtering and update output
+            triggerCalculations();
         });
     });
 }
@@ -129,18 +128,22 @@ function handleInputChange() {
     }
 
     console.log(`Inputs Filled:`, inputsFilled); // Log filled status
+    triggerCalculations();
+}
+
+function triggerCalculations() {
     if (areAllInputsFilled()) {
         calculate();
-		updateNutritionFormulasForOptimization();
-		
-		if (!calculateNutritionVolumes()) {
-			filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
-			if (!calculateNutritionVolumes()) {
-				filteredFormulas.pop();
-				filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
-				calculateNutritionVolumes();
-			}
-		}
+        updateNutritionFormulasForOptimization();
+
+        if (!calculateNutritionVolumes()) {
+            filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
+            if (!calculateNutritionVolumes()) {
+                filteredFormulas.pop();
+                filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
+                calculateNutritionVolumes();
+            }
+        }
     }
 }
 
