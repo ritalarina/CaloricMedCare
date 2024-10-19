@@ -294,30 +294,32 @@ function populateNutritionTableWithResults(results) {
     const tableBody = emptyNutritionTable(); // Clear existing rows
 
     results.forEach(result => {
-        const row = document.createElement('tr');
+        if (result.volume > 0) {
+            const row = document.createElement('tr');
 
-        // Nutrition name
-        const nameCell = document.createElement('td');
-        nameCell.textContent = result.nutrition;
-        row.appendChild(nameCell);
+            // Nutrition name
+            const nameCell = document.createElement('td');
+            nameCell.textContent = result.nutrition;
+            row.appendChild(nameCell);
 
-        // Required volume
-        const volumeCell = document.createElement('td');
-        volumeCell.textContent = Math.round(result.volume);
-        row.appendChild(volumeCell);
+            // Required volume
+            const volumeCell = document.createElement('td');
+            volumeCell.textContent = Math.round(result.volume);
+            row.appendChild(volumeCell);
 
-        // Provided calories
-        const caloriesCell = document.createElement('td');
-        caloriesCell.textContent = Math.round(result.calories);
-        row.appendChild(caloriesCell);
+            // Provided calories
+            const caloriesCell = document.createElement('td');
+            caloriesCell.textContent = Math.round(result.calories);
+            row.appendChild(caloriesCell);
 
-        // Provided protein
-        const proteinCell = document.createElement('td');
-        proteinCell.textContent = Math.round(result.protein);
-        row.appendChild(proteinCell);
+            // Provided protein
+            const proteinCell = document.createElement('td');
+            proteinCell.textContent = Math.round(result.protein);
+            row.appendChild(proteinCell);
 
-        // Append row to table
-        tableBody.appendChild(row);
+            // Append row to table
+            tableBody.appendChild(row);
+        }
     });
 }
 
