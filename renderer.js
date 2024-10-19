@@ -210,11 +210,8 @@ function calculate() {
             filteredFormulas.pop(weight);
             filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
             if (!calculateNutritionVolumes(weight)) {
-                filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
-                if (!calculateNutritionVolumes(weight)) {
                     emptyNutritionTable();
                     errorSpan.textContent = `Calculation failed`;
-                }
             }
         }
     }
