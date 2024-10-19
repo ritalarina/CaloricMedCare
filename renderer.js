@@ -189,6 +189,9 @@ function calculate() {
     const gender = document.getElementById('gender').value;
     const height = parseFloat(document.getElementById('height').value);
     const energyIntake = parseFloat(document.getElementById('energy-intake').value);
+    
+    const errorSpan = document.getElementById(`nutrition-table-error`);
+    errorSpan.textContent = '';
 
     const bmr = calculateBMR(gender, weight, height, age);
     document.getElementById('bmr-output').textContent = Math.round(bmr);
@@ -208,7 +211,10 @@ function calculate() {
             filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
             if (!calculateNutritionVolumes(weight)) {
                 filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
-                calculateNutritionVolumes(weight);
+                if (!calculateNutritionVolumes(weight)) {
+                    emptyNutritionTable();
+                    errorSpan.textContent = `Calculation failed`;
+                }
             }
         }
     }
@@ -310,8 +316,7 @@ function getNutritionNameByIllness(illness) {
 }
 
 function populateNutritionTableWithResults(results) {
-    const tableBody = document.querySelector('#nutrition-table tbody');
-    tableBody.innerHTML = ''; // Clear existing rows
+    const tableBody = emptyNutritionTable(); // Clear existing rows
 
     results.forEach(result => {
         const row = document.createElement('tr');
@@ -339,6 +344,12 @@ function populateNutritionTableWithResults(results) {
         // Append row to table
         tableBody.appendChild(row);
     });
+}
+
+function emptyNutritionTable() {
+    const tableBody = document.querySelector('#nutrition-table tbody');
+    tableBody.innerHTML = ''; // Clear existing rows
+    return tableBody;
 }
 
 function calculateNutritionVolumes(weight) {
