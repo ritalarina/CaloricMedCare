@@ -115,9 +115,7 @@ function handleInputChange() {
     const id = this.id;
     console.log(`Input changed: ${id}`); // Log input change
 
-    if (noValidationNeeded.has(id)) {
-        inputsFilled[id] = true;
-    } else if (validateField(id)) {
+    if (validateField(id)) {
         inputsFilled[id] = true;
     } else {
         inputsFilled[id] = false;
