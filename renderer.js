@@ -217,8 +217,10 @@ function calculate() {
                     filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
                     filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
                     if (!calculateNutritionVolumes(weight, true)) {
-                        emptyNutritionTable();
-                        errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
+                        if (!calculateNutritionVolumes(weight, true, true)) {
+                            emptyNutritionTable();
+                            errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
+                        }
                     }
                 }
             }
@@ -353,7 +355,7 @@ function emptyNutritionTable() {
     return tableBody;
 }
 
-function calculateNutritionVolumes(weight, ignoreLimits = false) {
+function calculateNutritionVolumes(weight, ignoreSomeLimits = false, ignoreAllLimits = false) {
     const lpProblem = {
         name: 'Nutrition Optimization',
         objective: {
@@ -385,7 +387,7 @@ function calculateNutritionVolumes(weight, ignoreLimits = false) {
         bounds: filteredFormulas.map((nutrition, index) => ({
             name: `x${index}`,
             type: glpk.GLP_DB,
-            lb: (nutrition.nutritionForm === 'liquid') ? ((ignoreLimits && (nutrition.indication == 'none')) ? 0 : Math.min(...nutrition.packaging) / 2) : 0,
+            lb: (nutrition.nutritionForm === 'liquid') ? (((ignoreSomeLimits && (nutrition.indication == 'none')) || ignoreAllLimits) ? 0 : Math.min(...nutrition.packaging) / 2) : 0,
             ub: (nutrition.nutritionForm === 'powder') ? 2.5 * 6 : ((nutrition.name === 'Nutridrink') ? 600 : Infinity)
         }))
     };
