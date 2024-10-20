@@ -48,6 +48,7 @@ input:not([type="checkbox"]), select {
   display: flex;
   justify-content: space-between; 
   gap: 20px; 
+  min-height: calc(100vh - 200px); /* Assuming footer height is 60px */
 }
 
 .output-container {
@@ -59,6 +60,13 @@ input:not([type="checkbox"]), select {
 
 .form-container {
 	width: 45%; 
+}
+
+footer {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 90%;
 }
 
 footer .attribution {
