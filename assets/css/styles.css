@@ -103,6 +103,14 @@ footer .attribution a:hover {
     background-color: #f1f1f1;
 }
 
+#nutrition-table tr {
+    text-align: right;
+}
+
+#nutrition-table td:first-child {
+    text-align: left;
+}
+
 /* Style the footer row to make it stand out */
 #resultRow {
     background-color: #f0f0f0;

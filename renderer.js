@@ -149,6 +149,7 @@ function validateNumber(id, min, max) {
 
     if (isNaN(value) || value < min || value > max) {
         errorSpan.textContent = `Value must be between ${min} and ${max}`;
+        emptyNutritionTable();
         return null;
     } else {
         errorSpan.textContent = '';
@@ -217,7 +218,7 @@ function calculate() {
                     filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
                     if (!calculateNutritionVolumes(weight, true)) {
                         emptyNutritionTable();
-                        errorSpan.textContent = `Calculation failed`;
+                        errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
                     }
                 }
             }
@@ -295,6 +296,8 @@ function populateNutritionTableWithResults(results) {
 
     let totalCalories = 0;
     let totalProtein = 0;
+    let totalLiquidQuantity = 0;
+    let totalPowderQuantity = 0;
 
     results.forEach(result => {
         if (result.volume > 0) {
@@ -312,12 +315,12 @@ function populateNutritionTableWithResults(results) {
 
             // Provided calories
             const caloriesCell = document.createElement('td');
-            caloriesCell.textContent = Math.round(result.calories);
+            caloriesCell.textContent = Math.round(result.calories) + ' kcal';
             row.appendChild(caloriesCell);
 
             // Provided protein
             const proteinCell = document.createElement('td');
-            proteinCell.textContent = Math.round(result.protein);
+            proteinCell.textContent = Math.round(result.protein) + ' g ';
             row.appendChild(proteinCell);
 
             // Append row to table
@@ -326,12 +329,18 @@ function populateNutritionTableWithResults(results) {
             // Accumulate totals
             totalCalories += Math.round(result.calories);
             totalProtein += Math.round(result.protein);
+            if (result.nutritionForm === 'powder') {
+                totalPowderQuantity += Math.round(result.volume);
+            } else {
+                totalLiquidQuantity += Math.round(result.volume);
+            }
         }
     });
 
     // Insert totals into the footer row
-    document.getElementById('totalCalories').textContent = totalCalories;
-    document.getElementById('totalProtein').textContent = totalProtein;
+    document.getElementById('totalCalories').textContent = totalCalories + ' kcal';
+    document.getElementById('totalProtein').textContent = totalProtein + ' g';
+    document.getElementById('totalQuantity').textContent = totalLiquidQuantity + ' ml' + ((totalPowderQuantity > 0) ? '\n' + '+ \n' + totalPowderQuantity + ' g  ' : '');
 }
 
 function emptyNutritionTable() {
@@ -339,6 +348,7 @@ function emptyNutritionTable() {
     tableBody.innerHTML = ''; // Clear existing rows
     document.getElementById('totalCalories').textContent = '';
     document.getElementById('totalProtein').textContent = '';
+    document.getElementById('totalQuantity').textContent = '';
     return tableBody;
 }
 
@@ -416,7 +426,8 @@ function calculateNutritionVolumes(weight, ignoreLimits = false) {
             volume: variable,  // variable.value is likely just `variable`
             calories: variable * filteredFormulas[index].caloricDensity / 100,
             protein: variable * filteredFormulas[index].protein / 100,
-            units: (filteredFormulas[index].nutritionForm === 'powder') ? 'g' : 'ml'
+            units: (filteredFormulas[index].nutritionForm === 'powder') ? 'g' : 'ml',
+            nutritionForm: filteredFormulas[index].nutritionForm
         };
     });
 
