@@ -304,7 +304,7 @@ function populateNutritionTableWithResults(results) {
 
             // Required volume
             const volumeCell = document.createElement('td');
-            volumeCell.textContent = Math.round(result.volume);
+            volumeCell.textContent = Math.round(result.volume) + ' ' + result.units;
             row.appendChild(volumeCell);
 
             // Provided calories
@@ -402,7 +402,8 @@ function calculateNutritionVolumes(weight, ignoreLimits = false) {
             nutrition: filteredFormulas[index].name,
             volume: variable,  // variable.value is likely just `variable`
             calories: variable * filteredFormulas[index].caloricDensity / 100,
-            protein: variable * filteredFormulas[index].protein / 100
+            protein: variable * filteredFormulas[index].protein / 100,
+            units: (filteredFormulas[index].nutritionForm === 'powder') ? 'g' : 'ml'
         };
     });
 
