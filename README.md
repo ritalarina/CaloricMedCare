@@ -13,7 +13,6 @@
   - **Days Since Trauma** (0 or more days)
   - **Energy Intake** (500-5000 kcal)
   - **Other Conditions** (multiple-choice options)
-  - **Selected Nutrition Formula** (from available formulas)
 
 ## Output
 - **BMR Calculation**: Calculates Basal Metabolic Rate (BMR) using the **Harris-Benedict formula**.
@@ -21,7 +20,16 @@
 - **Protein Requirement**:
   - 2g protein per kg of body weight for 1-15 days post-trauma.
   - 1.5g protein per kg of body weight after 15 days.
-- **Nutrition Volume**: Calculates the required daily volume of the selected nutrition formula.
+- **Nutrition Volume**: Based on patient data, the algorithm selects nutrition formulas and calculates amount of each so that the total calories and proteins fit within 10% of the daily need.
+
+### About the algorithm
+To calculate volume of each nutrition needed linear programming is used to minimize total nutrition volume while sticking to certain constraints:
+- sum of calories provided by all nutrition formulas is &#177;10% of the total required by patient,
+- the total amount of protein provided by all nutrition formulas is either equal to or up to 10% less than the total protein required by the patient,
+- protein powder quantity is limited to a maximum of 15g (educated guess),
+- small drinks with formula are limited to a maximum 3 bottles (600 ml) as per manufactirer instructions,
+- if such calculation is possible then recommended volume of each nutrition will be at least half a smallest package to make it economic, if not, calculation is performed with no lower limits,
+- for each other health condition a patient has, a special nutrition formula is added to the nutrition mix. If calculation becomes impossible, lower bounds are ignored and some nutrition formulas might be skipped.
 
 ## Running the app
 ### Option 1. Running the App from a Published Release
@@ -47,8 +55,11 @@
 ## Usage
 Once the app is running, input the following data to calculate patient caloric needs and nutrition requirements:
 1. Enter the patient's gender, age, weight, height, body temperature, and burn surface area. Specify the number of days since the trauma and other conditions.
-2. Choose the appropriate nutrition formula.
-3. Once all input fields are complete, the app will automatically calculate the Basal Metabolic Rate (BMR), necessary kcal intake during treatment, protein requirements, and daily volume of nutrition.
+2. Once all input fields are complete, the app will automatically calculate 
+   - Basal Metabolic Rate (BMR), 
+   - necessary kcal intake during treatment, 
+   - protein requirements, 
+   - set of nutrition formulas and their volumes necessary to fulfill necessary daily caloric and protein requirements.
 
 ## Contributing
 - Check out the [TODO](https://github.com/ritalarina/caloricmedcare/blob/master/TODO.md) file to see what's planned.
