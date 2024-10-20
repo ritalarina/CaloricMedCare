@@ -241,9 +241,9 @@ function calculateBMR(gender, weight, height, age) {
 
 function calculateProtein(weight, daysAfterTrauma) {
     if (daysAfterTrauma <= 15) {
-        return weight * 2;
+        return weight * 1.8;
     } else {
-        return weight * 1.5;
+        return weight * 1.3;
     }
 }
 
@@ -361,8 +361,8 @@ function calculateNutritionVolumes(weight, ignoreLimits = false) {
         bounds: filteredFormulas.map((nutrition, index) => ({
             name: `x${index}`,
             type: glpk.GLP_DB,
-            lb: (nutrition.nutritionForm === 'liquid') ? ((ignoreLimits) ? 0 : Math.min(...nutrition.packaging) / 2) : 0,
-            ub: (nutrition.nutritionForm === 'powder') ? 1.5 * weight : ((nutrition.name === 'Nutridrink') ? 600 : Infinity)
+            lb: (nutrition.nutritionForm === 'liquid') ? ((ignoreLimits && (nutrition.indication == 'none')) ? 0 : Math.min(...nutrition.packaging) / 2) : 0,
+            ub: (nutrition.nutritionForm === 'powder') ? 2.5 * 6 : ((nutrition.name === 'Nutridrink') ? 600 : Infinity)
         }))
     };
 
