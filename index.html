@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Burn Patient Nutrition Calculator</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Burn Patient Nutrition Calculator</title>
+	<link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
-    <h1>Burn Patient Nutrition Calculator</h1>
-	
+	<h1>Burn Patient Nutrition Calculator</h1>
+
 	<div class="input-output-container">
 		<div class="form-container">
 			<div class="form-group">
@@ -20,7 +22,7 @@
 					</select><br>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="age">Age:</label>
 				<div class="input-error-group">
@@ -28,7 +30,7 @@
 					<span id="age-error" class="error"></span><br>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="weight">Weight (kg):</label>
 				<div class="input-error-group">
@@ -36,7 +38,7 @@
 					<span id="weight-error" class="error"></span><br>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="height">Height (cm):</label>
 				<div class="input-error-group">
@@ -44,7 +46,7 @@
 					<span id="height-error" class="error"></span><br>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="temperature">Body Temperature (°C):</label>
 				<div class="input-error-group">
@@ -52,7 +54,7 @@
 					<span id="temperature-error" class="error"></span><br>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="burns">Total Burn Surface Area (%):</label>
 				<div class="input-error-group">
@@ -60,7 +62,7 @@
 					<span id="burns-error" class="error"></span><br>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="days-after-trauma">Days Since Trauma:</label>
 				<div class="input-error-group">
@@ -68,7 +70,7 @@
 					<span id="days-after-trauma-error" class="error"></span><br>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="energy-intake">Energy Intake (kcal):</label>
 				<div class="input-error-group">
@@ -76,7 +78,7 @@
 					<span id="energy-intake-error" class="error"></span><br>
 				</div>
 			</div>
-			
+
 			<div class="form-group">
 				<label for="illnesses-container">Other conditions:</label>
 				<div class="input-error-group">
@@ -85,13 +87,13 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="output-container">
 			<h3>Results:</h3>
 			<p>BMR: <span id="bmr-output">0</span> kcal/day</p>
 			<p>Daily Caloric Requirement: <span id="caloric-output">0</span> kcal/day</p>
 			<p>Daily Protein Requirement: <span id="protein-output">0</span> g/day</p>
-			
+
 			<table id="nutrition-table">
 				<thead>
 					<tr>
@@ -109,11 +111,13 @@
 		</div>
 	</div>
 
-    <script src="renderer.js"></script>
+	<script src="renderer.js"></script>
 	<footer>
-	  <p class="attribution">
-		Icon used in this app is by <a href="https://www.flaticon.com/free-icons/nutrient" title="nutrient icons">Freepik - Flaticon</a>
-	  </p>
+		<p class="attribution">
+			Icon used in this app is by <a href="https://www.flaticon.com/free-icons/nutrient"
+				title="nutrient icons">Freepik - Flaticon</a>
+		</p>
 	</footer>
 </body>
+
 </html>
