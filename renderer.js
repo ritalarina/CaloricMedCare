@@ -293,6 +293,9 @@ function getNutritionNameByIllness(illness) {
 function populateNutritionTableWithResults(results) {
     const tableBody = emptyNutritionTable(); // Clear existing rows
 
+    let totalCalories = 0;
+    let totalProtein = 0;
+
     results.forEach(result => {
         if (result.volume > 0) {
             const row = document.createElement('tr');
@@ -319,13 +322,23 @@ function populateNutritionTableWithResults(results) {
 
             // Append row to table
             tableBody.appendChild(row);
+
+            // Accumulate totals
+            totalCalories += Math.round(result.calories);
+            totalProtein += Math.round(result.protein);
         }
     });
+
+    // Insert totals into the footer row
+    document.getElementById('totalCalories').textContent = totalCalories;
+    document.getElementById('totalProtein').textContent = totalProtein;
 }
 
 function emptyNutritionTable() {
     const tableBody = document.querySelector('#nutrition-table tbody');
     tableBody.innerHTML = ''; // Clear existing rows
+    document.getElementById('totalCalories').textContent = '';
+    document.getElementById('totalProtein').textContent = '';
     return tableBody;
 }
 
