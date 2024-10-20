@@ -164,3 +164,8 @@ footer .attribution a:hover {
     font-size: 0.9em;
     color: #666;
 }
+
+h1 {
+    text-align: center;
+    padding-bottom: 20px;
+}
