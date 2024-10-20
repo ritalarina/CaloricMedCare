@@ -244,9 +244,9 @@ function calculateBMR(gender, weight, height, age) {
 
 function calculateProtein(weight, daysAfterTrauma) {
     if (daysAfterTrauma <= 15) {
-        return weight * 1.8;
+        return weight * 2;
     } else {
-        return weight * 1.3;
+        return weight * 1.5;
     }
 }
 
@@ -381,7 +381,7 @@ function calculateNutritionVolumes(weight, ignoreSomeLimits = false, ignoreAllLi
                     name: `x${index}`,
                     coef: nutrition.protein / 100 // grams/ml
                 })),
-                bnds: { type: glpk.GLP_DB, lb: 0.9 * proteinNeed, ub: 1.1 * proteinNeed }
+                bnds: { type: glpk.GLP_DB, lb: 0.9 * proteinNeed, ub: proteinNeed}
             }
         ],
         bounds: filteredFormulas.map((nutrition, index) => ({
