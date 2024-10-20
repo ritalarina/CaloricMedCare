@@ -320,7 +320,7 @@ function populateNutritionTableWithResults(results) {
 
             // Provided protein
             const proteinCell = document.createElement('td');
-            proteinCell.textContent = Math.round(result.protein) + ' g ';
+            proteinCell.textContent = Math.round(result.protein) + ' g';
             row.appendChild(proteinCell);
 
             // Append row to table
@@ -340,7 +340,8 @@ function populateNutritionTableWithResults(results) {
     // Insert totals into the footer row
     document.getElementById('totalCalories').textContent = totalCalories + ' kcal';
     document.getElementById('totalProtein').textContent = totalProtein + ' g';
-    document.getElementById('totalQuantity').textContent = totalLiquidQuantity + ' ml' + ((totalPowderQuantity > 0) ? '\n' + '+ \n' + totalPowderQuantity + ' g  ' : '');
+    document.getElementById('totalQuantity').innerHTML = totalLiquidQuantity + ' ml' + ((totalPowderQuantity > 0) ? '<br>+<br>' + totalPowderQuantity + ' g' : '');
+
 }
 
 function emptyNutritionTable() {

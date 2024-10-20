@@ -6,8 +6,8 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 890,
-        height: 840,
+        width: 950,
+        height: 1000,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false, // Allow access to Node.js APIs in renderer
