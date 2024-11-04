@@ -13,7 +13,6 @@ let inputsFilled = {
     'energy-intake': false
 };
 let caloricNeed;
-let proteinNeed;
 let filteredFormulas = [];
 
 const noValidationNeeded = new Set(['illness', 'gender']);
@@ -206,13 +205,17 @@ function calculate() {
     filterNutritionFormulas(daysAfterTrauma);
 
     if (!calculateNutritionVolumes(minProtein, maxProtein)) {
-        if (!calculateNutritionVolumes(minProtein, maxProtein, true)) {
-            if (!calculateNutritionVolumes(minProtein, maxProtein, true, true)) {
-                if (!calculateNutritionVolumes(0.9 * minProtein, maxProtein, true, true)) {
-                    if (!calculateNutritionVolumes(0.9 * minProtein, maxProtein, 1.2, true, true)) {
-                        if (!calculateNutritionVolumes(0.85 * minProtein, maxProtein, 1.25, true, true)) {
-                            emptyNutritionTable();
-                            errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
+        const newFormulas = nutritionData.filter(nutrition =>  ["Nutridrink", "Protifar", "Nutrison"].includes(nutrition.name));
+        filteredFormulas.push.apply(filteredFormulas, newFormulas);
+        if (!calculateNutritionVolumes(minProtein, maxProtein)) {
+            if (!calculateNutritionVolumes(minProtein, maxProtein, true)) {
+                if (!calculateNutritionVolumes(minProtein, maxProtein, true, true)) {
+                    if (!calculateNutritionVolumes(0.9 * minProtein, maxProtein, true, true)) {
+                        if (!calculateNutritionVolumes(0.9 * minProtein, maxProtein, 1.2, true, true)) {
+                            if (!calculateNutritionVolumes(0.85 * minProtein, maxProtein, 1.25, true, true)) {
+                                emptyNutritionTable();
+                                errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
+                            }
                         }
                     }
                 }
@@ -246,7 +249,7 @@ function calculateProtein(weight, daysAfterTrauma) {
 function filterNutritionFormulas(daysAfterTrauma) {
     const selectedIllnesses = getSelectedIllnesses();
 
-    filteredFormulas = nutritionData.filter(nutrition => ["Nutrison Protein Intense", "Nutridrink", "Protifar", "Nutrison"].includes(nutrition.name));
+    filteredFormulas = [nutritionData.find(nutrition => nutrition.name === "Nutrison Protein Intense")];
 
     if (daysAfterTrauma <= 15) {
         filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === "Glutamine+"));
