@@ -205,11 +205,17 @@ function calculate() {
 
     filterNutritionFormulas(daysAfterTrauma);
 
-    if (!calculateNutritionVolumes(weight, minProtein, maxProtein)) {
-        if (!calculateNutritionVolumes(weight, minProtein, maxProtein, true)) {
-            if (!calculateNutritionVolumes(weight, minProtein, maxProtein, true, true)) {
-                emptyNutritionTable();
-                errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
+    if (!calculateNutritionVolumes(minProtein, maxProtein)) {
+        if (!calculateNutritionVolumes(minProtein, maxProtein, true)) {
+            if (!calculateNutritionVolumes(minProtein, maxProtein, true, true)) {
+                if (!calculateNutritionVolumes(0.9 * minProtein, maxProtein, true, true)) {
+                    if (!calculateNutritionVolumes(0.9 * minProtein, maxProtein, 1.2, true, true)) {
+                        if (!calculateNutritionVolumes(0.85 * minProtein, maxProtein, 1.25, true, true)) {
+                            emptyNutritionTable();
+                            errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
+                        }
+                    }
+                }
             }
         }
     }
@@ -342,7 +348,7 @@ function emptyNutritionTable() {
     return tableBody;
 }
 
-function calculateNutritionVolumes(weight, minProtein, maxProtein, ignoreSomeLimits = false, ignoreAllLimits = false) {
+function calculateNutritionVolumes(minProtein, maxProtein, maxCaloriesCoeff = 1.1, ignoreSomeLimits = false, ignoreAllLimits = false) {
     const lpProblem = {
         name: 'Nutrition Optimization',
         objective: {
@@ -360,7 +366,7 @@ function calculateNutritionVolumes(weight, minProtein, maxProtein, ignoreSomeLim
                     name: `x${index}`,
                     coef: nutrition.caloricDensity / 100 // kcal/ml 
                 })),
-                bnds: { type: glpk.GLP_DB, lb: 0.9 * caloricNeed, ub: 1.1 * caloricNeed }
+                bnds: { type: glpk.GLP_DB, lb: 0.9 * caloricNeed, ub: maxCaloriesCoeff * caloricNeed }
             },
             {
                 name: "protein_constraint",
