@@ -368,7 +368,7 @@ function calculateNutritionVolumes(weight, ignoreSomeLimits = false, ignoreAllLi
                     name: `x${index}`,
                     coef: nutrition.protein / 100 // grams/ml
                 })),
-                bnds: { type: glpk.GLP_DB, lb: 0.9 * proteinNeed, ub: proteinNeed }
+                bnds: { type: glpk.GLP_DB, lb: 1.2 * weight, ub: 1.5 * weight }
             }
         ],
         bounds: filteredFormulas.map((nutrition, index) => ({
