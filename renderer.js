@@ -206,23 +206,10 @@ function calculate() {
     filterNutritionFormulas(daysAfterTrauma);
 
     if (!calculateNutritionVolumes(weight)) {
-        filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
-        if (!calculateNutritionVolumes(weight)) {
-            filteredFormulas.pop();
-            filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
-            if (!calculateNutritionVolumes(weight)) {
-                filteredFormulas.pop();
-                filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutrison'));
-                if (!calculateNutritionVolumes(weight)) {
-                    filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Protifar'));
-                    filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === 'Nutridrink'));
-                    if (!calculateNutritionVolumes(weight, true)) {
-                        if (!calculateNutritionVolumes(weight, true, true)) {
-                            emptyNutritionTable();
-                            errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
-                        }
-                    }
-                }
+        if (!calculateNutritionVolumes(weight, true)) {
+            if (!calculateNutritionVolumes(weight, true, true)) {
+                emptyNutritionTable();
+                errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
             }
         }
     }
@@ -253,7 +240,7 @@ function calculateProtein(weight, daysAfterTrauma) {
 function filterNutritionFormulas(daysAfterTrauma) {
     const selectedIllnesses = getSelectedIllnesses();
 
-    filteredFormulas = [nutritionData.find(nutrition => nutrition.name === "Nutrison Protein Intense")];
+    filteredFormulas = [nutritionData.find(nutrition => ['Nutrison Protein Intense', 'Nutridrink', 'Protifar', 'Nutrison'].includes(nutrition.name))];
 
     if (daysAfterTrauma <= 15) {
         filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === "Glutamine+"));
@@ -381,7 +368,7 @@ function calculateNutritionVolumes(weight, ignoreSomeLimits = false, ignoreAllLi
                     name: `x${index}`,
                     coef: nutrition.protein / 100 // grams/ml
                 })),
-                bnds: { type: glpk.GLP_DB, lb: 0.9 * proteinNeed, ub: proteinNeed}
+                bnds: { type: glpk.GLP_DB, lb: 0.9 * proteinNeed, ub: proteinNeed }
             }
         ],
         bounds: filteredFormulas.map((nutrition, index) => ({
