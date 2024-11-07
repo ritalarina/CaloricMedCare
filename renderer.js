@@ -210,9 +210,9 @@ function calculate() {
         if (!calculateNutritionVolumes(minProtein, maxProtein)) {
             if (!calculateNutritionVolumes(minProtein, maxProtein, true)) {
                 if (!calculateNutritionVolumes(minProtein, maxProtein, true, true)) {
-                    if (!calculateNutritionVolumes(0.9 * minProtein, maxProtein, true, true)) {
-                        if (!calculateNutritionVolumes(0.9 * minProtein, maxProtein, 1.2, true, true)) {
-                            if (!calculateNutritionVolumes(0.85 * minProtein, maxProtein, 1.25, true, true)) {
+                    if (!calculateNutritionVolumes(minProtein, maxProtein, 0.9, 1, true, true)) {
+                        if (!calculateNutritionVolumes(minProtein, maxProtein, 0.9, 1.2, true, true)) {
+                            if (!calculateNutritionVolumes(minProtein, maxProtein, 0.85, 1.25, true, true)) {
                                 emptyNutritionTable();
                                 errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
                             }
@@ -297,7 +297,7 @@ function populateNutritionTableWithResults(results) {
     let totalLiquidQuantity = 0;
     let totalPowderQuantity = 0;
 
-    results.forEach(result => {
+    results.volumes.forEach(result => {
         if (result.volume > 0) {
             const row = document.createElement('tr');
 
@@ -325,20 +325,40 @@ function populateNutritionTableWithResults(results) {
             tableBody.appendChild(row);
 
             // Accumulate totals
-            totalCalories += Math.round(result.calories);
-            totalProtein += Math.round(result.protein);
+            totalCalories += result.calories;
+            totalProtein += result.protein;
             if (result.nutritionForm === 'powder') {
-                totalPowderQuantity += Math.round(result.volume);
+                totalPowderQuantity += result.volume;
             } else {
-                totalLiquidQuantity += Math.round(result.volume);
+                totalLiquidQuantity += result.volume;
             }
         }
     });
 
+    pctDiffCalories = Math.round(totalCalories * 100 / caloricNeed - 100);
+    pctDiffCaloriesStr = '';
+    if (Math.round(pctDiffCalories) > 0) {
+        pctDiffCaloriesStr = ' (+' + pctDiffCalories + '%)';
+    } else if (Math.round(pctDiffCalories) < 0) {
+        pctDiffCaloriesStr = ' (' + pctDiffCalories + '%)';
+    }
+    
+    
+    maxProtein = results.maxProtein;
+    minProtein = results.minProtein;
+    pctDiffProteinStr = '';
+    if (totalProtein > maxProtein) {
+        pctDiffProtein = Math.round(totalProtein * 100 / maxProtein - 100);
+        pctDiffProteinStr = ' (+' + pctDiffProtein + '%)';
+    } else if (totalProtein < minProtein) {
+        pctDiffProtein = Math.round(totalProtein * 100 / minProtein - 100);
+        pctDiffProteinStr = ' (' + pctDiffProtein + '%)';
+    }     
+
     // Insert totals into the footer row
-    document.getElementById('totalCalories').textContent = totalCalories + ' kcal';
-    document.getElementById('totalProtein').textContent = totalProtein + ' g';
-    document.getElementById('totalQuantity').innerHTML = totalLiquidQuantity + ' ml' + ((totalPowderQuantity > 0) ? '<br>+<br>' + totalPowderQuantity + ' g' : '');
+    document.getElementById('totalCalories').textContent = Math.round(totalCalories) + ' kcal' + pctDiffCaloriesStr;
+    document.getElementById('totalProtein').textContent = Math.round(totalProtein) + ' g' + pctDiffProteinStr;
+    document.getElementById('totalQuantity').innerHTML = Math.round(totalLiquidQuantity) + ' ml' + ((Math.round(totalPowderQuantity) > 0) ? '<br>+<br>' + Math.round(totalPowderQuantity) + ' g' : '');
 
 }
 
@@ -351,7 +371,7 @@ function emptyNutritionTable() {
     return tableBody;
 }
 
-function calculateNutritionVolumes(minProtein, maxProtein, maxCaloriesCoeff = 1.1, ignoreSomeLimits = false, ignoreAllLimits = false) {
+function calculateNutritionVolumes(minProtein, maxProtein, minProteinCoeff = 1, maxCaloriesCoeff = 1, ignoreSomeLimits = false, ignoreAllLimits = false) {
     const lpProblem = {
         name: 'Nutrition Optimization',
         objective: {
@@ -377,7 +397,7 @@ function calculateNutritionVolumes(minProtein, maxProtein, maxCaloriesCoeff = 1.
                     name: `x${index}`,
                     coef: nutrition.protein / 100 // grams/ml
                 })),
-                bnds: { type: glpk.GLP_DB, lb: minProtein, ub: maxProtein }
+                bnds: { type: glpk.GLP_DB, lb: minProteinCoeff * minProtein, ub: maxProtein }
             }
         ],
         bounds: filteredFormulas.map((nutrition, index) => ({
@@ -432,8 +452,16 @@ function calculateNutritionVolumes(minProtein, maxProtein, maxCaloriesCoeff = 1.
 
     console.log(volumes);
 
+    const results = {
+        volumes: volumes,
+        minProtein: minProtein,
+        maxProtein: maxProtein
+    }
+
+    console.log(results);
+
     // Display the result in the UI
-    populateNutritionTableWithResults(volumes);
+    populateNutritionTableWithResults(results);
 
     return true;
 }
