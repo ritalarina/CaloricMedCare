@@ -169,3 +169,15 @@ h1 {
     text-align: center;
     padding-bottom: 20px;
 }
+
+/* Style the difference row */
+#pctDiffRow {
+    font-style: italic;
+    color: #666; /* Light gray color */
+    text-align: right;
+}
+
+/* Red color for differences over 10% */
+#pctDiffRow .high-difference {
+    color: red;
+}
