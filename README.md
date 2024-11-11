@@ -18,9 +18,13 @@
 - **BMR Calculation**: Calculates Basal Metabolic Rate (BMR) using the **Harris-Benedict formula**.
 - **Kcal Requirement**: Calculates daily caloric intake using the **Toronto formula for major burns**.
 - **Protein Requirement**:
-  - 2g protein per kg of body weight for 1-15 days post-trauma.
-  - 1.5g protein per kg of body weight after 15 days.
+  - 1.5-2 g protein per kg of body weight for 1-15 days post-trauma.
+  - 1.2-1.5 g protein per kg of body weight after 15 days.
 - **Nutrition Volume**: Based on patient data, the algorithm selects nutrition formulas and calculates amount of each so that the total calories and proteins fit within 10% of the daily need.
+- **Total Volume**: Total volume of nutrition formulas.
+- **Total Calories**: Total calories provided by the formulas.
+- **Total Protein**: Total protein amount from the formulas.
+- **Difference (%)**: The percentage difference between the calculated totals and the patient’s required intake. Deviations over 10% are highlighted in red.
 
 ### About the algorithm
 To calculate volume of each nutrition needed linear programming is used to minimize total nutrition volume while sticking to certain constraints:
@@ -29,7 +33,8 @@ To calculate volume of each nutrition needed linear programming is used to minim
 - protein powder quantity is limited to a maximum of 15g (educated guess),
 - small drinks with formula are limited to a maximum 3 bottles (600 ml) as per manufactirer instructions,
 - if such calculation is possible then recommended volume of each nutrition will be at least half a smallest package to make it economic, if not, calculation is performed with no lower limits,
-- for each other health condition a patient has, a special nutrition formula is added to the nutrition mix. If calculation becomes impossible, lower bounds are ignored and some nutrition formulas might be skipped.
+- for each other health condition a patient has, a special nutrition formula is added to the nutrition mix. If calculation becomes impossible, lower bounds are ignored and some nutrition formulas might be skipped,
+- if all else fails, protein constraint can be relaxed down to 85% of the minimum protein need and caloric constraint can be relaxed to be a maximum of 125% of caloric need. This happens in rare cases for patients with small total burn area. You will be indormed if this happens
 
 ## Running the app
 ### Option 1. Running the App from a Published Release
@@ -70,4 +75,6 @@ Once the app is running, input the following data to calculate patient caloric n
 This project is licensed under the GPL 3.0 License.
 
 ## Credits
-Icon used in this app is by [Freepik - Flaticon](https://www.flaticon.com/free-icons/nutrient).
+- The app created based on an idea of Larisa Ramoniene and with her help.
+- The app is used and tested by the Latvian National Burn Center (Slimnīca "Biķernieki", Riga, Latvia).
+- Icon used in this app is by [Freepik - Flaticon](https://www.flaticon.com/free-icons/nutrient).

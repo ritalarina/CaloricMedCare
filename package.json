@@ -1,6 +1,6 @@
 {
   "name": "caloricmedcare",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An Electron app to calculate daily caloric need of a patient in a burn ward based on entered patient data.",
   "main": "main.js",
   "scripts": {
