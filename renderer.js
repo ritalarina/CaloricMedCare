@@ -354,8 +354,8 @@ function populateNutritionTableWithResults(results) {
     const caloriesDiffCell = document.getElementById('caloriesDiff');
     const proteinDiffCell = document.getElementById('proteinDiff');
 
-    caloriesDiffCell.textContent = pctDiffCalories > 0 ? '+' + `${Math.round(pctDiffCalories)}%` : '';
-    proteinDiffCell.textContent = pctDiffProtein != 0 ? (pctDiffProtein > 0 ? '+' : '' + `${Math.round(pctDiffProtein)}%`) : '';
+    caloriesDiffCell.textContent = pctDiffCalories === 0 ? '' : (pctDiffCalories > 0 ? '+' : '') + pctDiffCalories + '%';
+    proteinDiffCell.textContent = pctDiffProtein === 0 ? '' : (pctDiffProtein > 0 ? '+' : '') + pctDiffProtein + '%';
 
     // Add red color class if difference exceeds 10%
     caloriesDiffCell.classList.toggle('high-difference', Math.abs(pctDiffCalories) > 10);
