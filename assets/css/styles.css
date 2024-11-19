@@ -1,65 +1,75 @@
-body { 
-	font-family: Arial, 
-	sans-serif; 
-    padding: 20px; 
+body {
+    font-family: Arial,
+        sans-serif;
+    padding: 20px;
 }
 
-input:not([type="checkbox"]), select { 
-	padding: 5px; 
+input:not([type="checkbox"]),
+select {
+    padding: 5px;
 }
 
 .checkbox-container {
     display: flex;
-    align-items: center; /* Center align the items vertically */
-    margin-bottom: 10px; /* Add some space between checkboxes */
+    align-items: center;
+    /* Center align the items vertically */
+    margin-bottom: 10px;
+    /* Add some space between checkboxes */
 }
 
 .checkbox-container input[type="checkbox"] {
-    margin-right: 10px; /* Add space between the checkbox and the label */
+    margin-right: 10px;
+    /* Add space between the checkbox and the label */
 }
 
-.error { 
-	color: red; 
-	font-size: 0.8em; 
+.error {
+    color: red;
+    font-size: 0.8em;
 }
 
 /* Form group layout to align label and input */
 .form-group {
     display: flex;
-	align-items: flex-start; /* Center align the items vertically */
-    margin-bottom: 5px;      /* Add spacing between fields */
+    align-items: flex-start;
+    /* Center align the items vertically */
+    margin-bottom: 5px;
+    /* Add spacing between fields */
 }
 
 .input-error-group {
-	display: flex;
-	flex-direction: column;
-	width: 80%;          /* Set maximum width for all inputs */
-	max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    /* Set maximum width for all inputs */
+    max-width: 200px;
 }
 
 .form-group label {
-    width: 150px;             /* Adjust the label width */
+    width: 150px;
+    /* Adjust the label width */
     margin-right: 15px;
-    text-align: right;        /* Align labels to the right */
-	margin-top: 5px;
+    text-align: right;
+    /* Align labels to the right */
+    margin-top: 5px;
 }
 
 .input-output-container {
-  display: flex;
-  justify-content: space-between; 
-  gap: 20px; 
-  min-height: calc(100vh - 200px); /* Assuming footer height is 60px */
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: calc(100vh - 200px);
+    /* Assuming footer height is 60px */
 }
 
 .output-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center; 
-	width: 45%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
 }
 
 .form-container {
-	width: 45%; 
+    width: 45%;
 }
 
 footer {
@@ -70,21 +80,29 @@ footer {
 }
 
 footer .attribution {
-  font-size: 0.8em;    /* Makes the text smaller */
-  color: #888;         /* Light gray color to make it less prominent */
-  text-align: center;  /* Centers the attribution text */
-  margin-top: 20px;    /* Adds some space at the top */
+    font-size: 0.8em;
+    /* Makes the text smaller */
+    color: #888;
+    /* Light gray color to make it less prominent */
+    text-align: center;
+    /* Centers the attribution text */
+    margin-top: 20px;
+    /* Adds some space at the top */
 }
 
 /* Style the link (so it's also subtle) */
 footer .attribution a {
-  color: #888;         /* Make the link color match the text */
-  text-decoration: none; /* Remove underline from the link */
+    color: #888;
+    /* Make the link color match the text */
+    text-decoration: none;
+    /* Remove underline from the link */
 }
 
 footer .attribution a:hover {
-  color: #555;         /* Slightly darker color on hover */
-  text-decoration: underline; /* Add underline on hover for accessibility */
+    color: #555;
+    /* Slightly darker color on hover */
+    text-decoration: underline;
+    /* Add underline on hover for accessibility */
 }
 
 /* Styles for the nutrition table */
@@ -94,7 +112,8 @@ footer .attribution a:hover {
     margin-top: 20px;
 }
 
-#nutrition-table th, #nutrition-table td {
+#nutrition-table th,
+#nutrition-table td {
     border: 1px solid #ddd;
     padding: 8px;
 }
@@ -173,11 +192,85 @@ h1 {
 /* Style the difference row */
 #pctDiffRow {
     font-style: italic;
-    color: #666; /* Light gray color */
+    color: #666;
+    /* Light gray color */
     text-align: right;
 }
 
 /* Red color for differences over 10% */
 #pctDiffRow .high-difference {
     color: red;
+}
+
+/* Container for results and feeding speed */
+.results-container {
+    display: flex;
+    justify-content: space-between;
+    /* Space between the table and feeding speed section */
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    /* Ensure proper stacking on smaller screens */
+}
+
+/* Nutrition table section */
+.nutrition-table-section {
+    flex: 3;
+    /* Takes up 3/5 of the container */
+}
+
+/* Feeding speed section */
+.feeding-speed-section {
+    flex: 2;
+    /* Takes up 2/5 of the container */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #f9f9f9;
+}
+
+.feeding-speed-section h3 {
+    font-size: 1.25em;
+    color: #333;
+}
+
+#feeding-speed-selector {
+    margin: 10px 0;
+    padding: 5px;
+    font-size: 1em;
+    width: 100%;
+    max-width: 300px;
+}
+
+.selector-description {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.feeding-speed-metrics {
+    margin-top: 15px;
+    display: grid;
+    gap: 10px;
+}
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.metric-label {
+    font-size: 0.95em;
+    color: #444;
+}
+
+.metric-value {
+    font-size: 1em;
+    font-weight: bold;
+    color: #000;
+}
+
+.deficit {
+    color: red;
+    font-size: 0.95em;
 }
