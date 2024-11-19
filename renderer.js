@@ -139,11 +139,6 @@ function validateNumber(id, min, max) {
     const inputElement = document.getElementById(id);
     const errorSpan = document.getElementById(`${id}-error`);
 
-    if (!inputElement || !errorSpan) {
-        console.error(`Element with id "${id}" or error span "${id}-error" not found.`);
-        return null;
-    }
-
     const value = parseFloat(inputElement.value);
 
     if (isNaN(value) || value < min || value > max) {
