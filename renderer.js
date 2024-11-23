@@ -62,6 +62,7 @@ ipcRenderer.on('nutrition-data', (event, data) => {
             if (indication !== "none") {
                 illnessSet.add(indication);
             }
+            illnessSet.add("malnutrition (high refeeding risk)");
         });
 
         // Populate illness checkboxes
