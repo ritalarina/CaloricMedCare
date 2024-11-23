@@ -230,8 +230,8 @@ function calculate() {
         emptyNutritionTable();
         errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
     } else {
-        // Display the result in the UI
-        populateNutritionTableWithResults(results);
+        const totals = getTotals(results);
+        populateNutritionTableWithResults(results, totals);
     }
 
 }
@@ -301,13 +301,8 @@ function getNutritionNameByIllness(illness) {
     }
 }
 
-function populateNutritionTableWithResults(results) {
+function populateNutritionTableWithResults(results, totals) {
     const tableBody = emptyNutritionTable(); // Clear existing rows
-
-    let totalCalories = 0;
-    let totalProtein = 0;
-    let totalLiquidQuantity = 0;
-    let totalPowderQuantity = 0;
 
     results.volumes.forEach(result => {
         if (result.volume > 0) {
@@ -335,43 +330,23 @@ function populateNutritionTableWithResults(results) {
 
             // Append row to table
             tableBody.appendChild(row);
-
-            // Accumulate totals
-            totalCalories += result.calories;
-            totalProtein += result.protein;
-            if (result.nutritionForm === 'powder') {
-                totalPowderQuantity += result.volume;
-            } else {
-                totalLiquidQuantity += result.volume;
-            }
         }
     });
 
-    pctDiffCalories = Math.round(totalCalories * 100 / caloricNeed - 100);
-
-    maxProtein = results.maxProtein;
-    minProtein = results.minProtein;
-    pctDiffProtein = 0;
-    if (totalProtein > maxProtein) {
-        pctDiffProtein = Math.round(totalProtein * 100 / maxProtein - 100);
-    } else if (totalProtein < minProtein) {
-        pctDiffProtein = Math.round(totalProtein * 100 / minProtein - 100);
-    }
-
     // Insert totals into the footer row
-    document.getElementById('totalCalories').textContent = Math.round(totalCalories) + ' kcal';
-    document.getElementById('totalProtein').textContent = Math.round(totalProtein) + ' g';
-    document.getElementById('totalQuantity').innerHTML = Math.round(totalLiquidQuantity) + ' ml' + ((Math.round(totalPowderQuantity) > 0) ? '<br>+<br>' + Math.round(totalPowderQuantity) + ' g' : '');
+    document.getElementById('totalCalories').textContent = Math.round(totals.totalCalories) + ' kcal';
+    document.getElementById('totalProtein').textContent = Math.round(totals.totalProtein) + ' g';
+    document.getElementById('totalQuantity').innerHTML = Math.round(totals.totalLiquidQuantity) + ' ml' + ((Math.round(totals.totalPowderQuantity) > 0) ? '<br>+<br>' + Math.round(totals.totalPowderQuantity) + ' g' : '');
 
     const caloriesDiffCell = document.getElementById('caloriesDiff');
     const proteinDiffCell = document.getElementById('proteinDiff');
 
-    caloriesDiffCell.textContent = pctDiffCalories === 0 ? '' : (pctDiffCalories > 0 ? '+' : '') + pctDiffCalories + '%';
-    proteinDiffCell.textContent = pctDiffProtein === 0 ? '' : (pctDiffProtein > 0 ? '+' : '') + pctDiffProtein + '%';
+    caloriesDiffCell.textContent = totals.pctDiffCalories === 0 ? '' : (totals.pctDiffCalories > 0 ? '+' : '') + totals.pctDiffCalories + '%';
+    proteinDiffCell.textContent = totals.pctDiffProtein === 0 ? '' : (totals.pctDiffProtein > 0 ? '+' : '') + totals.pctDiffProtein + '%';
 
     // Add red color class if difference exceeds 10%
-    caloriesDiffCell.classList.toggle('high-difference', Math.abs(pctDiffCalories) > 10);
-    proteinDiffCell.classList.toggle('high-difference', Math.abs(pctDiffProtein) > 10);
+    caloriesDiffCell.classList.toggle('high-difference', Math.abs(totals.pctDiffCalories) > 10);
+    proteinDiffCell.classList.toggle('high-difference', Math.abs(totals.pctDiffProtein) > 10);
 }
 
 function emptyNutritionTable() {
@@ -469,6 +444,47 @@ function calculateNutritionVolumes(minProtein, maxProtein, minProteinCoeff = 1, 
     console.log(results);
 
     return results;
+}
+
+function getTotals(results) {
+    let totalCalories = 0;
+    let totalProtein = 0;
+    let totalLiquidQuantity = 0;
+    let totalPowderQuantity = 0;
+    let pctDiffProtein = 0;
+
+    results.volumes.forEach(result => {
+        if (result.volume > 0) {
+            totalCalories += result.calories;
+            totalProtein += result.protein;
+            if (result.nutritionForm === 'powder') {
+                totalPowderQuantity += result.volume;
+            } else {
+                totalLiquidQuantity += result.volume;
+            }
+        }
+    });
+
+    const pctDiffCalories = Math.round(totalCalories * 100 / caloricNeed - 100);
+
+    const maxProtein = results.maxProtein;
+    const minProtein = results.minProtein;
+    if (totalProtein > maxProtein) {
+        pctDiffProtein = Math.round(totalProtein * 100 / maxProtein - 100);
+    } else if (totalProtein < minProtein) {
+        pctDiffProtein = Math.round(totalProtein * 100 / minProtein - 100);
+    }
+    
+    const totals = {
+        totalCalories,
+        totalProtein,
+        totalLiquidQuantity,
+        totalPowderQuantity,
+        pctDiffCalories,
+        pctDiffProtein
+    };
+
+    return totals;
 }
 
 
