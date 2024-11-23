@@ -200,32 +200,37 @@ function calculate() {
     filterNutritionFormulas(daysAfterTrauma);
 
     let results = calculateNutritionVolumes(minProtein, maxProtein);
-    const validStatuses = [glpk.GLP_OPT, glpk.GLP_FEAS]
-
-    if (!validStatuses.includes(results.status)) {
-        const newFormulas = nutritionData.filter(nutrition => ["Nutridrink", "Protifar", "Nutrison"].includes(nutrition.name));
-        filteredFormulas.push.apply(filteredFormulas, newFormulas);
-        results = calculateNutritionVolumes(minProtein, maxProtein);
-        if (!validStatuses.includes(results.status)) {
-            results = calculateNutritionVolumes(minProtein, maxProtein, 1, 1, true, false);
-            if (!validStatuses.includes(results.status)) {
-                results = calculateNutritionVolumes(minProtein, maxProtein, 1, 1, true, true);
-                if (!validStatuses.includes(results.status)) {
-                    results = calculateNutritionVolumes(minProtein, maxProtein, 0.9, 1, true, true);
-                    if (!validStatuses.includes(results.status)) {
-                        results = calculateNutritionVolumes(minProtein, maxProtein, 0.9, 1.2, true, true);
-                        if (!validStatuses.includes(results.status)) {
-                            results = calculateNutritionVolumes(minProtein, maxProtein, 0.85, 1.25, true, true);
-                            if (!validStatuses.includes(results.status)) {
-                                emptyNutritionTable();
-                                errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
-                            }
-                        }
-                    }
-                }
-            }
+    const validStatuses = [glpk.GLP_OPT, glpk.GLP_FEAS];
+    const fallbackScenarios = [
+        { newFormulas: ["Nutridrink", "Protifar", "Nutrison"] },
+        { params: [1, 1, true, false] },
+        { params: [1, 1, true, true] },
+        { params: [0.9, 1, true, true] },
+        { params: [0.9, 1.2, true, true] },
+        { params: [0.85, 1.25, true, true] },
+    ];
+    
+    for (const scenario of fallbackScenarios) {
+        if (validStatuses.includes(results.status)) break;
+    
+        if (scenario.newFormulas) {
+            const newFormulas = nutritionData.filter(nutrition =>
+                scenario.newFormulas.includes(nutrition.name)
+            );
+            filteredFormulas.push(...newFormulas);
+        }
+    
+        if (scenario.params) {
+            results = calculateNutritionVolumes(minProtein, maxProtein, ...scenario.params);
         }
     }
+    
+    // Handle failure case
+    if (!validStatuses.includes(results.status)) {
+        emptyNutritionTable();
+        errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
+    }
+    
 }
 
 function calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma) {
@@ -431,11 +436,11 @@ function calculateNutritionVolumes(minProtein, maxProtein, minProteinCoeff = 1, 
 
     if (result.result.status === glpk.GLP_OPT) {
         const volumes = Object.keys(result.result.vars).map((key, index) => {
-            const variable = result.result.vars[key];  
+            const variable = result.result.vars[key];
 
             return {
                 nutrition: filteredFormulas[index].name,
-                volume: variable,  
+                volume: variable,
                 calories: variable * filteredFormulas[index].caloricDensity / 100,
                 protein: variable * filteredFormulas[index].protein / 100,
                 units: (filteredFormulas[index].nutritionForm === 'powder') ? 'g' : 'ml',
