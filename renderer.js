@@ -494,7 +494,14 @@ function getTotals(results) {
 
 function calculateFeedingSpeed(selectedSpeed, totalVolume, totalCalories, totalProtein) {
     let feedingSpeed;
-    if (selectedSpeed === "recommended") feedingSpeed = 70; // Base rate
+    let selectedIllnesses = getSelectedIllnesses();
+    if (selectedSpeed === "recommended") {
+        if (selectedIllnesses.some(illness => illness.includes('malnutrition'))) {  // if option that contains string 'malnutrition is selected
+            feedingSpeed = 25;
+        } else {
+            feedingSpeed = 70;
+        }
+    }
     else feedingSpeed = selectedSpeed;
     const speedFactor = feedingSpeed * 24 / totalVolume;
 
