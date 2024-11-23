@@ -209,28 +209,31 @@ function calculate() {
         { params: [0.9, 1.2, true, true] },
         { params: [0.85, 1.25, true, true] },
     ];
-    
+
     for (const scenario of fallbackScenarios) {
         if (validStatuses.includes(results.status)) break;
-    
+
         if (scenario.newFormulas) {
             const newFormulas = nutritionData.filter(nutrition =>
                 scenario.newFormulas.includes(nutrition.name)
             );
             filteredFormulas.push(...newFormulas);
         }
-    
+
         if (scenario.params) {
             results = calculateNutritionVolumes(minProtein, maxProtein, ...scenario.params);
         }
     }
-    
+
     // Handle failure case
     if (!validStatuses.includes(results.status)) {
         emptyNutritionTable();
         errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
+    } else {
+        // Display the result in the UI
+        populateNutritionTableWithResults(results);
     }
-    
+
 }
 
 function calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma) {
@@ -456,9 +459,6 @@ function calculateNutritionVolumes(minProtein, maxProtein, minProteinCoeff = 1, 
             minProtein: minProtein,
             maxProtein: maxProtein
         }
-
-        // Display the result in the UI
-        populateNutritionTableWithResults(results);
 
     } else {
         results = {
