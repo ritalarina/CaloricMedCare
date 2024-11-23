@@ -8,6 +8,7 @@ Main functionality:
 	- setting for nutrition for various ilnesses as add-on to main nutrition
 - calculate nutrition speed
 	- settings for 24h shift start time
+	- take order of feeding of formulas into account
 
 UI:
 - ~~Make all the input fields aligned and the same size (based on largest necessary).~~
@@ -18,6 +19,8 @@ UI:
 Other:
 - Make nutrition.xml file editable either via direct file edit or from app settings.
 - Add language support.
+- Set up app auto-update.
+- Physical printing of calculation results.
 - calculator if calorimetry is available
 - Unit selection for weight, height, energy (kcal or kJ) in settings.
 - Info about fields/setting on hover
