@@ -15,7 +15,7 @@ let inputsFilled = {
 let caloricNeed;
 let filteredFormulas = [];
 
-const noValidationNeeded = new Set(['illness', 'gender']);
+const noValidationNeeded = new Set(['illness', 'gender', 'feeding-speed-selector']);
 
 ipcRenderer.on('nutrition-data', (event, data) => {
     try {
@@ -184,6 +184,7 @@ function calculate() {
     const gender = document.getElementById('gender').value;
     const height = parseFloat(document.getElementById('height').value);
     const energyIntake = parseFloat(document.getElementById('energy-intake').value);
+    const selectedSpeed = document.getElementById('feeding-speed-selector').value;
 
     const errorSpan = document.getElementById(`nutrition-table-error`);
     errorSpan.textContent = '';
@@ -200,6 +201,7 @@ function calculate() {
     filterNutritionFormulas(daysAfterTrauma);
 
     let results = calculateNutritionVolumes(minProtein, maxProtein);
+    let totals = {};
     const validStatuses = [glpk.GLP_OPT, glpk.GLP_FEAS];
     const fallbackScenarios = [
         { newFormulas: ["Nutridrink", "Protifar", "Nutrison"] },
@@ -230,10 +232,12 @@ function calculate() {
         emptyNutritionTable();
         errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
     } else {
-        const totals = getTotals(results);
+        totals = getTotals(results);
         populateNutritionTableWithResults(results, totals);
     }
 
+
+    calculateFeedingSpeed(selectedSpeed, totals.totalLiquidQuantity + totals.totalPowderQuantity, totals.totalCalories, totals.totalProtein);
 }
 
 function calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma) {
@@ -487,4 +491,29 @@ function getTotals(results) {
     return totals;
 }
 
+function calculateFeedingSpeed(selectedSpeed, totalVolume, totalCalories, totalProtein) {
+    let speedFactor;
+    if (selectedSpeed === "recommended") speedFactor = 1; // Base rate
+    else if (selectedSpeed === "minimum") speedFactor = 0.8; // Slower rate
+    else if (selectedSpeed === "maximum") speedFactor = 1.2; // Faster rate
+
+    const feedingSpeed = Math.round((totalVolume * speedFactor) / 24); // ml/hour
+    const caloriesConsumed = Math.round(totalCalories * speedFactor);
+    const proteinConsumed = Math.round(totalProtein * speedFactor);
+
+    const caloriesDeficit = Math.round(totalCalories - caloriesConsumed);
+    const proteinDeficit = Math.round(totalProtein - proteinConsumed);
+
+    // Update the feeding speed section
+    document.getElementById("feeding-speed-value").textContent = `${feedingSpeed} ml/hour`;
+    document.getElementById("calories-consumed-value").textContent = `${caloriesConsumed} kcal`;
+    document.getElementById("protein-consumed-value").textContent = `${proteinConsumed} g`;
+
+    document.getElementById("calories-deficit-value").textContent = `${caloriesDeficit} kcal`;
+    document.getElementById("protein-deficit-value").textContent = `${proteinDeficit} g`;
+
+    // Highlight deficits if >10%
+    document.getElementById("calories-deficit-value").classList.toggle("deficit", Math.abs(caloriesDeficit) > 0.1 * totalCalories);
+    document.getElementById("protein-deficit-value").classList.toggle("deficit", Math.abs(proteinDeficit) > 0.1 * totalProtein);
+};
 
