@@ -492,12 +492,11 @@ function getTotals(results) {
 }
 
 function calculateFeedingSpeed(selectedSpeed, totalVolume, totalCalories, totalProtein) {
-    let speedFactor;
-    if (selectedSpeed === "recommended") speedFactor = 1; // Base rate
-    else if (selectedSpeed === "minimum") speedFactor = 0.8; // Slower rate
-    else if (selectedSpeed === "maximum") speedFactor = 1.2; // Faster rate
+    let feedingSpeed;
+    if (selectedSpeed === "recommended") feedingSpeed = 70; // Base rate
+    else feedingSpeed = selectedSpeed;
+    const speedFactor = feedingSpeed * 24 / totalVolume;
 
-    const feedingSpeed = Math.round((totalVolume * speedFactor) / 24); // ml/hour
     const caloriesConsumed = Math.round(totalCalories * speedFactor);
     const proteinConsumed = Math.round(totalProtein * speedFactor);
 
