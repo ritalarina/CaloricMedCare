@@ -27,5 +27,6 @@ Other:
 - Adding custom nutrition formula (supplementing nutrition XML)
 - Setting for protein amount per body kg depending on number of days since trauma
 - Saving patient data locally
+- Check entered values after leaving the cell
 
 

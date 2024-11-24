@@ -161,6 +161,7 @@ function getMinValue(id) {
         case 'temperature': return 24;
         case 'height': return 50;
         case 'energy-intake': return 500;
+        case 'enteral-nutrition-day': return 0;
     }
 }
 
@@ -173,6 +174,7 @@ function getMaxValue(id) {
         case 'temperature': return 46;
         case 'height': return 300;
         case 'energy-intake': return 5000;
+        case 'enteral-nutrition-day': return Infinity;
     }
 }
 
@@ -186,6 +188,7 @@ function calculate() {
     const height = parseFloat(document.getElementById('height').value);
     const energyIntake = parseFloat(document.getElementById('energy-intake').value);
     const selectedSpeed = document.getElementById('feeding-speed-selector').value;
+    const enteralNutritionDay = document.getElementById('enteral-nutrition-day').value;
 
     const errorSpan = document.getElementById(`nutrition-table-error`);
     errorSpan.textContent = '';
@@ -238,7 +241,7 @@ function calculate() {
     }
 
 
-    calculateFeedingSpeed(selectedSpeed, totals.totalLiquidQuantity + totals.totalPowderQuantity, totals.totalCalories, totals.totalProtein);
+    calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totals.totalLiquidQuantity + totals.totalPowderQuantity, totals.totalCalories, totals.totalProtein);
 }
 
 function calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma) {
@@ -492,14 +495,15 @@ function getTotals(results) {
     return totals;
 }
 
-function calculateFeedingSpeed(selectedSpeed, totalVolume, totalCalories, totalProtein) {
+function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totalVolume, totalCalories, totalProtein) {
     let feedingSpeed;
     let selectedIllnesses = getSelectedIllnesses();
     if (selectedSpeed === "recommended") {
-        if (selectedIllnesses.some(illness => illness.includes('malnutrition'))) {  // if option that contains string 'malnutrition is selected
+        if (selectedIllnesses.some(illness => illness.includes('malnutrition'))) {  // if option that contains string 'malnutrition' is selected
             feedingSpeed = 25;
         } else {
-            feedingSpeed = 70;
+            if (enteralNutritionDay < 3) feedingSpeed = 50;
+            else feedingSpeed = 80;
         }
     }
     else feedingSpeed = selectedSpeed;
