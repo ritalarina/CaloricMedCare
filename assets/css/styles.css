@@ -40,8 +40,6 @@ select {
     display: flex;
     flex-direction: column;
     width: 80%;
-    /* Set maximum width for all inputs */
-    max-width: 200px;
 }
 
 .form-group label {
@@ -56,20 +54,15 @@ select {
 .input-output-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 40px; 
     min-height: calc(100vh - 200px);
     /* Assuming footer height is 60px */
 }
 
-.output-container {
+.summary-and-nutrition-table {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45%;
-}
-
-.form-container {
-    width: 45%;
 }
 
 footer {
@@ -213,15 +206,9 @@ h1 {
     /* Ensure proper stacking on smaller screens */
 }
 
-/* Nutrition table section */
-.nutrition-table-section {
-    flex: 3;
-    /* Takes up 3/5 of the container */
-}
-
 /* Feeding speed section */
 .feeding-speed-section {
-    flex: 2;
+    /* flex: 2; */
     /* Takes up 2/5 of the container */
     border: 1px solid #ddd;
     border-radius: 5px;

@@ -96,7 +96,7 @@
 			</div>
 		</div>
 
-		<div class="output-container">
+		<div class="summary-and-nutrition-table">
 			<div class="summary-cards">
 				<div class="card">
 					<h3>BMR</h3>
@@ -143,41 +143,41 @@
 				</tfoot>
 			</table>
 			<span id="nutrition-table-error" class="error"></span><br>
+		</div>
 
-			<div class="feeding-speed-section">
-				<h3>Feeding Speed</h3>
-				<label for="feeding-speed-selector">Select Feeding Speed:</label>
-				<select id="feeding-speed-selector">
-					<option value="recommended">Recommended</option>
-					<option value=25>Minimum (25 ml/h)</option>
-					<option value=50>Medium (50 ml/h)</option>
-					<option value=80>Maximum (80 ml/h)</option>
-				</select>
-				<p class="selector-description">
-					Adjust feeding speed based on patient tolerance. Recommended speed balances intake over 24 hours.
-				</p>
+		<div class="feeding-speed-section">
+			<h3>Feeding Speed</h3>
+			<label for="feeding-speed-selector">Select Feeding Speed:</label>
+			<select id="feeding-speed-selector">
+				<option value="recommended">Recommended</option>
+				<option value=25>Minimum (25 ml/h)</option>
+				<option value=50>Medium (50 ml/h)</option>
+				<option value=80>Maximum (80 ml/h)</option>
+			</select>
+			<p class="selector-description">
+				Adjust feeding speed based on patient tolerance. Recommended speed balances intake over 24 hours.
+			</p>
 
-				<div class="feeding-speed-metrics">
-					<div class="metric-row">
-						<span class="metric-label">Feeding Speed:</span>
-						<span id="feeding-speed-value" class="metric-value">0 ml/hour</span>
-					</div>
-					<div class="metric-row">
-						<span class="metric-label">Calories Consumed:</span>
-						<span id="calories-consumed-value" class="metric-value">0 kcal</span>
-					</div>
-					<div class="metric-row">
-						<span class="metric-label">Protein Consumed:</span>
-						<span id="protein-consumed-value" class="metric-value">0 g</span>
-					</div>
-					<div class="metric-row">
-						<span class="metric-label deficit">Calories Not Consumed:</span>
-						<span id="calories-deficit-value" class="metric-value deficit">0 kcal</span>
-					</div>
-					<div class="metric-row">
-						<span class="metric-label deficit">Protein Not Consumed:</span>
-						<span id="protein-deficit-value" class="metric-value deficit">0 g</span>
-					</div>
+			<div class="feeding-speed-metrics">
+				<div class="metric-row">
+					<span class="metric-label">Feeding Speed:</span>
+					<span id="feeding-speed-value" class="metric-value">0 ml/hour</span>
+				</div>
+				<div class="metric-row">
+					<span class="metric-label">Calories Consumed:</span>
+					<span id="calories-consumed-value" class="metric-value">0 kcal</span>
+				</div>
+				<div class="metric-row">
+					<span class="metric-label">Protein Consumed:</span>
+					<span id="protein-consumed-value" class="metric-value">0 g</span>
+				</div>
+				<div class="metric-row">
+					<span class="metric-label deficit">Calories Not Consumed:</span>
+					<span id="calories-deficit-value" class="metric-value deficit">0 kcal</span>
+				</div>
+				<div class="metric-row">
+					<span class="metric-label deficit">Protein Not Consumed:</span>
+					<span id="protein-deficit-value" class="metric-value deficit">0 g</span>
 				</div>
 			</div>
 		</div>
