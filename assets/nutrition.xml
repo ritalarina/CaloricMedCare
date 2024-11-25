@@ -4,6 +4,7 @@
         <name>Nutrison Protein Intense</name>
         <caloricDensity>126</caloricDensity> <!-- kcal/100 ml -->
 		<protein>10</protein> <!-- g/100 ml -->
+		<feedingPriority>3</feedingPriority>
 		<indication>none</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -17,6 +18,7 @@
         <name>Nutrison Advanced Diason</name>
         <caloricDensity>100</caloricDensity> <!-- kcal/100 ml -->
 		<protein>4.3</protein> <!-- g/100 ml -->
+		<feedingPriority>2</feedingPriority>
 		<indication>diabetes</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -29,6 +31,7 @@
         <name>Nutrison Multi Fibre</name>
         <caloricDensity>103</caloricDensity> <!-- kcal/100 ml -->
 		<protein>4</protein> <!-- g/100 ml -->
+		<feedingPriority>2</feedingPriority>
 		<indication>constipation</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -42,6 +45,7 @@
         <name>Nutrison Energy Multi Fibre</name>
         <caloricDensity>153</caloricDensity> <!-- kcal/100 ml -->
 		<protein>6</protein> <!-- g/100 ml -->
+		<feedingPriority>2</feedingPriority>
 		<indication>swelling</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -55,6 +59,7 @@
         <name>Nutrison</name>
         <caloricDensity>100</caloricDensity> <!-- kcal/100 ml -->
 		<protein>4</protein> <!-- g/100 ml -->
+		<feedingPriority>4</feedingPriority>
 		<indication>none</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -68,6 +73,7 @@
         <name>Protifar</name>
         <caloricDensity>368</caloricDensity> <!-- kcal/100 g -->
 		<protein>87.2</protein> <!-- g/100 g -->
+		<feedingPriority>5</feedingPriority>
 		<indication>none</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -81,6 +87,7 @@
         <name>PreOp</name>
         <caloricDensity>50</caloricDensity> <!-- kcal/100 ml -->
 		<protein>0</protein> <!-- g/100 ml -->
+		<feedingPriority>1</feedingPriority>
 		<indication>surgery planned in 24h</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -94,6 +101,7 @@
         <name>Nutridrink</name>
         <caloricDensity>240</caloricDensity> <!-- kcal/100 ml -->
 		<protein>9.6</protein> <!-- g/100 ml -->
+		<feedingPriority>4</feedingPriority>
 		<indication>none</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -106,6 +114,7 @@
         <name>Cubitan</name>
         <caloricDensity>124</caloricDensity> <!-- kcal/100 ml -->
 		<protein>8.8</protein> <!-- g/100 ml -->
+		<feedingPriority>4</feedingPriority>
 		<indication>none</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -118,6 +127,7 @@
         <name>Nutricomp Hepa</name>
         <caloricDensity>132</caloricDensity> <!-- kcal/100 ml -->
 		<protein>4</protein> <!-- g/100 ml -->
+		<feedingPriority>2</feedingPriority>
 		<indication>liver failure</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -130,6 +140,7 @@
         <name>Nutricomp Glutamine+</name>
         <caloricDensity>136</caloricDensity> <!-- kcal/100 ml -->
 		<protein>6.7</protein> <!-- g/100 ml -->
+		<feedingPriority>1</feedingPriority>
 		<indication>none</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -142,6 +153,7 @@
         <name>Nutricomp D</name>
         <caloricDensity>103</caloricDensity> <!-- kcal/100 ml -->
 		<protein>4.1</protein> <!-- g/100 ml -->
+		<feedingPriority>2</feedingPriority>
 		<indication>diabetes</indication>
 		<contraindication>none</contraindication>
 		<packaging>
