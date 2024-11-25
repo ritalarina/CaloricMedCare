@@ -127,10 +127,9 @@
 		<form>liquid</form>
     </nutrition>
 	<nutrition>
-	<!-- this one is a dud for now -->
-        <name>Glutamine+</name>
-        <caloricDensity>120</caloricDensity> <!-- kcal/100 ml -->
-		<protein>6</protein> <!-- g/100 ml -->
+        <name>Nutricomp Glutamine+</name>
+        <caloricDensity>136</caloricDensity> <!-- kcal/100 ml -->
+		<protein>6.7</protein> <!-- g/100 ml -->
 		<indication>none</indication>
 		<contraindication>none</contraindication>
 		<packaging>
@@ -140,10 +139,9 @@
 		<form>liquid</form>
     </nutrition>
 	<nutrition>
-	<!-- this one is a dud for now -->
-        <name>Nutri Combo D</name>
-        <caloricDensity>120</caloricDensity> <!-- kcal/100 ml -->
-		<protein>6</protein> <!-- g/100 ml -->
+        <name>Nutricomp D</name>
+        <caloricDensity>103</caloricDensity> <!-- kcal/100 ml -->
+		<protein>4.1</protein> <!-- g/100 ml -->
 		<indication>diabetes</indication>
 		<contraindication>none</contraindication>
 		<packaging>

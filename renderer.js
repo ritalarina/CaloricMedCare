@@ -272,7 +272,7 @@ function filterNutritionFormulas(daysAfterTrauma) {
     filteredFormulas = [nutritionData.find(nutrition => nutrition.name === "Nutrison Protein Intense")];
 
     if (daysAfterTrauma <= 15) {
-        filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === "Glutamine+"));
+        filteredFormulas.push(nutritionData.find(nutrition => nutrition.name === "Nutricomp Glutamine+"));
     }
 
     selectedIllnesses.forEach(illness => {
