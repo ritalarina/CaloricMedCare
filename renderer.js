@@ -240,7 +240,6 @@ function calculate() {
         populateNutritionTableWithResults(results, totals);
     }
 
-
     calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totals.totalLiquidQuantity + totals.totalPowderQuantity, totals.totalCalories, totals.totalProtein);
 }
 
@@ -436,6 +435,14 @@ function calculateNutritionVolumes(minProtein, maxProtein, minProteinCoeff = 1, 
 
         console.log(volumes);
 
+        // Sort volumes by feedingPriority and then by name in case of ties
+        volumes.sort((a, b) => {
+            if (a.feedingPriority !== b.feedingPriority) {
+                return a.feedingPriority - b.feedingPriority;
+            }
+            return a.nutrition.localeCompare(b.nutrition);
+        });
+
         results = {
             status: result.result.status,
             volumes: volumes,
@@ -482,7 +489,7 @@ function getTotals(results) {
     } else if (totalProtein < minProtein) {
         pctDiffProtein = Math.round(totalProtein * 100 / minProtein - 100);
     }
-    
+
     const totals = {
         totalCalories,
         totalProtein,
@@ -527,4 +534,3 @@ function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totalVolume, 
     document.getElementById("calories-deficit-value").classList.toggle("deficit", Math.abs(caloriesDeficit) > 0.1 * totalCalories);
     document.getElementById("protein-deficit-value").classList.toggle("deficit", Math.abs(proteinDeficit) > 0.1 * totalProtein);
 };
-
