@@ -128,7 +128,7 @@ footer .attribution a:hover {
     text-align: right;
 }
 
-#nutrition-table td:first-child {
+#nutrition-table td:nth-child(2) {
     text-align: left;
 }
 

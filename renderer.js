@@ -311,33 +311,36 @@ function getNutritionNameByIllness(illness) {
 function populateNutritionTableWithResults(results, totals) {
     const tableBody = emptyNutritionTable(); // Clear existing rows
 
-    results.volumes.forEach(result => {
-        if (result.volume > 0) {
-            const row = document.createElement('tr');
+    results.volumes.forEach((result, index) => {
+        const row = document.createElement('tr');
 
-            // Nutrition name
-            const nameCell = document.createElement('td');
-            nameCell.textContent = result.nutrition;
-            row.appendChild(nameCell);
+        // Order of feeding
+        const orderCell = document.createElement('td');
+        orderCell.textContent = index + 1; // Feeding order is unique and starts from 1
+        row.appendChild(orderCell);
 
-            // Required volume
-            const volumeCell = document.createElement('td');
-            volumeCell.textContent = Math.round(result.volume) + ' ' + result.units;
-            row.appendChild(volumeCell);
+        // Nutrition name
+        const nameCell = document.createElement('td');
+        nameCell.textContent = result.nutrition;
+        row.appendChild(nameCell);
 
-            // Provided calories
-            const caloriesCell = document.createElement('td');
-            caloriesCell.textContent = Math.round(result.calories) + ' kcal';
-            row.appendChild(caloriesCell);
+        // Required volume
+        const volumeCell = document.createElement('td');
+        volumeCell.textContent = Math.round(result.volume) + ' ' + result.units;
+        row.appendChild(volumeCell);
 
-            // Provided protein
-            const proteinCell = document.createElement('td');
-            proteinCell.textContent = Math.round(result.protein) + ' g';
-            row.appendChild(proteinCell);
+        // Provided calories
+        const caloriesCell = document.createElement('td');
+        caloriesCell.textContent = Math.round(result.calories) + ' kcal';
+        row.appendChild(caloriesCell);
 
-            // Append row to table
-            tableBody.appendChild(row);
-        }
+        // Provided protein
+        const proteinCell = document.createElement('td');
+        proteinCell.textContent = Math.round(result.protein) + ' g';
+        row.appendChild(proteinCell);
+
+        // Append row to table
+        tableBody.appendChild(row);
     });
 
     // Insert totals into the footer row
@@ -443,9 +446,12 @@ function calculateNutritionVolumes(minProtein, maxProtein, minProteinCoeff = 1, 
             return a.nutrition.localeCompare(b.nutrition);
         });
 
+        // Filter out volumes that are less than or equal to 0
+        const filteredVolumes = volumes.filter(volume => volume.volume > 0);
+
         results = {
             status: result.result.status,
-            volumes: volumes,
+            volumes: filteredVolumes,
             minProtein: minProtein,
             maxProtein: maxProtein
         }
