@@ -240,7 +240,7 @@ function calculate() {
         populateNutritionTableWithResults(results, totals);
     }
 
-    calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totals.totalLiquidQuantity + totals.totalPowderQuantity, totals.totalCalories, totals.totalProtein);
+    calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totals.totalLiquidQuantity + totals.totalPowderQuantity, totals.totalCalories, totals.totalProtein, results);
 }
 
 function calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma) {
@@ -508,7 +508,7 @@ function getTotals(results) {
     return totals;
 }
 
-function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totalVolume, totalCalories, totalProtein) {
+function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totalVolume, totalCalories, totalProtein, results) {
     let feedingSpeed;
     let selectedIllnesses = getSelectedIllnesses();
     if (selectedSpeed === "recommended") {
@@ -520,18 +520,38 @@ function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totalVolume, 
         }
     }
     else feedingSpeed = selectedSpeed;
-    const speedFactor = feedingSpeed * 24 / totalVolume;
+    
+    const volume24h = feedingSpeed * 24;
 
-    const caloriesConsumed = Math.round(totalCalories * speedFactor);
-    const proteinConsumed = Math.round(totalProtein * speedFactor);
+    let volumeFed = 0;
+    let caloriesConsumed = 0;
+    let proteinConsumed = 0;
+
+    // Calculate based on feeding order
+    for (const result of results.volumes) {
+        if (volumeFed + result.volume <= volume24h) {
+            volumeFed += result.volume;
+            caloriesConsumed += result.calories;
+            proteinConsumed += result.protein;
+        } else {
+            const remainingVolume = volume24h - volumeFed;
+            if (remainingVolume > 0) {
+                const fraction = remainingVolume / result.volume;
+                volumeFed += remainingVolume;
+                caloriesConsumed += result.calories * fraction;
+                proteinConsumed += result.protein * fraction;
+            }
+            break;
+        }
+    }
 
     const caloriesDeficit = Math.round(totalCalories - caloriesConsumed);
     const proteinDeficit = Math.round(totalProtein - proteinConsumed);
 
     // Update the feeding speed section
     document.getElementById("feeding-speed-value").textContent = `${feedingSpeed} ml/hour`;
-    document.getElementById("calories-consumed-value").textContent = `${caloriesConsumed} kcal`;
-    document.getElementById("protein-consumed-value").textContent = `${proteinConsumed} g`;
+    document.getElementById("calories-consumed-value").textContent = `${Math.round(caloriesConsumed)} kcal`;
+    document.getElementById("protein-consumed-value").textContent = `${Math.round(proteinConsumed)} g`;
 
     document.getElementById("calories-deficit-value").textContent = `${caloriesDeficit} kcal`;
     document.getElementById("protein-deficit-value").textContent = `${proteinDeficit} g`;
