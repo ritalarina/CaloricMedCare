@@ -557,13 +557,7 @@ function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results) {
 };
 
 function updateProgressBars({volumeFed, caloriesConsumed, proteinConsumed}, {totalVolume, totalCalories, totalProtein}) {
-    console.log(volumeFed);
-    console.log(caloriesConsumed);
-    console.log(proteinConsumed);
-    console.log(totalVolume);
-    console.log(totalCalories);
-    console.log(totalProtein);
-    const updateBar = (progressBar, value, max, label) => {
+    const updateBar = (progressBar, value, max, label, unit) => {
         progressBar.value = Math.min(value, max);
         progressBar.max = max;
         progressBar.className = ""; // Reset class
@@ -572,27 +566,32 @@ function updateProgressBars({volumeFed, caloriesConsumed, proteinConsumed}, {tot
         } else {
             progressBar.classList.add("incomplete");
         }
-        label.textContent = `${Math.round(value)} / ${Math.round(max)}`;
+        label.textContent = `${Math.round(value)} / ${Math.round(max)} ${unit}`;
     };
 
     updateBar(
         document.getElementById("volume-progress-bar"),
         volumeFed,
         totalVolume,
-        document.getElementById("volume-values")
+        document.getElementById("volume-values"),
+        'ml'
     );
 
     updateBar(
         document.getElementById("calories-progress-bar"),
         caloriesConsumed,
         totalCalories,
-        document.getElementById("calories-values")
+        document.getElementById("calories-values"),
+        'kcal'
     );
 
     updateBar(
         document.getElementById("protein-progress-bar"),
         proteinConsumed,
         totalProtein,
-        document.getElementById("protein-values")
+        document.getElementById("protein-values"),
+        'g'
     );
+
+    
 }
