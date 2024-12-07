@@ -238,9 +238,10 @@ function calculate() {
     } else {
         totals = getTotals(results);
         populateNutritionTableWithResults(results, totals);
-    }
 
-    calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totals.totalLiquidQuantity + totals.totalPowderQuantity, totals.totalCalories, totals.totalProtein, results);
+        const totalsWithGivenFeedingSpeed = calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results);
+        updateProgressBars(totalsWithGivenFeedingSpeed, totals);
+    }
 }
 
 function calculateCalories(burns, energyIntake, bmr, temperature, daysAfterTrauma) {
@@ -497,18 +498,19 @@ function getTotals(results) {
     }
 
     const totals = {
-        totalCalories,
-        totalProtein,
-        totalLiquidQuantity,
-        totalPowderQuantity,
-        pctDiffCalories,
-        pctDiffProtein
+        totalCalories: totalCalories,
+        totalProtein: totalProtein,
+        totalLiquidQuantity: totalLiquidQuantity,
+        totalPowderQuantity: totalPowderQuantity,
+        totalVolume: totalLiquidQuantity + totalPowderQuantity,
+        pctDiffCalories: pctDiffCalories,
+        pctDiffProtein:  pctDiffProtein
     };
 
     return totals;
 }
 
-function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totalVolume, totalCalories, totalProtein, results) {
+function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results) {
     let feedingSpeed;
     let selectedIllnesses = getSelectedIllnesses();
     if (selectedSpeed === "recommended") {
@@ -545,18 +547,52 @@ function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, totalVolume, 
         }
     }
 
-    const caloriesDeficit = Math.round(totalCalories - caloriesConsumed);
-    const proteinDeficit = Math.round(totalProtein - proteinConsumed);
+    const totalsWithGivenFeedingSpeed = {
+        volumeFed: volumeFed,
+        caloriesConsumed: caloriesConsumed,
+        proteinConsumed: proteinConsumed
+    }
 
-    // Update the feeding speed section
-    document.getElementById("feeding-speed-value").textContent = `${feedingSpeed} ml/hour`;
-    document.getElementById("calories-consumed-value").textContent = `${Math.round(caloriesConsumed)} kcal`;
-    document.getElementById("protein-consumed-value").textContent = `${Math.round(proteinConsumed)} g`;
-
-    document.getElementById("calories-deficit-value").textContent = `${caloriesDeficit} kcal`;
-    document.getElementById("protein-deficit-value").textContent = `${proteinDeficit} g`;
-
-    // Highlight deficits if >10%
-    document.getElementById("calories-deficit-value").classList.toggle("deficit", Math.abs(caloriesDeficit) > 0.1 * totalCalories);
-    document.getElementById("protein-deficit-value").classList.toggle("deficit", Math.abs(proteinDeficit) > 0.1 * totalProtein);
+    return totalsWithGivenFeedingSpeed
 };
+
+function updateProgressBars({volumeFed, caloriesConsumed, proteinConsumed}, {totalVolume, totalCalories, totalProtein}) {
+    console.log(volumeFed);
+    console.log(caloriesConsumed);
+    console.log(proteinConsumed);
+    console.log(totalVolume);
+    console.log(totalCalories);
+    console.log(totalProtein);
+    const updateBar = (progressBar, value, max, label) => {
+        progressBar.value = Math.min(value, max);
+        progressBar.max = max;
+        progressBar.className = ""; // Reset class
+        if (value >= 0.9 * max && value <= 1.1 * max) {
+            progressBar.classList.add("complete");
+        } else {
+            progressBar.classList.add("incomplete");
+        }
+        label.textContent = `${Math.round(value)} / ${Math.round(max)}`;
+    };
+
+    updateBar(
+        document.getElementById("volume-progress-bar"),
+        volumeFed,
+        totalVolume,
+        document.getElementById("volume-values")
+    );
+
+    updateBar(
+        document.getElementById("calories-progress-bar"),
+        caloriesConsumed,
+        totalCalories,
+        document.getElementById("calories-values")
+    );
+
+    updateBar(
+        document.getElementById("protein-progress-bar"),
+        proteinConsumed,
+        totalProtein,
+        document.getElementById("protein-values")
+    );
+}

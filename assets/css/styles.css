@@ -261,3 +261,38 @@ h1 {
     color: red;
     font-size: 0.95em;
 }
+
+#progress-bars-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+progress {
+    flex: 1;
+    height: 20px;
+    appearance: none;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+progress::-webkit-progress-value {
+    background-color: #76c7c0; /* Default color */
+}
+
+progress.complete::-webkit-progress-value {
+    background-color: #4caf50; /* Green for completed */
+}
+
+progress.incomplete::-webkit-progress-value {
+    background-color: #f44336; /* Red for incomplete */
+}

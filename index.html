@@ -162,25 +162,22 @@
 			</p>
 
 			<div class="feeding-speed-metrics">
-				<div class="metric-row">
-					<span class="metric-label">Feeding Speed:</span>
-					<span id="feeding-speed-value" class="metric-value">0 ml/hour</span>
-				</div>
-				<div class="metric-row">
-					<span class="metric-label">Calories Consumed:</span>
-					<span id="calories-consumed-value" class="metric-value">0 kcal</span>
-				</div>
-				<div class="metric-row">
-					<span class="metric-label">Protein Consumed:</span>
-					<span id="protein-consumed-value" class="metric-value">0 g</span>
-				</div>
-				<div class="metric-row">
-					<span class="metric-label deficit">Calories Not Consumed:</span>
-					<span id="calories-deficit-value" class="metric-value deficit">0 kcal</span>
-				</div>
-				<div class="metric-row">
-					<span class="metric-label deficit">Protein Not Consumed:</span>
-					<span id="protein-deficit-value" class="metric-value deficit">0 g</span>
+				<div id="progress-bars-section">
+					<div class="progress-bar-container">
+						<span>Volume:</span>
+						<progress id="volume-progress-bar" value="0" max="100"></progress>
+						<span id="volume-values"></span>
+					</div>
+					<div class="progress-bar-container">
+						<span>Calories:</span>
+						<progress id="calories-progress-bar" value="0" max="100"></progress>
+						<span id="calories-values"></span>
+					</div>
+					<div class="progress-bar-container">
+						<span>Protein:</span>
+						<progress id="protein-progress-bar" value="0" max="100"></progress>
+						<span id="protein-values"></span>
+					</div>
 				</div>
 			</div>
 		</div>
