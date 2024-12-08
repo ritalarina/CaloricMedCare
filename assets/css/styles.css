@@ -27,6 +27,11 @@ select {
     font-size: 0.8em;
 }
 
+.form-container {
+    flex: 1.2; /* Form takes less space */
+    max-width: 410px; /* Optional: Limit form's maximum width */
+}
+
 /* Form group layout to align label and input */
 .form-group {
     display: flex;
@@ -61,6 +66,7 @@ select {
 
 .summary-and-nutrition-table {
     display: flex;
+    flex: 2;
     flex-direction: column;
     align-items: center;
 }
@@ -208,8 +214,7 @@ h1 {
 
 /* Feeding speed section */
 .feeding-speed-section {
-    /* flex: 2; */
-    /* Takes up 2/5 of the container */
+    flex: 1.1;
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
