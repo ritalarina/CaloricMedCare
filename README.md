@@ -75,6 +75,7 @@ Once the app is running, input the following data to calculate patient caloric n
    - volume, calories and protein patient is going to consume at recommended feeding speed.
 
 ## Contributing
+- Have questions or ideas? Join our [Telegram Channel](https://t.me/+gHYkZ2fRgeBmNmE0) to discuss with the community!
 - Check out the [TODO](https://github.com/ritalarina/caloricmedcare/blob/master/TODO.md) file to see what's planned.
 - If you want to contribute to this project, feel free to open issues or submit pull requests.
 - I am currently working using GitHub Flow method (master and feature branches), so if you want to make a feature, make a new branch and when ready merge it back to master.
