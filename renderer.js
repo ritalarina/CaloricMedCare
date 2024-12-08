@@ -379,6 +379,11 @@ function emptyFeedingSpeedResults() {
     progressBarIds.forEach(id => {
         document.getElementById(id).value = 0;
     });
+
+    const progressBarLabelsIds = ['volume-values', 'calories-values', 'protein-values'];
+    progressBarLabelsIds.forEach(id => {
+        document.getElementById(id).textContent = "";
+    });
 }
 
 function calculateNutritionVolumes(minProtein, maxProtein, minProteinCoeff = 1, maxCaloriesCoeff = 1, ignoreSomeLimits = false, ignoreAllLimits = false) {
