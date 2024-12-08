@@ -234,34 +234,6 @@ h1 {
     color: #555;
 }
 
-.feeding-speed-metrics {
-    margin-top: 15px;
-    display: grid;
-    gap: 10px;
-}
-
-.metric-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.metric-label {
-    font-size: 0.95em;
-    color: #444;
-}
-
-.metric-value {
-    font-size: 1em;
-    font-weight: bold;
-    color: #000;
-}
-
-.deficit {
-    color: red;
-    font-size: 0.95em;
-}
-
 #progress-bars-section {
     margin-top: 20px;
     display: flex;
