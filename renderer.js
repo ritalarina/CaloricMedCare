@@ -535,7 +535,7 @@ function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results) {
     if (selectedIllnesses.some(illness => illness.includes('malnutrition'))) {  // if option that contains string 'malnutrition' is selected
         recommendedFeedingSpeed = (enteralNutritionDay < 3) ? feedingSpeed = 25 : ((enteralNutritionDay < 6) ? 50 : 80);
     } else {
-        recommendedFeedingSpeed = (enteralNutritionDay < 3) ? feedingSpeed = 50 : 80;
+        recommendedFeedingSpeed = (enteralNutritionDay < 1) ? feedingSpeed = 50 : 80;
     }
 
     feedingSpeed = (selectedSpeed === "recommended") ? recommendedFeedingSpeed : selectedSpeed;
