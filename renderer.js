@@ -146,6 +146,7 @@ function validateNumber(id, min, max) {
         errorSpan.textContent = `Value must be between ${min} and ${max}`;
         emptyNutritionTable();
         emptyFeedingSpeedResults();
+        restoreRecommendedSpeedOptionText()
         return null;
     } else {
         errorSpan.textContent = '';
@@ -236,6 +237,7 @@ function calculate() {
     if (!validStatuses.includes(results.status)) {
         emptyNutritionTable();
         emptyFeedingSpeedResults();
+        restoreRecommendedSpeedOptionText();
         errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
     } else {
         totals = getTotals(results);
@@ -243,6 +245,7 @@ function calculate() {
 
         const totalsWithGivenFeedingSpeed = calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results);
         updateProgressBars(totalsWithGivenFeedingSpeed, totals);
+        updateRecommendedSpeedOptionText(totalsWithGivenFeedingSpeed);
     }
 }
 
@@ -518,7 +521,7 @@ function getTotals(results) {
         totalPowderQuantity: totalPowderQuantity,
         totalVolume: totalLiquidQuantity + totalPowderQuantity,
         pctDiffCalories: pctDiffCalories,
-        pctDiffProtein:  pctDiffProtein
+        pctDiffProtein: pctDiffProtein
     };
 
     return totals;
@@ -526,17 +529,17 @@ function getTotals(results) {
 
 function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results) {
     let feedingSpeed;
+    let recommendedFeedingSpeed;
     let selectedIllnesses = getSelectedIllnesses();
-    if (selectedSpeed === "recommended") {
-        if (selectedIllnesses.some(illness => illness.includes('malnutrition'))) {  // if option that contains string 'malnutrition' is selected
-            feedingSpeed = 25;
-        } else {
-            if (enteralNutritionDay < 3) feedingSpeed = 50;
-            else feedingSpeed = 80;
-        }
-    }
-    else feedingSpeed = selectedSpeed;
     
+    if (selectedIllnesses.some(illness => illness.includes('malnutrition'))) {  // if option that contains string 'malnutrition' is selected
+        recommendedFeedingSpeed = 25;
+    } else {
+        recommendedFeedingSpeed = (enteralNutritionDay < 3) ? feedingSpeed = 50 : 80;
+    }
+
+    feedingSpeed = (selectedSpeed === "recommended") ? recommendedFeedingSpeed : selectedSpeed;
+
     const volume24h = feedingSpeed * 24;
 
     let volumeFed = 0;
@@ -564,13 +567,14 @@ function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results) {
     const totalsWithGivenFeedingSpeed = {
         volumeFed: volumeFed,
         caloriesConsumed: caloriesConsumed,
-        proteinConsumed: proteinConsumed
+        proteinConsumed: proteinConsumed,
+        recommendedFeedingSpeed: recommendedFeedingSpeed
     }
 
     return totalsWithGivenFeedingSpeed
 };
 
-function updateProgressBars({volumeFed, caloriesConsumed, proteinConsumed}, {totalVolume, totalCalories, totalProtein}) {
+function updateProgressBars({ volumeFed, caloriesConsumed, proteinConsumed }, { totalVolume, totalCalories, totalProtein }) {
     const updateBar = (progressBar, value, max, label, unit) => {
         progressBar.value = Math.min(value, max);
         progressBar.max = max;
@@ -606,6 +610,15 @@ function updateProgressBars({volumeFed, caloriesConsumed, proteinConsumed}, {tot
         document.getElementById("protein-values"),
         'g'
     );
+}
 
-    
+function updateRecommendedSpeedOptionText({ recommendedFeedingSpeed }) {
+    const recommendedOption = document.getElementById("recommended-option");
+    if (recommendedOption) {
+        recommendedOption.textContent = `Recommended (${recommendedFeedingSpeed} ml/h)`;
+    }
+}
+
+function restoreRecommendedSpeedOptionText() {
+    document.getElementById("recommended-option").textContent = "Recommended"
 }
