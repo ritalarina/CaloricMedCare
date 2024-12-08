@@ -145,6 +145,7 @@ function validateNumber(id, min, max) {
     if (isNaN(value) || value < min || value > max) {
         errorSpan.textContent = `Value must be between ${min} and ${max}`;
         emptyNutritionTable();
+        emptyFeedingSpeedResults();
         return null;
     } else {
         errorSpan.textContent = '';
@@ -234,6 +235,7 @@ function calculate() {
     // Handle failure case
     if (!validStatuses.includes(results.status)) {
         emptyNutritionTable();
+        emptyFeedingSpeedResults();
         errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
     } else {
         totals = getTotals(results);
@@ -370,6 +372,13 @@ function emptyNutritionTable() {
     });
 
     return tableBody;
+}
+
+function emptyFeedingSpeedResults() {
+    const progressBarIds = ['volume-progress-bar', 'calories-progress-bar', 'protein-progress-bar'];
+    progressBarIds.forEach(id => {
+        document.getElementById(id).value = 0;
+    });
 }
 
 function calculateNutritionVolumes(minProtein, maxProtein, minProteinCoeff = 1, maxCaloriesCoeff = 1, ignoreSomeLimits = false, ignoreAllLimits = false) {
@@ -561,7 +570,7 @@ function updateProgressBars({volumeFed, caloriesConsumed, proteinConsumed}, {tot
         progressBar.value = Math.min(value, max);
         progressBar.max = max;
         progressBar.className = ""; // Reset class
-        if (value >= 0.9 * max && value <= 1.1 * max) {
+        if (value >= 0.9 * max) {
             progressBar.classList.add("complete");
         } else {
             progressBar.classList.add("incomplete");
