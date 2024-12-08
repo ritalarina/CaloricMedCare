@@ -30,6 +30,7 @@ select {
 .form-container {
     flex: 1.2; /* Form takes less space */
     max-width: 410px; /* Optional: Limit form's maximum width */
+    min-width: 300px;
 }
 
 /* Form group layout to align label and input */
@@ -215,6 +216,7 @@ h1 {
 /* Feeding speed section */
 .feeding-speed-section {
     flex: 1.1;
+    min-width: 300px;
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
