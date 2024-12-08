@@ -285,3 +285,10 @@ progress.incomplete::-webkit-progress-value {
     font-weight: bold;
     pointer-events: none; /* Prevent text from interfering with user interactions */
 }
+
+.progress-label {
+    flex: 0 0 80px; /* Fixed width for labels */
+    text-align: right; /* Align text to the right */
+    font-size: 0.9em; /* Optional: Adjust font size for labels */
+    color: #333; /* Optional: Set color for labels */
+}
