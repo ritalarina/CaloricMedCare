@@ -11,8 +11,10 @@
   - **Body Temperature** (in °C, precision up to 0.1°C)
   - **Total Burn Surface Area** (1-100%)
   - **Days Since Trauma** (0 or more days)
+  - **Enteral nutrition day** (0 or more days)
   - **Energy Intake** (500-5000 kcal)
   - **Other Conditions** (multiple-choice options)
+  - **Feeding speed** (will recommend speed by default, other options are 25 ml/h, 50 ml/h, 80 ml/h)
 
 ## Output
 - **BMR Calculation**: Calculates Basal Metabolic Rate (BMR) using the **Harris-Benedict formula**.
@@ -20,11 +22,15 @@
 - **Protein Requirement**:
   - 1.5-2 g protein per kg of body weight for 1-15 days post-trauma.
   - 1.2-1.5 g protein per kg of body weight after 15 days.
-- **Nutrition Volume**: Based on patient data, the algorithm selects nutrition formulas and calculates amount of each so that the total calories and proteins fit within 10% of the daily need.
+- **Nutrition Volume**: Based on patient data, the algorithm selects nutrition formulas, determines their feeding order and calculates amount of each so that the total calories and proteins fit within 10% of the daily need.
 - **Total Volume**: Total volume of nutrition formulas.
 - **Total Calories**: Total calories provided by the formulas.
 - **Total Protein**: Total protein amount from the formulas.
 - **Difference (%)**: The percentage difference between the calculated totals and the patient’s required intake. Deviations over 10% are highlighted in red.
+- **Recommended Feeding Speed**: Selected based on enteral nutrition day and presence of malnutrition. Can be changed to other feeding speed if needed.
+   - In case of malnutrtion, recommended feeding speed will be 25 ml/h on days 0-2 of enteral nutrition, 50 ml/h on days 3-5 of enteral nutrition and 80 ml/h afterwards.
+   - In other cases recommended feeding speed will be 50 ml/h in the first day of enteral nutritions and 80 ml/h afterwards.
+- **Needs met at chosen feeding speed**: Calculates total volume, protein and calories fed to the patient in 24h at chosen feeding speed taking into account order of feeding.
 
 ### About the algorithm
 To calculate volume of each nutrition needed linear programming is used to minimize total nutrition volume while sticking to certain constraints:
@@ -64,7 +70,9 @@ Once the app is running, input the following data to calculate patient caloric n
    - Basal Metabolic Rate (BMR), 
    - necessary kcal intake during treatment, 
    - protein requirements, 
-   - set of nutrition formulas and their volumes necessary to fulfill necessary daily caloric and protein requirements.
+   - set of nutrition formulas and their volumes necessary to fulfill necessary daily caloric and protein requirements,
+   - recommended feeding speed,
+   - volume, calories and protein patient is going to consume at recommended feeding speed.
 
 ## Contributing
 - Check out the [TODO](https://github.com/ritalarina/caloricmedcare/blob/master/TODO.md) file to see what's planned.
