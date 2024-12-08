@@ -42,6 +42,7 @@ ipcRenderer.on('nutrition-data', (event, data) => {
             const contraindication = nutrition.getElementsByTagName("contraindication")[0].textContent;
             const nutritionForm = nutrition.getElementsByTagName("form")[0].textContent; // Changed to nutritionForm
             const src = nutrition.getElementsByTagName("src")[0].textContent;
+            const feedingPriority = nutrition.getElementsByTagName("feedingPriority")[0].textContent;
 
             // Get packaging volumes
             const volumes = Array.from(nutrition.getElementsByTagName("volume")).map(vol => parseInt(vol.textContent));
@@ -55,7 +56,8 @@ ipcRenderer.on('nutrition-data', (event, data) => {
                 contraindication,
                 packaging: volumes,
                 nutritionForm,
-                src
+                src,
+                feedingPriority
             });
 
             // Add indications to the Set for unique illness options
@@ -446,15 +448,14 @@ function calculateNutritionVolumes(minProtein, maxProtein, minProteinCoeff = 1, 
 
             return {
                 nutrition: filteredFormulas[index].name,
-                volume: variable,
-                calories: variable * filteredFormulas[index].caloricDensity / 100,
-                protein: variable * filteredFormulas[index].protein / 100,
+                volume: Math.round(variable),
+                calories: Math.round(variable * filteredFormulas[index].caloricDensity / 100),
+                protein: Math.round(variable * filteredFormulas[index].protein / 100),
                 units: (filteredFormulas[index].nutritionForm === 'powder') ? 'g' : 'ml',
-                nutritionForm: filteredFormulas[index].nutritionForm
+                nutritionForm: filteredFormulas[index].nutritionForm,
+                feedingPriority: filteredFormulas[index].feedingPriority
             };
         });
-
-        console.log(volumes);
 
         // Sort volumes by feedingPriority and then by name in case of ties
         volumes.sort((a, b) => {
