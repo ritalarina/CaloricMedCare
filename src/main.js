@@ -12,7 +12,7 @@ function createWindow() {
             nodeIntegration: true,
             contextIsolation: false, // Allow access to Node.js APIs in renderer
         },
-        icon: path.join(__dirname, 'assets/icons/nutrient.ico')
+        icon: path.join(__dirname, '../assets/icons/nutrient.ico')
     });
 
     mainWindow.loadFile('index.html');
@@ -51,7 +51,7 @@ function createWindow() {
 
     // Load the nutrition.xml file when the window is ready
     mainWindow.webContents.on('did-finish-load', () => {
-        const nutritionFilePath = path.join(__dirname, 'assets/nutrition.xml');
+        const nutritionFilePath = path.join(__dirname, '../assets/nutrition.xml');
         fs.readFile(nutritionFilePath, 'utf8', (err, data) => {
             if (err) {
                 console.error("Error reading nutrition.xml file", err);
