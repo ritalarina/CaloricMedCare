@@ -15,7 +15,7 @@ function createWindow() {
         icon: path.join(__dirname, 'assets/icons/nutrient.ico')
     });
 
-    mainWindow.loadFile('index.html');
+    mainWindow.loadFile('src/renderer/index.html');
 
     const template = [
         {
