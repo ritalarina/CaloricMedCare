@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu} = require('electron');
+const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const fs = require('fs');
 const path = require('path');
 
@@ -28,6 +28,20 @@ function createWindow() {
                     }
                 },
                 { role: "quit" }
+            ]
+        },
+        {
+            label: "View",
+            submenu: [
+                { role: "reload" },
+                { role: "forceReload" },
+                {
+                    label: "Toggle Developer Tools",
+                    accelerator: "Ctrl+Shift+I", // Shortcut key
+                    click: () => {
+                        mainWindow.webContents.toggleDevTools();
+                    }
+                }
             ]
         }
     ];
