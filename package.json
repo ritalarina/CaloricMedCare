@@ -21,7 +21,7 @@
     "productName": "CaloricMedCare",
     "win": {
       "target": "nsis",
-      "icon": "assets/icons/nutrient.ico"
+      "icon": "src/assets/icons/nutrient.ico"
     },
     "directories": {
       "output": "release-builds"

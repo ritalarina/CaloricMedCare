@@ -12,7 +12,7 @@ function createWindow() {
             nodeIntegration: true,
             contextIsolation: false, // Allow access to Node.js APIs in renderer
         },
-        icon: path.join(__dirname, '../assets/icons/nutrient.ico')
+        icon: path.join(__dirname, 'assets/icons/nutrient.ico')
     });
 
     mainWindow.loadFile('index.html');
