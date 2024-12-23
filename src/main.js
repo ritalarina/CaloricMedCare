@@ -1,6 +1,11 @@
-const { app, BrowserWindow, ipcMain, Menu } = require('electron');
-const fs = require('fs');
-const path = require('path');
+import { app, BrowserWindow, ipcMain, Menu } from 'electron';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+// Define __filename and __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let mainWindow;
 

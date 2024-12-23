@@ -1,6 +1,7 @@
 const { ipcRenderer } = require('electron');
 const GLPK = require('glpk.js');
 const glpk = GLPK();
+import { loadSettingsModal } from './modals/settings-modal.js';
 
 let nutritionData = [];
 let inputsFilled = {
@@ -95,24 +96,7 @@ ipcRenderer.on('nutrition-data', (event, data) => {
 });
 
 ipcRenderer.on('load-modal', (event, modalFile) => {
-    fetch(modalFile)
-        .then(response => response.text())
-        .then(html => {
-            const modalContainer = document.createElement('div');
-            modalContainer.innerHTML = html;
-            document.body.appendChild(modalContainer);
-
-            // Display the modal
-            const modal = modalContainer.querySelector('#settings-modal');
-            modal.style.display = 'block';
-
-            // Add close behavior
-            modalContainer.querySelector('#close-settings').addEventListener('click', () => {
-                modal.style.display = 'none';
-                modalContainer.remove();
-            });
-        })
-        .catch(err => console.error('Error loading modal:', err));
+    loadSettingsModal(modalFile);
 });
 
 document.querySelectorAll('input, select').forEach(element => {
