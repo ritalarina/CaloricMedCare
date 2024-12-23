@@ -24,7 +24,7 @@ function createWindow() {
                 {
                     label: "Settings",
                     click: () => {
-                        mainWindow.webContents.send('open-settings-modal');
+                        mainWindow.webContents.send('load-modal', 'settings-modal.html');
                     }
                 },
                 { role: "quit" }

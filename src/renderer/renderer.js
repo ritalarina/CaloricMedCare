@@ -94,6 +94,27 @@ ipcRenderer.on('nutrition-data', (event, data) => {
     }
 });
 
+ipcRenderer.on('load-modal', (event, modalFile) => {
+    fetch(modalFile)
+        .then(response => response.text())
+        .then(html => {
+            const modalContainer = document.createElement('div');
+            modalContainer.innerHTML = html;
+            document.body.appendChild(modalContainer);
+
+            // Display the modal
+            const modal = modalContainer.querySelector('#settings-modal');
+            modal.style.display = 'block';
+
+            // Add close behavior
+            modalContainer.querySelector('#close-settings').addEventListener('click', () => {
+                modal.style.display = 'none';
+                modalContainer.remove();
+            });
+        })
+        .catch(err => console.error('Error loading modal:', err));
+});
+
 document.querySelectorAll('input, select').forEach(element => {
     element.addEventListener('input', handleInputChange);
     element.addEventListener('change', handleInputChange);
@@ -532,7 +553,7 @@ function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results) {
     let feedingSpeed;
     let recommendedFeedingSpeed;
     let selectedIllnesses = getSelectedIllnesses();
-    
+
     if (selectedIllnesses.some(illness => illness.includes('malnutrition'))) {  // if option that contains string 'malnutrition' is selected
         recommendedFeedingSpeed = (enteralNutritionDay < 3) ? feedingSpeed = 25 : ((enteralNutritionDay < 6) ? 50 : 80);
     } else {
