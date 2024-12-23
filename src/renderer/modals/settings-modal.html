@@ -27,21 +27,6 @@
             </div>
         </div>
     </div>
-    <script>
-        // Modal close behavior
-        document.getElementById('close-settings').addEventListener('click', () => {
-            const modal = document.getElementById('settings-modal');
-            modal.style.display = 'none';
-            modal.remove(); // Remove from DOM after closing
-        });
-
-        // Save settings logic
-        document.getElementById('save-settings').addEventListener('click', () => {
-            const defaultLanguage = document.getElementById('default-language').value;
-            localStorage.setItem('defaultLanguage', defaultLanguage);
-            alert('Settings saved!');
-        });
-    </script>
 </body>
 
 </html>
