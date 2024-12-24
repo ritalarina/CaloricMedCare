@@ -31,6 +31,7 @@ function attachEventListeners(modalContainer, modal) {
         saveButton.addEventListener('click', () => {
             const defaultLanguage = modalContainer.querySelector('#default-language').value;
             localStorage.setItem('defaultLanguage', defaultLanguage);
+            setLanguage(defaultLanguage);
             modal.style.display = 'none';
             modalContainer.remove();
         });
