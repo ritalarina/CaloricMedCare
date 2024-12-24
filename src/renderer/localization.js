@@ -13,8 +13,21 @@ export function getLanguage() {
     return currentLanguage;
 }
 
-export function translate(key) {
-    return translations[key] || key; // Fallback to key if translation is missing
+/**
+ * Generic translation function with support for nested keys and parameters
+ * @param {string} key - Translation key, e.g., "menu.home" or "units.kcal".
+ * @param {object} [params={}] - Optional parameters for dynamic strings.
+ * @returns {string} Translated text or the key if not found.
+ */
+export function translate(key, params = {}) {
+    const translation = key.split('.').reduce((obj, k) => (obj && obj[k] !== undefined) ? obj[k] : null, translations);
+    if (!translation) return key; // Fallback to key if not found
+
+    // Replace placeholders in the translation string
+    return Object.keys(params).reduce(
+        (text, param) => text.replace(`{${param}}`, params[param]),
+        translation
+    );
 }
 
 export function loadTranslations(lang = 'en') {
@@ -31,8 +44,8 @@ export function loadTranslations(lang = 'en') {
 export function applyTranslations() {
     document.querySelectorAll('[data-lang]').forEach(element => {
         const key = element.getAttribute('data-lang');
-        if (translations[key]) {
-            element.textContent = translations[key];
+        if (key) {
+            element.textContent = translate(key);
         }
     });
 }

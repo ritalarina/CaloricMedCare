@@ -1,13 +1,20 @@
 {
-    "title": "Burn Patient Nutrition Calculator",
-    "gender": "Gender",
-    "age": "Age",
-    "weight": "Weight (kg)",
-    "height": "Height (cm)",
-    "temperature": "Body Temperature (°C)",
-    "burns": "Total Burn Surface Area (%)",
-    "days-after-trauma": "Days Since Trauma",
-    "enteral-nutrition-day": "Day of enteral nutrition",
-    "energy-intake": "Energy Intake (kcal)",
-    "conditions": "Other conditions"
+    "headings": {
+        "title": "Burn Patient Nutrition Calculator"
+    },
+    "forms": {
+        "fields": {
+            "gender": "Gender",
+            "age": "Age",
+            "weight": "Weight (kg)",
+            "height": "Height (cm)",
+            "temperature": "Body Temperature (°C)",
+            "burns": "Total Burn Surface Area (%)",
+            "days-after-trauma": "Days Since Trauma",
+            "enteral-nutrition-day": "Day of enteral nutrition",
+            "energy-intake": "Energy Intake (kcal)",
+            "conditions": "Other conditions"
+        },
+        "validation": {}
+    }
 }
