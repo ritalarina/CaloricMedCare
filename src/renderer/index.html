@@ -9,12 +9,12 @@
 </head>
 
 <body>
-	<h1>Burn Patient Nutrition Calculator</h1>
+	<h1 data-lang="title"></h1>
 
 	<div class="input-output-container">
 		<div class="form-container">
 			<div class="form-group">
-				<label for="gender">Gender:</label>
+				<label for="gender" data-lang="gender"></label>
 				<div class="input-error-group">
 					<select id="gender">
 						<option value="female">Female</option>
@@ -24,7 +24,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="age">Age:</label>
+				<label for="age" data-lang="age"></label>
 				<div class="input-error-group">
 					<input type="number" id="age" min="0" max="120">
 					<span id="age-error" class="error"></span><br>
@@ -32,7 +32,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="weight">Weight (kg):</label>
+				<label for="weight" data-lang="weight"></label>
 				<div class="input-error-group">
 					<input type="number" id="weight" step="0.1" min="1" max="300">
 					<span id="weight-error" class="error"></span><br>
@@ -40,7 +40,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="height">Height (cm):</label>
+				<label for="height" data-lang="height"></label>
 				<div class="input-error-group">
 					<input type="number" id="height" min="50" max="300">
 					<span id="height-error" class="error"></span><br>
@@ -48,7 +48,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="temperature">Body Temperature (°C):</label>
+				<label for="temperature" data-lang="temperature"></label>
 				<div class="input-error-group">
 					<input type="number" id="temperature" step="0.1">
 					<span id="temperature-error" class="error"></span><br>
@@ -56,7 +56,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="burns">Total Burn Surface Area (%):</label>
+				<label for="burns" data-lang="burns"></label>
 				<div class="input-error-group">
 					<input type="number" id="burns" min="1" max="100">
 					<span id="burns-error" class="error"></span><br>
@@ -64,7 +64,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="days-after-trauma">Days Since Trauma:</label>
+				<label for="days-after-trauma" data-lang="days-after-trauma"></label>
 				<div class="input-error-group">
 					<input type="number" id="days-after-trauma" />
 					<span id="days-after-trauma-error" class="error"></span><br>
@@ -72,7 +72,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="enteral-nutrition-day">Day of enteral nutrition:</label>
+				<label for="enteral-nutrition-day" data-lang="enteral-nutrition-day"></label>
 				<div class="input-error-group">
 					<input type="number" id="enteral-nutrition-day" />
 					<span id="enteral-nutrition-day-error" class="error"></span><br>
@@ -80,7 +80,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="energy-intake">Energy Intake (kcal):</label>
+				<label for="energy-intake" data-lang="energy-intake"></label>
 				<div class="input-error-group">
 					<input type="number" id="energy-intake" min="500" max="5000">
 					<span id="energy-intake-error" class="error"></span><br>
@@ -88,7 +88,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="illnesses-container">Other conditions:</label>
+				<label for="illnesses-container" data-lang="conditions"></label>
 				<div class="input-error-group">
 					<div id="illnesses-container"></div>
 					<span id="illness-error" class="error"></span><br>

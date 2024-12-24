@@ -2,6 +2,7 @@ const { ipcRenderer } = require('electron');
 const GLPK = require('glpk.js');
 const glpk = GLPK();
 import { loadSettingsModal } from './modals/settings-modal.js';
+import { setLanguage, loadTranslations } from './localization.js';
 
 let nutritionData = [];
 let inputsFilled = {
@@ -17,6 +18,12 @@ let caloricNeed;
 let filteredFormulas = [];
 
 const noValidationNeeded = new Set(['illness', 'gender', 'feeding-speed-selector']);
+
+window.addEventListener('DOMContentLoaded', () => {
+    // const preferredLanguage = localStorage.getItem('defaultLanguage') || 'en';
+    const preferredLanguage = 'en';
+    setLanguage(preferredLanguage);
+});
 
 ipcRenderer.on('nutrition-data', (event, data) => {
     try {

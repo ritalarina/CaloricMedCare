@@ -6,8 +6,8 @@
     "height": "Height (cm)",
     "temperature": "Body Temperature (°C)",
     "burns": "Total Burn Surface Area (%)",
-    "days_after_trauma": "Days Since Trauma",
-    "enteral_nutrition_day": "Day of enteral nutrition",
-    "energy_intake": "Energy Intake (kcal)",
+    "days-after-trauma": "Days Since Trauma",
+    "enteral-nutrition-day": "Day of enteral nutrition",
+    "energy-intake": "Energy Intake (kcal)",
     "conditions": "Other conditions"
 }

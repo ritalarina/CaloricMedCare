@@ -1,3 +1,5 @@
+import { setLanguage } from '../localization.js';
+
 export function loadSettingsModal(modalFile) {
     fetch(modalFile)
         .then(response => response.text())
