@@ -1,0 +1,13 @@
+{
+    "title": "Apdeguma pacientu uztura kalkulators",
+    "gender": "Dzimums",
+    "age": "Vecums",
+    "weight": "Svars (kg)",
+    "height": "Augums (cm)",
+    "temperature": "Ķermeņa temperatūra (°C)",
+    "burns": "Apdeguma virsmas kopējā platība (%)",
+    "days-after-trauma": "Dienas pēc traumas",
+    "enteral-nutrition-day": "Enterālās barošanas diena",
+    "energy-intake": "Enerģijas uzņemšana (kcal)",
+    "conditions": "Citi veselības stāvokļi"
+}
