@@ -16,5 +16,20 @@
             "conditions": "Citi veselības stāvokļi"
         },
         "validation": {}
+    },
+    "units": {
+        "energy": {
+            "kcal": "kcal"
+        },
+        "time": {
+            "day": "24 st."
+        },
+        "weight": {
+            "kg": "kg",
+            "g": "g"
+        },
+        "length": {
+            "cm": "cm"
+        }
     }
 }

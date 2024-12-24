@@ -16,5 +16,20 @@
             "conditions": "Другие заболевания"
         },
         "validation": {}
+    },
+    "units": {
+        "energy": {
+            "kcal": "ккал"
+        },
+        "time": {
+            "day": "сутки"
+        },
+        "weight": {
+            "kg": "кг",
+            "g": "г"
+        },
+        "length": {
+            "cm": "см"
+        }
     }
 }

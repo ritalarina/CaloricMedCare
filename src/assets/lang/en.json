@@ -16,5 +16,20 @@
             "conditions": "Other conditions"
         },
         "validation": {}
+    },
+    "units": {
+        "energy": {
+            "kcal": "kcal"
+        },
+        "time": {
+            "day": "24h"
+        },
+        "weight": {
+            "kg": "kg",
+            "g": "g"
+        },
+        "length": {
+            "cm": "cm"
+        }
     }
 }
