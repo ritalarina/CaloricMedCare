@@ -1,6 +1,9 @@
 {
     "headings": {
-        "title": "Burn Patient Nutrition Calculator"
+        "title": "Burn Patient Nutrition Calculator",
+        "bmr": "BMR",
+        "required-calories": "Required Calories",
+        "required-protein": "Required Protein"
     },
     "forms": {
         "fields": {

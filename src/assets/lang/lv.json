@@ -1,6 +1,9 @@
 {
     "headings": {
-        "title": "Apdeguma pacientu uztura kalkulators"
+        "title": "Apdeguma pacientu uztura kalkulators",
+        "bmr": "Pamatvielmaiņa",
+        "required-calories": "Nepieciešama Enerģija",
+        "required-protein": "Nepieciešams Proteīns"
     },
     "forms": {
         "fields": {
@@ -19,7 +22,7 @@
     },
     "units": {
         "energy": {
-            "kcal": "kcal"
+            "kcal": "kkal"
         },
         "time": {
             "day": "24 st."
