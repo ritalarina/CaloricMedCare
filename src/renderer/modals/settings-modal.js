@@ -12,6 +12,12 @@ export function loadSettingsModal(modalFile) {
             const modal = modalContainer.querySelector('#settings-modal');
             modal.style.display = 'block';
 
+            const currentLanguage = localStorage.getItem('defaultLanguage') || 'en';
+            const languageSelect = modalContainer.querySelector('#default-language');
+            if (languageSelect) {
+                languageSelect.value = currentLanguage;
+            }
+
             attachEventListeners(modalContainer, modal);
         })
         .catch(err => console.error('Error loading modal:', err));
