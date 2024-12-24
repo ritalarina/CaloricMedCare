@@ -20,8 +20,7 @@ let filteredFormulas = [];
 const noValidationNeeded = new Set(['illness', 'gender', 'feeding-speed-selector']);
 
 window.addEventListener('DOMContentLoaded', () => {
-    // const preferredLanguage = localStorage.getItem('defaultLanguage') || 'en';
-    const preferredLanguage = 'en';
+    const preferredLanguage = localStorage.getItem('defaultLanguage') || 'en';
     setLanguage(preferredLanguage);
 });
 
