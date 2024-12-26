@@ -42,9 +42,9 @@
         "drop-down-description": "Select Feeding Speed:",
         "drop-down-options": {
             "recommended": "Recommended",
-            "min": "Minimum",
-            "med": "Medium",
-            "max": "Maximum"
+            "min": "Minimum (25 ml/h)",
+            "med": "Medium (50 ml/h)",
+            "max": "Maximum (80 ml/h)"
         },
         "selection-recommendation": "Adjust feeding speed based on patient tolerance.",
         "results-description": "Nutrition met over 24 hours at the selected speed:",

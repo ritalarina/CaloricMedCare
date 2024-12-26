@@ -59,7 +59,8 @@
             "kcal": "kkal"
         },
         "time": {
-            "day": "24 st."
+            "day": "24 st.",
+            "hour": "st."
         },
         "mass": {
             "kg": "kg",
