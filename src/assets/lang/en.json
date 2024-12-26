@@ -2,8 +2,13 @@
     "headings": {
         "title": "Burn Patient Nutrition Calculator",
         "bmr": "BMR",
-        "required-calories": "Required Calories",
-        "required-protein": "Required Protein"
+        "required-calories": "Required Energy",
+        "required-protein": "Required Protein",
+        "order": "Order",
+        "nutrition-name": "Nutrition Name",
+        "required-quantity": "Required Quantity",
+        "provided-calories": "Provided Energy",
+        "provided-protein": "Provided Protein"
     },
     "forms": {
         "fields": {
