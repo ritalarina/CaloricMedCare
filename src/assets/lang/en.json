@@ -28,6 +28,10 @@
                 "required-quantity": "Required Quantity",
                 "provided-calories": "Provided Energy",
                 "provided-protein": "Provided Protein"
+            },
+            "rows": {
+                "total": "Total",
+                "diff": "Difference (%)"
             }
         }
     },

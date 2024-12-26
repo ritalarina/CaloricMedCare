@@ -28,6 +28,10 @@
                 "required-quantity": "Необходимое Количество",
                 "provided-calories": "Поступившая Энергия",
                 "provided-protein": "Поступивший Белок"
+            },
+            "rows": {
+                "total": "Всего",
+                "diff": "Разница (%)"
             }
         }
     },

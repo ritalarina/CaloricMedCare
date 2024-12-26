@@ -28,6 +28,10 @@
                 "required-quantity": "Nepieciešamais Daudzums",
                 "provided-calories": "Nodrošinātā Enerģija",
                 "provided-protein": "Nodrošinātais Proteīns"
+            },
+            "rows": {
+                "total": "Kopā",
+                "diff": "Atšķirība (%)"
             }
         }
     },
