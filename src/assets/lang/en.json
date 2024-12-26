@@ -37,12 +37,30 @@
             }
         }
     },
+    "feeding-speed-block": {
+        "heading": "Feeding Speed",
+        "drop-down-description": "Select Feeding Speed:",
+        "drop-down-options": {
+            "recommended": "Recommended",
+            "min": "Minimum",
+            "med": "Medium",
+            "max": "Maximum"
+        },
+        "selection-recommendation": "Adjust feeding speed based on patient tolerance.",
+        "results-description": "Nutrition met over 24 hours at the selected speed:",
+        "progress-bar-labels": {
+            "volume": "Volume",
+            "energy": "Energy",
+            "protein": "Protein"
+        }
+    },
     "units": {
         "energy": {
             "kcal": "kcal"
         },
         "time": {
-            "day": "24h"
+            "day": "24h",
+            "hour": "h"
         },
         "mass": {
             "kg": "kg",
@@ -50,6 +68,9 @@
         },
         "length": {
             "cm": "cm"
+        },
+        "volume": {
+            "ml": "ml"
         }
     }
 }

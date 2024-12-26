@@ -149,34 +149,34 @@
 		</div>
 
 		<div class="feeding-speed-section">
-			<h3>Feeding Speed</h3>
-			<label for="feeding-speed-selector">Select Feeding Speed:</label>
+			<h3 data-lang="feeding-speed-block.heading"></h3>
+			<label for="feeding-speed-selector" data-lang="feeding-speed-block.drop-down-description">Select Feeding Speed:</label>
 			<select id="feeding-speed-selector">
 				<option id="recommended-option" value="recommended">Recommended</option>
-				<option value=25>Minimum (25 ml/h)</option>
-				<option value=50>Medium (50 ml/h)</option>
-				<option value=80>Maximum (80 ml/h)</option>
+				<option value=25><span data-lang="feeding-speed-block.drop-down-options.min"></span> (25 <span data-lang="units.volume.ml"></span>/<span data-lang="units.time.hour"></span>)</option>
+				<option value=50><span data-lang="feeding-speed-block.drop-down-options.med"></span> (50 <span data-lang="units.volume.ml">/<span data-lang="units.time.hour"></span>)</option>
+				<option value=80><span data-lang="feeding-speed-block.drop-down-options.max"></span> (80 <span data-lang="units.volume.ml">/<span data-lang="units.time.hour"></span>)</option>
 			</select>
-			<p class="description">Adjust feeding speed based on patient tolerance.</p>
+			<p class="description" data-lang="feeding-speed-block.selection-recommendation"></p>
 
 			<div id="progress-bars-section">
-				<p class="description">Nutrition met over 24 hours at the selected speed:</p>
+				<p class="description" data-lang="feeding-speed-block.results-description"></p>
 				<div class="progress-bar-container">
-					<label for="volume-progress-bar" class="progress-label">Volume:</label>
+					<label for="volume-progress-bar" class="progress-label" data-lang="feeding-speed-block.progress-bar-labels.volume"></label>
 					<div class="progress-wrapper">
 						<progress id="volume-progress-bar" value="0" max="100"></progress>
 						<span class="progress-text" id="volume-values"></span>
 					</div>
 				</div>
 				<div class="progress-bar-container">
-					<label for="calories-progress-bar" class="progress-label">Calories:</label>
+					<label for="calories-progress-bar" class="progress-label" data-lang="feeding-speed-block.progress-bar-labels.energy"></label>
 					<div class="progress-wrapper">
 						<progress id="calories-progress-bar" value="0" max="100"></progress>
 						<span class="progress-text" id="calories-values"></span>
 					</div>
 				</div>
 				<div class="progress-bar-container">
-					<label for="protein-progress-bar" class="progress-label">Protein:</label>
+					<label for="protein-progress-bar" class="progress-label" data-lang="feeding-speed-block.progress-bar-labels.protein"></label>
 					<div class="progress-wrapper">
 						<progress id="protein-progress-bar" value="0" max="100"></progress>
 						<span class="progress-text" id="protein-values"></span>

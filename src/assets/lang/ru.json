@@ -37,6 +37,23 @@
             }
         }
     },
+    "feeding-speed-block": {
+        "heading": "Скорость подачи формулы",
+        "drop-down-description": "Выберите скорость:",
+        "drop-down-options": {
+            "recommended": "Рекомендованная",
+            "min": "Минимальная",
+            "med": "Средняя",
+            "max": "Максимальная"
+        },
+        "selection-recommendation": "Регулируйте скорость кормления в зависимости от переносимости пациента.",
+        "results-description": "Питание, обеспеченное за 24 часа при выбранной скорости:",
+        "progress-bar-labels": {
+            "volume": "Объём",
+            "energy": "Энергия",
+            "protein": "Белок"
+        }
+    },
     "units": {
         "energy": {
             "kcal": "ккал"
@@ -50,6 +67,9 @@
         },
         "length": {
             "cm": "см"
+        },
+        "volume": {
+            "ml": "мл"
         }
     }
 }

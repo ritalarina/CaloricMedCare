@@ -37,6 +37,23 @@
             }
         }
     },
+    "feeding-speed-block": {
+        "heading": "Formulas padošanas ātrums",
+        "drop-down-description": "Izvēlieties ātrumu:",
+        "drop-down-options": {
+            "recommended": "Rekomendētā",
+            "min": "Minimālā",
+            "med": "Vidējā",
+            "max": "Maksimālā"
+        },
+        "selection-recommendation": "Pielāgojiet barošanas ātrumu, ņemot verā panesamību.",
+        "results-description": "24 stundās nodrošīnātā barība pie izvēlētā ātruma:",
+        "progress-bar-labels": {
+            "volume": "Apjoms",
+            "energy": "Enerģija",
+            "protein": "Proteīns"
+        }
+    },
     "units": {
         "energy": {
             "kcal": "kkal"
@@ -50,6 +67,9 @@
         },
         "length": {
             "cm": "cm"
+        },
+        "volume": {
+            "ml": "ml"
         }
     }
 }
