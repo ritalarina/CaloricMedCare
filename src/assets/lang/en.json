@@ -1,9 +1,6 @@
 {
     "headings": {
-        "title": "Burn Patient Nutrition Calculator",
-        "bmr": "BMR",
-        "required-calories": "Required Energy",
-        "required-protein": "Required Protein"
+        "title": "Burn Patient Nutrition Calculator"
     },
     "forms": {
         "fields": {
@@ -19,6 +16,11 @@
             "conditions": "Other conditions"
         },
         "validation": {}
+    },
+    "cards": {
+        "bmr": "BMR",
+        "required-calories": "Required Energy",
+        "required-protein": "Required Protein"
     },
     "tables": {
         "nutrition-summary": {

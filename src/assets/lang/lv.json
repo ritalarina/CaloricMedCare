@@ -1,9 +1,6 @@
 {
     "headings": {
-        "title": "Apdeguma pacientu uztura kalkulators",
-        "bmr": "Pamatvielmaiņa",
-        "required-calories": "Nepieciešamā Enerģija",
-        "required-protein": "Nepieciešamais Proteīns"
+        "title": "Apdeguma pacientu uztura kalkulators"
     },
     "forms": {
         "fields": {
@@ -19,6 +16,11 @@
             "conditions": "Citi veselības stāvokļi"
         },
         "validation": {}
+    },
+    "cards": {
+        "bmr": "Pamatvielmaiņa",
+        "required-calories": "Nepieciešamā Enerģija",
+        "required-protein": "Nepieciešamais Proteīns"
     },
     "tables": {
         "nutrition-summary": {
