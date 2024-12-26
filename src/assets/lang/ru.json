@@ -3,12 +3,7 @@
         "title": "Калькулятор питания для ожоговых пациентов",
         "bmr": "Основной Обмен",
         "required-calories": "Необходимая Энергия",
-        "required-protein": "Необходимый Белок",
-        "order": "Порядок",
-        "nutrition-name": "Название формулы",
-        "required-quantity": "Необходимое Количество",
-        "provided-calories": "Поступившая Энергия",
-        "provided-protein": "Поступивший Белок"
+        "required-protein": "Необходимый Белок"
     },
     "forms": {
         "fields": {
@@ -24,6 +19,17 @@
             "conditions": "Другие заболевания"
         },
         "validation": {}
+    },
+    "tables": {
+        "nutrition-summary": {
+            "headers": {
+                "order": "Порядок",
+                "nutrition-name": "Название формулы",
+                "required-quantity": "Необходимое Количество",
+                "provided-calories": "Поступившая Энергия",
+                "provided-protein": "Поступивший Белок"
+            }
+        }
     },
     "units": {
         "energy": {
