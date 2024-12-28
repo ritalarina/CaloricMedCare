@@ -1,8 +1,5 @@
-const { ipcRenderer } = require('electron');
-const GLPK = require('glpk.js');
-const glpk = GLPK();
-import { loadSettingsModal } from './modals/settings-modal.js';
-import { setLanguage, loadTranslations } from './localization.js';
+// import { loadSettingsModal } from './modals/settings-modal.js';
+import { setLanguage } from './localization.js';
 
 let nutritionData = [];
 let inputsFilled = {
@@ -19,12 +16,22 @@ let filteredFormulas = [];
 
 const noValidationNeeded = new Set(['illness', 'gender', 'feeding-speed-selector']);
 
-window.addEventListener('DOMContentLoaded', () => {
+(async () => {
+    const nutritionData = await window.api.getNutritionData();
+    console.log('Nutrition Data:', nutritionData);
+
+    const translations = await window.api.getTranslations('en');
+    console.log('Translations:', translations);
+
+    const glpk = window.api.getGlpkInstance();
+})();
+
+window.addEventListener('DOMContentLoaded', async () => {
     const preferredLanguage = localStorage.getItem('defaultLanguage') || 'en';
-    setLanguage(preferredLanguage);
+    await setLanguage(preferredLanguage);
 });
 
-ipcRenderer.on('nutrition-data', (event, data) => {
+window.api.on('nutrition-data', (data) => {
     try {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data, "application/xml");
@@ -35,13 +42,13 @@ ipcRenderer.on('nutrition-data', (event, data) => {
 
         const illnessSet = new Set(); // Using a Set to avoid duplicate illnesses
 
-        const nutrients = xmlDoc.getElementsByTagName("nutrition");
-        if (nutrients.length === 0) {
+        const xmlNutritionData  = xmlDoc.getElementsByTagName("nutrition");
+        if (xmlNutritionData .length === 0) {
             console.error('No nutrition data found.');
             return;
         } 0
 
-        Array.from(nutrients).forEach(nutrition => {
+        Array.from(xmlNutritionData ).forEach(nutrition => {
             const name = nutrition.getElementsByTagName("name")[0].textContent;
             const caloricDensity = parseFloat(nutrition.getElementsByTagName("caloricDensity")[0].textContent); // kcal per 100 g
             const protein = parseFloat(nutrition.getElementsByTagName("protein")[0].textContent); // g per 100 ml
@@ -71,8 +78,8 @@ ipcRenderer.on('nutrition-data', (event, data) => {
             if (indication !== "none") {
                 illnessSet.add(indication);
             }
-            illnessSet.add("malnutrition (high refeeding risk)");
         });
+        illnessSet.add("malnutrition (high refeeding risk)");
 
         // Populate illness checkboxes
         illnessSet.forEach(indication => {
@@ -101,7 +108,7 @@ ipcRenderer.on('nutrition-data', (event, data) => {
     }
 });
 
-ipcRenderer.on('load-modal', (event, modalFile) => {
+window.api.on('load-modal', (modalFile) => {
     loadSettingsModal(modalFile);
 });
 

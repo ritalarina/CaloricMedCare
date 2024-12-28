@@ -1,10 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-
 let translations = {};
 let currentLanguage = 'en';
 
-export function setLanguage(language) {
+export async function setLanguage(language) {
     currentLanguage = language;
     loadTranslations(language);
 }
@@ -30,14 +27,12 @@ export function translate(key, params = {}) {
     );
 }
 
-export function loadTranslations(lang = 'en') {
-    const filePath = path.join(__dirname, `../assets/lang/${lang}.json`);
+export async function loadTranslations(language = 'en') {
     try {
-        const data = fs.readFileSync(filePath, 'utf8');
-        translations = JSON.parse(data);
-        applyTranslations();
+        translations = await window.api.getTranslations(language);
+        applyTranslations(translations);
     } catch (err) {
-        console.error(`Error loading translations for ${lang}:`, err);
+        console.error(`Error loading translations for ${language}:`, err);
     }
 }
 
