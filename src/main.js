@@ -64,6 +64,8 @@ function createWindow() {
 // Handle data requests from renderer
 ipcMain.handle('get-nutrition-data', () => loadNutritionData());
 
+ipcMain.handle('get-illnesses-data', () => loadIllnessesData());
+
 ipcMain.handle('get-translations', (event, language) => {
     const filePath = path.join(__dirname, `assets/lang/${language}.json`);
     try {
@@ -85,5 +87,16 @@ function loadNutritionData() {
     } catch (err) {
         console.error("Error reading nutrition.xml file", err);
         return null;
+    }
+}
+
+// Function to load illnesses data
+function loadIllnessesData() {
+    const illnessesFilePath = path.join(__dirname, 'assets/data/illnesses.json');
+    try {
+        return JSON.parse(fs.readFileSync(illnessesFilePath, 'utf8'));
+    } catch (err) {
+        console.error("Error reading illnesses.json file", err);
+        return {}; // Return an empty object if the file can't be read
     }
 }

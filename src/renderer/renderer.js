@@ -1,34 +1,31 @@
 import { loadSettingsModal } from './modals/settings-modal.js';
 import { setLanguage } from './localization.js';
 
+let glpk;
 let nutritionData = [];
 let inputsFilled = {
     'age': false,
     'weight': false,
     'burns': false,
-    'days-after-trauma': false, // Use 'days-after-trauma'
+    'days-after-trauma': false,
     'temperature': false,
     'height': false,
     'energy-intake': false
 };
 let caloricNeed;
 let filteredFormulas = [];
+let illnesses;
 
 const noValidationNeeded = new Set(['illness', 'gender', 'feeding-speed-selector']);
 
-(async () => {
-    const nutritionData = await window.api.getNutritionData();
-    console.log('Nutrition Data:', nutritionData);
-
-    const translations = await window.api.getTranslations('en');
-    console.log('Translations:', translations);
-
-    const glpk = window.api.getGlpkInstance();
-})();
-
 window.addEventListener('DOMContentLoaded', async () => {
+    glpk = window.api.getGlpkInstance();
+
     const preferredLanguage = localStorage.getItem('defaultLanguage') || 'en';
     await setLanguage(preferredLanguage);
+
+    illnesses = await window.api.getIllnessesData();
+    console.log('Illnesses:', illnesses);
 });
 
 window.api.on('nutrition-data', (data) => {
@@ -42,13 +39,13 @@ window.api.on('nutrition-data', (data) => {
 
         const illnessSet = new Set(); // Using a Set to avoid duplicate illnesses
 
-        const xmlNutritionData  = xmlDoc.getElementsByTagName("nutrition");
-        if (xmlNutritionData .length === 0) {
+        const xmlNutritionData = xmlDoc.getElementsByTagName("nutrition");
+        if (xmlNutritionData.length === 0) {
             console.error('No nutrition data found.');
             return;
         } 0
 
-        Array.from(xmlNutritionData ).forEach(nutrition => {
+        Array.from(xmlNutritionData).forEach(nutrition => {
             const name = nutrition.getElementsByTagName("name")[0].textContent;
             const caloricDensity = parseFloat(nutrition.getElementsByTagName("caloricDensity")[0].textContent); // kcal per 100 g
             const protein = parseFloat(nutrition.getElementsByTagName("protein")[0].textContent); // g per 100 ml
@@ -73,28 +70,22 @@ window.api.on('nutrition-data', (data) => {
                 src,
                 feedingPriority
             });
-
-            // Add indications to the Set for unique illness options
-            if (indication !== "none") {
-                illnessSet.add(indication);
-            }
         });
-        illnessSet.add("malnutrition (high refeeding risk)");
 
         // Populate illness checkboxes
-        illnessSet.forEach(indication => {
+        Object.entries(illnesses).forEach(([key, value]) => {
             const checkboxWrapper = document.createElement("div");
-            checkboxWrapper.className = "checkbox-wrapper"; // Optional: for styling
+            checkboxWrapper.className = "checkbox-wrapper"; 
 
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
-            checkbox.id = indication;
+            checkbox.id = key;
             checkbox.name = "illnesses";
-            checkbox.value = indication;
+            checkbox.value = key;
 
             const label = document.createElement("label");
-            label.htmlFor = indication;
-            label.textContent = indication;
+            label.htmlFor = key;
+            label.textContent = key;
 
             checkboxWrapper.appendChild(checkbox);
             checkboxWrapper.appendChild(label);
