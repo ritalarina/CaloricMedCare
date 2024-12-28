@@ -1,4 +1,4 @@
-// import { loadSettingsModal } from './modals/settings-modal.js';
+import { loadSettingsModal } from './modals/settings-modal.js';
 import { setLanguage } from './localization.js';
 
 let nutritionData = [];
