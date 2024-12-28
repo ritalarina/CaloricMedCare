@@ -25,7 +25,6 @@ window.addEventListener('DOMContentLoaded', async () => {
     await setLanguage(preferredLanguage);
 
     illnesses = await window.api.getIllnessesData();
-    console.log('Illnesses:', illnesses);
 });
 
 window.api.on('nutrition-data', (data) => {
@@ -75,17 +74,17 @@ window.api.on('nutrition-data', (data) => {
         // Populate illness checkboxes
         Object.entries(illnesses).forEach(([key, value]) => {
             const checkboxWrapper = document.createElement("div");
-            checkboxWrapper.className = "checkbox-wrapper"; 
+            checkboxWrapper.className = "checkbox-wrapper";
 
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
             checkbox.id = key;
             checkbox.name = "illnesses";
-            checkbox.value = key;
+            checkbox.value = value;
 
             const label = document.createElement("label");
             label.htmlFor = key;
-            label.textContent = key;
+            label.textContent = value;
 
             checkboxWrapper.appendChild(checkbox);
             checkboxWrapper.appendChild(label);
@@ -113,14 +112,12 @@ function addCheckboxListeners() {
 
     // Attach event listeners to each checkbox
     illnessCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-            handleInputChange();
-        });
+        checkbox.addEventListener('change', (event) => handleInputChange(event));
     });
 }
 
-function handleInputChange() {
-    const id = this.id;
+function handleInputChange(event) {
+    const id = this?.id || event?.target?.id;
     if (id) {
         console.log(`Input changed: ${id}`); // Log input change
 
@@ -138,13 +135,25 @@ function handleInputChange() {
 }
 
 function validateField(id) {
-    if (noValidationNeeded.has(id)) {
-        return true; // No validation needed for drop-downs
-    } else {
+    const element = document.getElementById(id);
+
+    if (!element) {
+        console.error(`Element with ID "${id}" not found.`);
+        return false;
+    }
+
+    if (element.type === 'checkbox') {
+        return true; // Checkboxes are always valid
+    }
+
+    if (element.type === 'number') {
         const min = getMinValue(id);
         const max = getMaxValue(id);
         return validateNumber(id, min, max) !== null;
     }
+
+    console.warn(`Validation not implemented for input type "${element.type}"`);
+    return false;
 }
 
 function validateNumber(id, min, max) {
@@ -157,7 +166,7 @@ function validateNumber(id, min, max) {
         errorSpan.textContent = `Value must be between ${min} and ${max}`;
         emptyNutritionTable();
         emptyFeedingSpeedResults();
-        restoreRecommendedSpeedOptionText()
+        restoreRecommendedSpeedOptionText();
         return null;
     } else {
         errorSpan.textContent = '';
