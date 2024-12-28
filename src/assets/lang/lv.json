@@ -54,6 +54,13 @@
             "protein": "Proteīns"
         }
     },
+    "illnesses": {
+        "diabetes": "diabēts",
+        "constipation": "aizcietējums",
+        "swelling": "tūskas",
+        "liver-failure": "aknu mazspēja",
+        "malnutrition": "nepietiekams uzturs (pārbarošanas risks)"
+    },
     "units": {
         "energy": {
             "kcal": "kkal"

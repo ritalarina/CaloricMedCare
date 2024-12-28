@@ -54,6 +54,13 @@
             "protein": "Protein"
         }
     },
+    "illnesses": {
+        "diabetes": "diabetes",
+        "constipation": "constipation",
+        "swelling": "swelling",
+        "liver-failure": "liver failure",
+        "malnutrition": "malnutrition (refeeding risk)"
+    },
     "units": {
         "energy": {
             "kcal": "kcal"

@@ -5,7 +5,13 @@ const glpk = GLPK();
 // Expose specific APIs to the renderer process
 contextBridge.exposeInMainWorld('api', {
     getGlpkInstance: () => glpk,
-    getTranslations: (language) => ipcRenderer.invoke('get-translations', language),
+    getTranslations: async (language) => {
+        cachedTranslations = await ipcRenderer.invoke('get-translations', language);
+        return cachedTranslations;
+    },
+    translate: (key) => {
+        return key.split('.').reduce((obj, k) => (obj && obj[k] !== undefined) ? obj[k] : null, cachedTranslations);
+    },
     getNutritionData: () => ipcRenderer.invoke('get-nutrition-data'),
     getIllnessesData: () => ipcRenderer.invoke('get-illnesses-data'),
     on: (channel, callback) => {
