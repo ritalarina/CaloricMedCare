@@ -42,9 +42,9 @@
         "drop-down-description": "Izvēlieties ātrumu:",
         "drop-down-options": {
             "recommended": "Rekomendētā",
-            "min": "Minimālā",
-            "med": "Vidējā",
-            "max": "Maksimālā"
+            "min": "Minimālā (25 ml/st.)",
+            "med": "Vidējā (50 ml/st.)",
+            "max": "Maksimālā (80 ml/st.)"
         },
         "selection-recommendation": "Pielāgojiet barošanas ātrumu, ņemot verā panesamību.",
         "results-description": "24 stundās nodrošīnātā barība pie izvēlētā ātruma:",
