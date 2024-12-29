@@ -85,6 +85,7 @@ window.api.on('nutrition-data', (data) => {
             const label = document.createElement("label");
             label.htmlFor = key;
             label.textContent = window.api.translate(`illnesses.${key}`) || illnesses[key];
+            label.setAttribute('data-lang', `illnesses.${key}`);
 
             checkboxWrapper.appendChild(checkbox);
             checkboxWrapper.appendChild(label);
