@@ -1,5 +1,5 @@
 import { loadSettingsModal } from './modals/settings-modal.js';
-import { setLanguage } from './localization.js';
+import { setLanguage, translate } from './localization.js';
 
 let glpk;
 let nutritionData = [];
@@ -342,38 +342,29 @@ function populateNutritionTableWithResults(results, totals) {
         const row = document.createElement('tr');
 
         // Order of feeding
-        const orderCell = document.createElement('td');
-        orderCell.textContent = index + 1; // Feeding order is unique and starts from 1
-        row.appendChild(orderCell);
+        row.appendChild(createTableCell(index + 1));
 
         // Nutrition name
-        const nameCell = document.createElement('td');
-        nameCell.textContent = result.nutrition;
-        row.appendChild(nameCell);
+        row.appendChild(createTableCell(result.nutrition));
 
         // Required volume
-        const volumeCell = document.createElement('td');
-        volumeCell.textContent = Math.round(result.volume) + ' ' + result.units;
-        row.appendChild(volumeCell);
+        row.appendChild(createTableCell(formatValue(result.volume, result.units === 'g' ? `units.mass.g` : `units.volume.ml`)));
 
-        // Provided calories
-        const caloriesCell = document.createElement('td');
-        caloriesCell.textContent = Math.round(result.calories) + ' kcal';
-        row.appendChild(caloriesCell);
+        // // Provided calories
+        row.appendChild(createTableCell(formatValue(result.calories, 'units.energy.kcal')));
 
-        // Provided protein
-        const proteinCell = document.createElement('td');
-        proteinCell.textContent = Math.round(result.protein) + ' g';
-        row.appendChild(proteinCell);
+        // // Provided protein
+        row.appendChild(createTableCell(formatValue(result.protein, 'units.mass.g')));
 
         // Append row to table
         tableBody.appendChild(row);
     });
 
     // Insert totals into the footer row
-    document.getElementById('totalCalories').textContent = Math.round(totals.totalCalories) + ' kcal';
-    document.getElementById('totalProtein').textContent = Math.round(totals.totalProtein) + ' g';
-    document.getElementById('totalQuantity').innerHTML = Math.round(totals.totalLiquidQuantity) + ' ml' + ((Math.round(totals.totalPowderQuantity) > 0) ? '<br>+<br>' + Math.round(totals.totalPowderQuantity) + ' g' : '');
+    document.getElementById('totalCalories').innerHTML = formatValue(totals.totalCalories, 'units.energy.kcal');
+    document.getElementById('totalProtein').innerHTML = formatValue(totals.totalProtein, 'units.mass.g');
+
+    document.getElementById('totalQuantity').innerHTML = formatValue(totals.totalLiquidQuantity, 'units.volume.ml') + ((Math.round(totals.totalPowderQuantity) > 0) ? '<br>+<br>' + formatValue(totals.totalPowderQuantity, 'units.mass.g') : '');
 
     const caloriesDiffCell = document.getElementById('caloriesDiff');
     const proteinDiffCell = document.getElementById('proteinDiff');
@@ -641,4 +632,23 @@ function updateRecommendedSpeedOptionText({ recommendedFeedingSpeed }) {
 
 function restoreRecommendedSpeedOptionText() {
     document.getElementById("recommended-option").textContent = "Recommended"
+}
+
+function formatValue(value, unitKey) {
+    const unit = window.api.translate(unitKey) || unitKey; // Fallback to the raw key if translation is unavailable
+    const content = `
+        ${value}
+        <span data-lang="${unitKey}">
+            ${unit}
+        </span>
+    `;
+
+    return content;
+}
+
+function createTableCell(content) {
+    const cell = document.createElement('td');
+    cell.innerHTML = content;
+
+    return cell;
 }
