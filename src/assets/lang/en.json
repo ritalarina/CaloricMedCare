@@ -15,6 +15,10 @@
             "energy-intake": "Energy Intake (kcal)",
             "conditions": "Other conditions"
         },
+        "genders": {
+            "female": "Female",
+            "male": "Male"
+        },
         "validation": {}
     },
     "cards": {

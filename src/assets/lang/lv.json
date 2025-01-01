@@ -15,6 +15,10 @@
             "energy-intake": "Enerģijas uzņemšana (kcal)",
             "conditions": "Citi veselības stāvokļi"
         },
+        "genders": {
+            "female": "Sieviete",
+            "male": "Vīrietis"
+        },
         "validation": {}
     },
     "cards": {
