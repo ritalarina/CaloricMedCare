@@ -16,8 +16,6 @@ let caloricNeed;
 let filteredFormulas = [];
 let illnesses;
 
-const noValidationNeeded = new Set(['illness', 'gender', 'feeding-speed-selector']);
-
 window.addEventListener('DOMContentLoaded', async () => {
     glpk = window.api.getGlpkInstance();
 
@@ -143,7 +141,7 @@ function validateField(id) {
         return false;
     }
 
-    if (element.type === 'checkbox') {
+    if (element.type === 'checkbox' || element.type === 'select-one') {
         return true; // Checkboxes are always valid
     }
 
