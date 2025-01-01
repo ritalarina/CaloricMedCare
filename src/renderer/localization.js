@@ -30,14 +30,23 @@ export function translate(key, params = {}) {
 export async function loadTranslations(language = 'en') {
     try {
         translations = await window.api.getTranslations(language);
-        applyTranslations(translations);
+        applyTranslations(document);
     } catch (err) {
         console.error(`Error loading translations for ${language}:`, err);
     }
 }
 
-export function applyTranslations() {
-    document.querySelectorAll('[data-lang]').forEach(element => {
+/**
+ * Translation function for a specific element or the whole document.
+ * @param {string} [container] - Element to translate. Document by default.
+ * @returns {void}
+ */
+export function applyTranslations(container = document) {
+    if (!(container instanceof Element || container === document)) {
+        console.warn('Invalid container passed to applyTranslations:', container);
+        return;
+    }
+    container.querySelectorAll('[data-lang]').forEach(element => {
         const key = element.getAttribute('data-lang');
         if (key) {
             element.textContent = translate(key);

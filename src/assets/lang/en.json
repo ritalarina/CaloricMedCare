@@ -58,6 +58,12 @@
             "protein": "Protein"
         }
     },
+    "settings-modal": {
+        "heading": "Settings",
+        "language-settings": {
+            "language-drop-down-label": "Interface Language"
+        }
+    },
     "illnesses": {
         "diabetes": "diabetes",
         "constipation": "constipation",
@@ -83,5 +89,8 @@
         "volume": {
             "ml": "ml"
         }
+    },
+    "buttons": {
+        "save": "Save"
     }
 }

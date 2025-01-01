@@ -58,6 +58,12 @@
             "protein": "Proteīns"
         }
     },
+    "settings-modal": {
+        "heading": "Iestatījumi",
+        "language-settings": {
+            "language-drop-down-label": "Lietotnes valoda"
+        }
+    },
     "illnesses": {
         "diabetes": "diabēts",
         "constipation": "aizcietējums",
@@ -83,5 +89,8 @@
         "volume": {
             "ml": "ml"
         }
+    },
+    "buttons": {
+        "save": "Saglabāt"
     }
 }

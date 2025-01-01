@@ -1,17 +1,19 @@
-import { setLanguage } from '../localization.js';
+import { setLanguage, applyTranslations } from '../localization.js';
 
 export function loadSettingsModal(modalFile) {
     fetch(modalFile)
         .then(response => response.text())
-        .then(html => {
+        .then(async html => {
             const modalContainer = document.createElement('div');
             modalContainer.innerHTML = html;
             document.body.appendChild(modalContainer);
 
+            applyTranslations(modalContainer);
+
             // Display the modal
             const modal = modalContainer.querySelector('#settings-modal');
             modal.style.display = 'block';
-
+            
             const currentLanguage = localStorage.getItem('defaultLanguage') || 'en';
             const languageSelect = modalContainer.querySelector('#default-language');
             if (languageSelect) {

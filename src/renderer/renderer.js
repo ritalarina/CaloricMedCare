@@ -1,5 +1,5 @@
 import { loadSettingsModal } from './modals/settings-modal.js';
-import { setLanguage, translate } from './localization.js';
+import { setLanguage } from './localization.js';
 
 let glpk;
 let nutritionData = [];

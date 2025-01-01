@@ -58,6 +58,12 @@
             "protein": "Белок"
         }
     },
+    "settings-modal": {
+        "heading": "Настройки",
+        "language-settings": {
+            "language-drop-down-label": "Язык программы"
+        }
+    },
     "illnesses": {
         "diabetes": "диабет",
         "constipation": "запор",
@@ -83,5 +89,8 @@
         "volume": {
             "ml": "мл"
         }
+    },
+    "buttons": {
+        "save": "Сохранить"
     }
 }
