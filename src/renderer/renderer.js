@@ -167,7 +167,7 @@ function validateNumber(id, min, max) {
         errorSpan.textContent = `Value must be between ${min} and ${max}`;
         emptyNutritionTable();
         emptyFeedingSpeedResults();
-        restoreRecommendedSpeedOptionText();
+        updateRecommendedSpeedOptionText();
         return null;
     } else {
         errorSpan.textContent = '';
@@ -258,7 +258,7 @@ function calculate() {
     if (!validStatuses.includes(results.status)) {
         emptyNutritionTable();
         emptyFeedingSpeedResults();
-        restoreRecommendedSpeedOptionText();
+        updateRecommendedSpeedOptionText();
         errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
     } else {
         totals = getTotals(results);
@@ -266,7 +266,7 @@ function calculate() {
 
         const totalsWithGivenFeedingSpeed = calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results);
         updateProgressBars(totalsWithGivenFeedingSpeed, totals);
-        updateRecommendedSpeedOptionText(totalsWithGivenFeedingSpeed);
+        updateRecommendedSpeedOptionText(totalsWithGivenFeedingSpeed.recommendedFeedingSpeed);
     }
 }
 
@@ -623,15 +623,23 @@ function updateProgressBars({ volumeFed, caloriesConsumed, proteinConsumed }, { 
     );
 }
 
-function updateRecommendedSpeedOptionText({ recommendedFeedingSpeed }) {
+/**
+ * Adds/removes feeding speed value in the recommended feeding speed option in the drop-down.
+ * @param {number} [recommendedFeedingSpeed] - Optional parameter that contains speed of feeding in ml/h.
+ * @returns {void}
+ */
+function updateRecommendedSpeedOptionText(recommendedFeedingSpeed = null) {
     const recommendedOption = document.getElementById("recommended-option");
     if (recommendedOption) {
-        recommendedOption.textContent = `Recommended (${recommendedFeedingSpeed} ml/h)`;
-    }
-}
-
-function restoreRecommendedSpeedOptionText() {
-    document.getElementById("recommended-option").textContent = "Recommended"
+        if (recommendedFeedingSpeed) {
+        recommendedOption.textContent = `
+            ${window.api.translate('feeding-speed-block.drop-down-options.recommended')}
+            (${recommendedFeedingSpeed} ${window.api.translate('units.volume.ml')}/${window.api.translate('units.time.hour')})
+        `;
+        } else {
+            recommendedOption.textContent = window.api.translate('feeding-speed-block.drop-down-options.recommended');
+        }
+    } 
 }
 
 function formatValue(value, unitKey) {
