@@ -1,6 +1,6 @@
 {
   "name": "caloricmedcare",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "An Electron app to calculate daily caloric need of a patient in a burn ward based on entered patient data.",
   "type": "module",
   "main": "src/main.js",
@@ -28,11 +28,7 @@
       "output": "release-builds"
     },
     "files": [
-      "main.js",
-      "src/renderer.js",
-      "index.html",
-      "package.json",
-      "assets/**/*"
+      "src/**/*"
     ]
   },
   "author": "Rita Larina",
