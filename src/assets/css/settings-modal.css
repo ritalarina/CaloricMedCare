@@ -12,11 +12,33 @@
 
 .modal-content {
     background-color: #fff;
-    margin: 15% auto; /* Center the modal */
-    padding: 20px;
+    margin: 10% auto; /* Center the modal */
+    padding: 20px 30px;
     border: 1px solid #888;
-    width: 50%; /* Adjust the width as needed */
+    width: 30%;
     border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.settings-modal-form-group label {
+    flex: 2;
+    text-align: right; /* Align label text to the right */
+    font-size: 1rem;
+    margin-right: 10px; /* Add space between the label and dropdown */
+}
+
+.modal-select {
+    flex: 3;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .close {
@@ -33,8 +55,15 @@
     cursor: pointer;
 }
 
+.modal-footer {
+    display: flex;
+    justify-content: flex-end; /* Aligns items to the right */
+    margin-top: 15px;
+}
+
 /* General button styling */
 .button {
+    margin-top: 15px;
     background-color: #4CAF50; /* Green background */
     color: white; /* White text */
     border: none; /* Remove borders */
@@ -44,6 +73,7 @@
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern look */
+    float: right;
 }
 
 /* Hover effect */
