@@ -4,6 +4,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Security-Policy"
+		content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self';">
 	<title>Burn Patient Nutrition Calculator</title>
 	<link rel="stylesheet" href="../assets/css/styles.css">
 </head>
@@ -101,7 +103,8 @@
 				<div class="card">
 					<h3 data-lang="cards.bmr"></h3>
 					<p id="bmr-output"></p>
-					<p class="unit"><span data-lang=units.energy.kcal></span>/<span data-lang="units.time.day"></span></p>
+					<p class="unit"><span data-lang=units.energy.kcal></span>/<span data-lang="units.time.day"></span>
+					</p>
 				</div>
 				<div class="card">
 					<h3 data-lang="cards.required-calories"></h3>
@@ -150,9 +153,11 @@
 
 		<div class="feeding-speed-section">
 			<h3 data-lang="feeding-speed-block.heading"></h3>
-			<label for="feeding-speed-selector" data-lang="feeding-speed-block.drop-down-description">Select Feeding Speed:</label>
+			<label for="feeding-speed-selector" data-lang="feeding-speed-block.drop-down-description">Select Feeding
+				Speed:</label>
 			<select id="feeding-speed-selector">
-				<option id="recommended-option" value="recommended" data-lang="feeding-speed-block.drop-down-options.recommended"></option>
+				<option id="recommended-option" value="recommended"
+					data-lang="feeding-speed-block.drop-down-options.recommended"></option>
 				<option value=25 data-lang="feeding-speed-block.drop-down-options.min"></option>
 				<option value=50 data-lang="feeding-speed-block.drop-down-options.med"></option>
 				<option value=80 data-lang="feeding-speed-block.drop-down-options.max"></option>
@@ -162,21 +167,24 @@
 			<div id="progress-bars-section">
 				<p class="description" data-lang="feeding-speed-block.results-description"></p>
 				<div class="progress-bar-container">
-					<label for="volume-progress-bar" class="progress-label" data-lang="feeding-speed-block.progress-bar-labels.volume"></label>
+					<label for="volume-progress-bar" class="progress-label"
+						data-lang="feeding-speed-block.progress-bar-labels.volume"></label>
 					<div class="progress-wrapper">
 						<progress id="volume-progress-bar" value="0" max="100"></progress>
 						<span class="progress-text" id="volume-values"></span>
 					</div>
 				</div>
 				<div class="progress-bar-container">
-					<label for="calories-progress-bar" class="progress-label" data-lang="feeding-speed-block.progress-bar-labels.energy"></label>
+					<label for="calories-progress-bar" class="progress-label"
+						data-lang="feeding-speed-block.progress-bar-labels.energy"></label>
 					<div class="progress-wrapper">
 						<progress id="calories-progress-bar" value="0" max="100"></progress>
 						<span class="progress-text" id="calories-values"></span>
 					</div>
 				</div>
 				<div class="progress-bar-container">
-					<label for="protein-progress-bar" class="progress-label" data-lang="feeding-speed-block.progress-bar-labels.protein"></label>
+					<label for="protein-progress-bar" class="progress-label"
+						data-lang="feeding-speed-block.progress-bar-labels.protein"></label>
 					<div class="progress-wrapper">
 						<progress id="protein-progress-bar" value="0" max="100"></progress>
 						<span class="progress-text" id="protein-values"></span>
