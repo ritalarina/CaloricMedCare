@@ -51,7 +51,7 @@
             "max": "Maximum (80 ml/h)"
         },
         "selection-recommendation": "Adjust feeding speed based on patient tolerance.",
-        "results-description": "Nutrition met over 24 hours at the selected speed:",
+        "results-description": "Projected intake over 24 hours at the chosen speed (compared to recommended):",
         "progress-bar-labels": {
             "volume": "Volume",
             "energy": "Energy",

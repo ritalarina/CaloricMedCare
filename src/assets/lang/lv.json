@@ -51,7 +51,7 @@
             "max": "Maksimālā (80 ml/st.)"
         },
         "selection-recommendation": "Pielāgojiet barošanas ātrumu, ņemot verā panesamību.",
-        "results-description": "24 stundās nodrošīnātā barība pie izvēlētā ātruma:",
+        "results-description": "Prognozētais uztura daudzums 24 stundu laikā izvēlētajā ātrumā (salīdzinājumā ar ieteikto):",
         "progress-bar-labels": {
             "volume": "Apjoms",
             "energy": "Enerģija",
