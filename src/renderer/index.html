@@ -4,27 +4,29 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Security-Policy"
+		content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self';">
 	<title>Burn Patient Nutrition Calculator</title>
-	<link rel="stylesheet" href="assets/css/styles.css">
+	<link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
 <body>
-	<h1>Burn Patient Nutrition Calculator</h1>
+	<h1 data-lang="headings.title"></h1>
 
 	<div class="input-output-container">
 		<div class="form-container">
 			<div class="form-group">
-				<label for="gender">Gender:</label>
+				<label for="gender" data-lang="forms.fields.gender"></label>
 				<div class="input-error-group">
 					<select id="gender">
-						<option value="female">Female</option>
-						<option value="male">Male</option>
+						<option value="female" data-lang="forms.genders.female"></option>
+						<option value="male" data-lang="forms.genders.male"></option>
 					</select><br>
 				</div>
 			</div>
 
 			<div class="form-group">
-				<label for="age">Age:</label>
+				<label for="age" data-lang="forms.fields.age"></label>
 				<div class="input-error-group">
 					<input type="number" id="age" min="0" max="120">
 					<span id="age-error" class="error"></span><br>
@@ -32,7 +34,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="weight">Weight (kg):</label>
+				<label for="weight" data-lang="forms.fields.weight"></label>
 				<div class="input-error-group">
 					<input type="number" id="weight" step="0.1" min="1" max="300">
 					<span id="weight-error" class="error"></span><br>
@@ -40,7 +42,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="height">Height (cm):</label>
+				<label for="height" data-lang="forms.fields.height"></label>
 				<div class="input-error-group">
 					<input type="number" id="height" min="50" max="300">
 					<span id="height-error" class="error"></span><br>
@@ -48,7 +50,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="temperature">Body Temperature (°C):</label>
+				<label for="temperature" data-lang="forms.fields.temperature"></label>
 				<div class="input-error-group">
 					<input type="number" id="temperature" step="0.1">
 					<span id="temperature-error" class="error"></span><br>
@@ -56,7 +58,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="burns">Total Burn Surface Area (%):</label>
+				<label for="burns" data-lang="forms.fields.burns"></label>
 				<div class="input-error-group">
 					<input type="number" id="burns" min="1" max="100">
 					<span id="burns-error" class="error"></span><br>
@@ -64,7 +66,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="days-after-trauma">Days Since Trauma:</label>
+				<label for="days-after-trauma" data-lang="forms.fields.days-after-trauma"></label>
 				<div class="input-error-group">
 					<input type="number" id="days-after-trauma" />
 					<span id="days-after-trauma-error" class="error"></span><br>
@@ -72,7 +74,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="enteral-nutrition-day">Day of enteral nutrition:</label>
+				<label for="enteral-nutrition-day" data-lang="forms.fields.enteral-nutrition-day"></label>
 				<div class="input-error-group">
 					<input type="number" id="enteral-nutrition-day" />
 					<span id="enteral-nutrition-day-error" class="error"></span><br>
@@ -80,7 +82,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="energy-intake">Energy Intake (kcal):</label>
+				<label for="energy-intake" data-lang="forms.fields.energy-intake"></label>
 				<div class="input-error-group">
 					<input type="number" id="energy-intake" min="500" max="5000">
 					<span id="energy-intake-error" class="error"></span><br>
@@ -88,7 +90,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="illnesses-container">Other conditions:</label>
+				<label for="illnesses-container" data-lang="forms.fields.conditions"></label>
 				<div class="input-error-group">
 					<div id="illnesses-container"></div>
 					<span id="illness-error" class="error"></span><br>
@@ -99,30 +101,31 @@
 		<div class="summary-and-nutrition-table">
 			<div class="summary-cards">
 				<div class="card">
-					<h3>BMR</h3>
+					<h3 data-lang="cards.bmr"></h3>
 					<p id="bmr-output"></p>
-					<p class="unit">kcal/day</p>
+					<p class="unit"><span data-lang=units.energy.kcal></span>/<span data-lang="units.time.day"></span>
+					</p>
 				</div>
 				<div class="card">
-					<h3>Required Calories</h3>
+					<h3 data-lang="cards.required-calories"></h3>
 					<p id="caloric-output"></p>
-					<p class="unit">kcal/day</p>
+					<p class="unit"><span data-lang=units.energy.kcal></span>/<span data-lang="units.time.day"></p>
 				</div>
 				<div class="card">
-					<h3>Required Protein</h3>
+					<h3 data-lang="cards.required-protein"></h3>
 					<p id="protein-output"></p>
-					<p class="unit">g/day</p>
+					<p class="unit"><span data-lang=units.mass.g></span>/<span data-lang="units.time.day"></p>
 				</div>
 			</div>
 
 			<table id="nutrition-table">
 				<thead>
 					<tr>
-						<th>Order</th>
-						<th>Nutrition Name</th>
-						<th>Required Quantity</th>
-						<th>Provided Calories</th>
-						<th>Provided Protein</th>
+						<th data-lang="tables.nutrition-summary.headers.order"></th>
+						<th data-lang="tables.nutrition-summary.headers.nutrition-name"></th>
+						<th data-lang="tables.nutrition-summary.headers.required-quantity"></th>
+						<th data-lang="tables.nutrition-summary.headers.provided-calories"></th>
+						<th data-lang="tables.nutrition-summary.headers.provided-protein"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -131,14 +134,14 @@
 				<tfoot>
 					<tr id="resultRow">
 						<td></td>
-						<td>Total</td>
+						<td data-lang="tables.nutrition-summary.rows.total"></td>
 						<td id="totalQuantity"></td>
 						<td id="totalCalories"></td>
 						<td id="totalProtein"></td>
 					</tr>
 					<tr id="pctDiffRow">
 						<td></td>
-						<td>Difference (%)</td>
+						<td data-lang="tables.nutrition-summary.rows.diff"></td>
 						<td></td>
 						<td id="caloriesDiff"></td>
 						<td id="proteinDiff"></td>
@@ -149,34 +152,39 @@
 		</div>
 
 		<div class="feeding-speed-section">
-			<h3>Feeding Speed</h3>
-			<label for="feeding-speed-selector">Select Feeding Speed:</label>
+			<h3 data-lang="feeding-speed-block.heading"></h3>
+			<label for="feeding-speed-selector" data-lang="feeding-speed-block.drop-down-description">Select Feeding
+				Speed:</label>
 			<select id="feeding-speed-selector">
-				<option id="recommended-option" value="recommended">Recommended</option>
-				<option value=25>Minimum (25 ml/h)</option>
-				<option value=50>Medium (50 ml/h)</option>
-				<option value=80>Maximum (80 ml/h)</option>
+				<option id="recommended-option" value="recommended"
+					data-lang="feeding-speed-block.drop-down-options.recommended"></option>
+				<option value=25 data-lang="feeding-speed-block.drop-down-options.min"></option>
+				<option value=50 data-lang="feeding-speed-block.drop-down-options.med"></option>
+				<option value=80 data-lang="feeding-speed-block.drop-down-options.max"></option>
 			</select>
-			<p class="description">Adjust feeding speed based on patient tolerance.</p>
+			<p class="description" data-lang="feeding-speed-block.selection-recommendation"></p>
 
 			<div id="progress-bars-section">
-				<p class="description">Nutrition met over 24 hours at the selected speed:</p>
+				<p class="description" data-lang="feeding-speed-block.results-description"></p>
 				<div class="progress-bar-container">
-					<label for="volume-progress-bar" class="progress-label">Volume:</label>
+					<label for="volume-progress-bar" class="progress-label"
+						data-lang="feeding-speed-block.progress-bar-labels.volume"></label>
 					<div class="progress-wrapper">
 						<progress id="volume-progress-bar" value="0" max="100"></progress>
 						<span class="progress-text" id="volume-values"></span>
 					</div>
 				</div>
 				<div class="progress-bar-container">
-					<label for="calories-progress-bar" class="progress-label">Calories:</label>
+					<label for="calories-progress-bar" class="progress-label"
+						data-lang="feeding-speed-block.progress-bar-labels.energy"></label>
 					<div class="progress-wrapper">
 						<progress id="calories-progress-bar" value="0" max="100"></progress>
 						<span class="progress-text" id="calories-values"></span>
 					</div>
 				</div>
 				<div class="progress-bar-container">
-					<label for="protein-progress-bar" class="progress-label">Protein:</label>
+					<label for="protein-progress-bar" class="progress-label"
+						data-lang="feeding-speed-block.progress-bar-labels.protein"></label>
 					<div class="progress-wrapper">
 						<progress id="protein-progress-bar" value="0" max="100"></progress>
 						<span class="progress-text" id="protein-values"></span>
@@ -186,7 +194,7 @@
 		</div>
 	</div>
 
-	<script src="renderer.js"></script>
+	<script type="module" src="renderer.js"></script>
 	<footer>
 		<p class="attribution">
 			Icon used in this app is by <a href="https://www.flaticon.com/free-icons/nutrient"

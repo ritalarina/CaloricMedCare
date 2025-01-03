@@ -42,6 +42,14 @@ To calculate volume of each nutrition needed linear programming is used to minim
 - for each other health condition a patient has, a special nutrition formula is added to the nutrition mix. If calculation becomes impossible, lower bounds are ignored and some nutrition formulas might be skipped,
 - if all else fails, protein constraint can be relaxed down to 85% of the minimum protein need and caloric constraint can be relaxed to be a maximum of 125% of caloric need. This happens in rare cases for patients with small total burn area. You will be indormed if this happens
 
+## Languages Supported
+CaloricMedCare is available in the following languages:
+- English
+- Russian
+- Latvian
+
+More languages may be added in future updates based on user demand and feedback.
+
 ## Running the app
 ### Option 1. Running the App from a Published Release
 1. Go to the [Releases](https://github.com/ritalarina/caloricmedcare/releases) page and download the latest release for Windows (e.g., .exe file).

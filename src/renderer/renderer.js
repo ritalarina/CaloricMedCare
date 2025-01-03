@@ -1,23 +1,31 @@
-const { ipcRenderer } = require('electron');
-const GLPK = require('glpk.js');
-const glpk = GLPK();
+import { loadSettingsModal } from './modals/settings-modal.js';
+import { setLanguage } from './localization.js';
 
+let glpk;
 let nutritionData = [];
 let inputsFilled = {
     'age': false,
     'weight': false,
     'burns': false,
-    'days-after-trauma': false, // Use 'days-after-trauma'
+    'days-after-trauma': false,
     'temperature': false,
     'height': false,
     'energy-intake': false
 };
 let caloricNeed;
 let filteredFormulas = [];
+let illnesses;
 
-const noValidationNeeded = new Set(['illness', 'gender', 'feeding-speed-selector']);
+window.addEventListener('DOMContentLoaded', async () => {
+    glpk = window.api.getGlpkInstance();
 
-ipcRenderer.on('nutrition-data', (event, data) => {
+    const preferredLanguage = localStorage.getItem('defaultLanguage') || 'en';
+    await setLanguage(preferredLanguage);
+
+    illnesses = await window.api.getIllnessesData();
+});
+
+window.api.on('nutrition-data', (data) => {
     try {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(data, "application/xml");
@@ -28,13 +36,13 @@ ipcRenderer.on('nutrition-data', (event, data) => {
 
         const illnessSet = new Set(); // Using a Set to avoid duplicate illnesses
 
-        const nutrients = xmlDoc.getElementsByTagName("nutrition");
-        if (nutrients.length === 0) {
+        const xmlNutritionData = xmlDoc.getElementsByTagName("nutrition");
+        if (xmlNutritionData.length === 0) {
             console.error('No nutrition data found.');
             return;
         } 0
 
-        Array.from(nutrients).forEach(nutrition => {
+        Array.from(xmlNutritionData).forEach(nutrition => {
             const name = nutrition.getElementsByTagName("name")[0].textContent;
             const caloricDensity = parseFloat(nutrition.getElementsByTagName("caloricDensity")[0].textContent); // kcal per 100 g
             const protein = parseFloat(nutrition.getElementsByTagName("protein")[0].textContent); // g per 100 ml
@@ -59,28 +67,23 @@ ipcRenderer.on('nutrition-data', (event, data) => {
                 src,
                 feedingPriority
             });
-
-            // Add indications to the Set for unique illness options
-            if (indication !== "none") {
-                illnessSet.add(indication);
-            }
-            illnessSet.add("malnutrition (high refeeding risk)");
         });
 
         // Populate illness checkboxes
-        illnessSet.forEach(indication => {
+        Object.entries(illnesses).forEach(([key, value]) => {
             const checkboxWrapper = document.createElement("div");
-            checkboxWrapper.className = "checkbox-wrapper"; // Optional: for styling
+            checkboxWrapper.className = "checkbox-wrapper";
 
             const checkbox = document.createElement("input");
             checkbox.type = "checkbox";
-            checkbox.id = indication;
+            checkbox.id = key;
             checkbox.name = "illnesses";
-            checkbox.value = indication;
+            checkbox.value = value;
 
             const label = document.createElement("label");
-            label.htmlFor = indication;
-            label.textContent = indication;
+            label.htmlFor = key;
+            label.textContent = window.api.translate(`illnesses.${key}`) || illnesses[key];
+            label.setAttribute('data-lang', `illnesses.${key}`);
 
             checkboxWrapper.appendChild(checkbox);
             checkboxWrapper.appendChild(label);
@@ -94,6 +97,10 @@ ipcRenderer.on('nutrition-data', (event, data) => {
     }
 });
 
+window.api.on('load-modal', (modalFile) => {
+    loadSettingsModal(modalFile);
+});
+
 document.querySelectorAll('input, select').forEach(element => {
     element.addEventListener('input', handleInputChange);
     element.addEventListener('change', handleInputChange);
@@ -104,14 +111,12 @@ function addCheckboxListeners() {
 
     // Attach event listeners to each checkbox
     illnessCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-            handleInputChange();
-        });
+        checkbox.addEventListener('change', (event) => handleInputChange(event));
     });
 }
 
-function handleInputChange() {
-    const id = this.id;
+function handleInputChange(event) {
+    const id = this?.id || event?.target?.id;
     if (id) {
         console.log(`Input changed: ${id}`); // Log input change
 
@@ -129,13 +134,25 @@ function handleInputChange() {
 }
 
 function validateField(id) {
-    if (noValidationNeeded.has(id)) {
-        return true; // No validation needed for drop-downs
-    } else {
+    const element = document.getElementById(id);
+
+    if (!element) {
+        console.error(`Element with ID "${id}" not found.`);
+        return false;
+    }
+
+    if (element.type === 'checkbox' || element.type === 'select-one') {
+        return true; // Checkboxes are always valid
+    }
+
+    if (element.type === 'number') {
         const min = getMinValue(id);
         const max = getMaxValue(id);
         return validateNumber(id, min, max) !== null;
     }
+
+    console.warn(`Validation not implemented for input type "${element.type}"`);
+    return false;
 }
 
 function validateNumber(id, min, max) {
@@ -148,7 +165,7 @@ function validateNumber(id, min, max) {
         errorSpan.textContent = `Value must be between ${min} and ${max}`;
         emptyNutritionTable();
         emptyFeedingSpeedResults();
-        restoreRecommendedSpeedOptionText()
+        updateRecommendedSpeedOptionText();
         return null;
     } else {
         errorSpan.textContent = '';
@@ -239,7 +256,7 @@ function calculate() {
     if (!validStatuses.includes(results.status)) {
         emptyNutritionTable();
         emptyFeedingSpeedResults();
-        restoreRecommendedSpeedOptionText();
+        updateRecommendedSpeedOptionText();
         errorSpan.textContent = `Calculation failed. Take a screenshot and send it to the developer.`;
     } else {
         totals = getTotals(results);
@@ -247,7 +264,7 @@ function calculate() {
 
         const totalsWithGivenFeedingSpeed = calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results);
         updateProgressBars(totalsWithGivenFeedingSpeed, totals);
-        updateRecommendedSpeedOptionText(totalsWithGivenFeedingSpeed);
+        updateRecommendedSpeedOptionText(totalsWithGivenFeedingSpeed.recommendedFeedingSpeed);
     }
 }
 
@@ -323,38 +340,29 @@ function populateNutritionTableWithResults(results, totals) {
         const row = document.createElement('tr');
 
         // Order of feeding
-        const orderCell = document.createElement('td');
-        orderCell.textContent = index + 1; // Feeding order is unique and starts from 1
-        row.appendChild(orderCell);
+        row.appendChild(createTableCell(index + 1));
 
         // Nutrition name
-        const nameCell = document.createElement('td');
-        nameCell.textContent = result.nutrition;
-        row.appendChild(nameCell);
+        row.appendChild(createTableCell(result.nutrition));
 
         // Required volume
-        const volumeCell = document.createElement('td');
-        volumeCell.textContent = Math.round(result.volume) + ' ' + result.units;
-        row.appendChild(volumeCell);
+        row.appendChild(createTableCell(formatValue(result.volume, result.units === 'g' ? `units.mass.g` : `units.volume.ml`)));
 
-        // Provided calories
-        const caloriesCell = document.createElement('td');
-        caloriesCell.textContent = Math.round(result.calories) + ' kcal';
-        row.appendChild(caloriesCell);
+        // // Provided calories
+        row.appendChild(createTableCell(formatValue(result.calories, 'units.energy.kcal')));
 
-        // Provided protein
-        const proteinCell = document.createElement('td');
-        proteinCell.textContent = Math.round(result.protein) + ' g';
-        row.appendChild(proteinCell);
+        // // Provided protein
+        row.appendChild(createTableCell(formatValue(result.protein, 'units.mass.g')));
 
         // Append row to table
         tableBody.appendChild(row);
     });
 
     // Insert totals into the footer row
-    document.getElementById('totalCalories').textContent = Math.round(totals.totalCalories) + ' kcal';
-    document.getElementById('totalProtein').textContent = Math.round(totals.totalProtein) + ' g';
-    document.getElementById('totalQuantity').innerHTML = Math.round(totals.totalLiquidQuantity) + ' ml' + ((Math.round(totals.totalPowderQuantity) > 0) ? '<br>+<br>' + Math.round(totals.totalPowderQuantity) + ' g' : '');
+    document.getElementById('totalCalories').innerHTML = formatValue(totals.totalCalories, 'units.energy.kcal');
+    document.getElementById('totalProtein').innerHTML = formatValue(totals.totalProtein, 'units.mass.g');
+
+    document.getElementById('totalQuantity').innerHTML = formatValue(totals.totalLiquidQuantity, 'units.volume.ml') + ((Math.round(totals.totalPowderQuantity) > 0) ? '<br>+<br>' + formatValue(totals.totalPowderQuantity, 'units.mass.g') : '');
 
     const caloriesDiffCell = document.getElementById('caloriesDiff');
     const proteinDiffCell = document.getElementById('proteinDiff');
@@ -532,7 +540,7 @@ function calculateFeedingSpeed(selectedSpeed, enteralNutritionDay, results) {
     let feedingSpeed;
     let recommendedFeedingSpeed;
     let selectedIllnesses = getSelectedIllnesses();
-    
+
     if (selectedIllnesses.some(illness => illness.includes('malnutrition'))) {  // if option that contains string 'malnutrition' is selected
         recommendedFeedingSpeed = (enteralNutritionDay < 3) ? feedingSpeed = 25 : ((enteralNutritionDay < 6) ? 50 : 80);
     } else {
@@ -613,13 +621,40 @@ function updateProgressBars({ volumeFed, caloriesConsumed, proteinConsumed }, { 
     );
 }
 
-function updateRecommendedSpeedOptionText({ recommendedFeedingSpeed }) {
+/**
+ * Adds/removes feeding speed value in the recommended feeding speed option in the drop-down.
+ * @param {number} [recommendedFeedingSpeed] - Optional parameter that contains speed of feeding in ml/h.
+ * @returns {void}
+ */
+function updateRecommendedSpeedOptionText(recommendedFeedingSpeed = null) {
     const recommendedOption = document.getElementById("recommended-option");
     if (recommendedOption) {
-        recommendedOption.textContent = `Recommended (${recommendedFeedingSpeed} ml/h)`;
-    }
+        if (recommendedFeedingSpeed) {
+        recommendedOption.textContent = `
+            ${window.api.translate('feeding-speed-block.drop-down-options.recommended')}
+            (${recommendedFeedingSpeed} ${window.api.translate('units.volume.ml')}/${window.api.translate('units.time.hour')})
+        `;
+        } else {
+            recommendedOption.textContent = window.api.translate('feeding-speed-block.drop-down-options.recommended');
+        }
+    } 
 }
 
-function restoreRecommendedSpeedOptionText() {
-    document.getElementById("recommended-option").textContent = "Recommended"
+function formatValue(value, unitKey) {
+    const unit = window.api.translate(unitKey) || unitKey; // Fallback to the raw key if translation is unavailable
+    const content = `
+        ${value}
+        <span data-lang="${unitKey}">
+            ${unit}
+        </span>
+    `;
+
+    return content;
+}
+
+function createTableCell(content) {
+    const cell = document.createElement('td');
+    cell.innerHTML = content;
+
+    return cell;
 }

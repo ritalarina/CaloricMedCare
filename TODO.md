@@ -18,7 +18,7 @@ UI:
 
 Other:
 - Make nutrition.xml file editable either via direct file edit or from app settings.
-- Add language support.
+- ~~Add language support.~~
 - Set up app auto-update.
 - Physical printing of calculation results.
 - calculator if calorimetry is available

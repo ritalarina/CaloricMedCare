@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../assets/css/settings-modal.css">
+</head>
+
+<body>
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-settings" class="close">&times;</span>
+            <h2 data-lang="settings-modal.heading"></h2>
+            <div class="modal-input-group">
+                <label for="default-language"
+                    data-lang="settings-modal.language-settings.language-drop-down-label"></label>
+                <select id="default-language" class="modal-select">
+                    <option value="en">English</option>
+                    <option value="ru">Русский</option>
+                    <option value="lv">Latviešu</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button id="save-settings" class="button" data-lang="buttons.save"></button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

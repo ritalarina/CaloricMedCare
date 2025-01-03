@@ -1,0 +1,96 @@
+{
+    "headings": {
+        "title": "Apdeguma pacientu uztura kalkulators"
+    },
+    "forms": {
+        "fields": {
+            "gender": "Dzimums",
+            "age": "Vecums",
+            "weight": "Svars (kg)",
+            "height": "Augums (cm)",
+            "temperature": "Ķermeņa temperatūra (°C)",
+            "burns": "Apdeguma virsmas kopējā platība (%)",
+            "days-after-trauma": "Dienas pēc traumas",
+            "enteral-nutrition-day": "Enterālās barošanas diena",
+            "energy-intake": "Enerģijas uzņemšana (kcal)",
+            "conditions": "Citi veselības stāvokļi"
+        },
+        "genders": {
+            "female": "Sieviete",
+            "male": "Vīrietis"
+        },
+        "validation": {}
+    },
+    "cards": {
+        "bmr": "Pamatvielmaiņa",
+        "required-calories": "Nepieciešamā Enerģija",
+        "required-protein": "Nepieciešamais Proteīns"
+    },
+    "tables": {
+        "nutrition-summary": {
+            "headers": {
+                "order": "Kārta",
+                "nutrition-name": "Formulas nosaukums",
+                "required-quantity": "Nepieciešamais Daudzums",
+                "provided-calories": "Nodrošinātā Enerģija",
+                "provided-protein": "Nodrošinātais Proteīns"
+            },
+            "rows": {
+                "total": "Kopā",
+                "diff": "Atšķirība (%)"
+            }
+        }
+    },
+    "feeding-speed-block": {
+        "heading": "Formulas padošanas ātrums",
+        "drop-down-description": "Izvēlieties ātrumu:",
+        "drop-down-options": {
+            "recommended": "Rekomendētā",
+            "min": "Minimālā (25 ml/st.)",
+            "med": "Vidējā (50 ml/st.)",
+            "max": "Maksimālā (80 ml/st.)"
+        },
+        "selection-recommendation": "Pielāgojiet barošanas ātrumu, ņemot verā panesamību.",
+        "results-description": "Prognozētais uztura daudzums 24 stundu laikā izvēlētajā ātrumā (salīdzinājumā ar ieteikto):",
+        "progress-bar-labels": {
+            "volume": "Apjoms",
+            "energy": "Enerģija",
+            "protein": "Proteīns"
+        }
+    },
+    "settings-modal": {
+        "heading": "Iestatījumi",
+        "language-settings": {
+            "language-drop-down-label": "Lietotnes valoda"
+        }
+    },
+    "illnesses": {
+        "diabetes": "diabēts",
+        "constipation": "aizcietējums",
+        "swelling": "tūskas",
+        "liver-failure": "aknu mazspēja",
+        "malnutrition": "nepietiekams uzturs (pārbarošanas risks)"
+    },
+    "units": {
+        "energy": {
+            "kcal": "kkal"
+        },
+        "time": {
+            "day": "24 st.",
+            "hour": "st."
+        },
+        "mass": {
+            "kg": "kg",
+            "g": "g"
+        },
+        "length": {
+            "cm": "cm"
+        },
+        "volume": {
+            "ml": "ml"
+        }
+    },
+    "buttons": {
+        "save": "Saglabāt"
+    }
+}

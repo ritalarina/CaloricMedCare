@@ -1,0 +1,96 @@
+{
+    "headings": {
+        "title": "Калькулятор питания для ожоговых пациентов"
+    },
+    "forms": {
+        "fields": {
+            "gender": "Пол",
+            "age": "Возраст",
+            "weight": "Вес (кг)",
+            "height": "Рост (см)",
+            "temperature": "Температура тела (°C)",
+            "burns": "Общая площадь ожогов (%)",
+            "days-after-trauma": "Дни после травмы",
+            "enteral-nutrition-day": "День энтерального питания",
+            "energy-intake": "Потребление энергии (ккал)",
+            "conditions": "Другие заболевания"
+        },
+        "genders": {
+            "female": "Женщина",
+            "male": "Мужчина"
+        },
+        "validation": {}
+    },
+    "cards": {
+        "bmr": "Основной Обмен",
+        "required-calories": "Необходимая Энергия",
+        "required-protein": "Необходимый Белок"
+    },
+    "tables": {
+        "nutrition-summary": {
+            "headers": {
+                "order": "Порядок",
+                "nutrition-name": "Название формулы",
+                "required-quantity": "Необходимое Количество",
+                "provided-calories": "Поступившая Энергия",
+                "provided-protein": "Поступивший Белок"
+            },
+            "rows": {
+                "total": "Всего",
+                "diff": "Разница (%)"
+            }
+        }
+    },
+    "feeding-speed-block": {
+        "heading": "Скорость подачи формулы",
+        "drop-down-description": "Выберите скорость:",
+        "drop-down-options": {
+            "recommended": "Рекомендованная",
+            "min": "Минимальная (25 мл/ч)",
+            "med": "Средняя (50 мл/ч)",
+            "max": "Максимальная (80 мл/ч)"
+        },
+        "selection-recommendation": "Регулируйте скорость кормления в зависимости от переносимости пациента.",
+        "results-description": "Прогнозируемое потребление за 24 часа при выбранной скорости (по сравнению с рекомендованным):",
+        "progress-bar-labels": {
+            "volume": "Объём",
+            "energy": "Энергия",
+            "protein": "Белок"
+        }
+    },
+    "settings-modal": {
+        "heading": "Настройки",
+        "language-settings": {
+            "language-drop-down-label": "Язык программы"
+        }
+    },
+    "illnesses": {
+        "diabetes": "диабет",
+        "constipation": "запор",
+        "swelling": "отёк",
+        "liver-failure": "печёночная недостаточность",
+        "malnutrition": "недоедание (риск рефидинга)"
+    },
+    "units": {
+        "energy": {
+            "kcal": "ккал"
+        },
+        "time": {
+            "day": "сутки",
+            "hour": "ч"
+        },
+        "mass": {
+            "kg": "кг",
+            "g": "г"
+        },
+        "length": {
+            "cm": "см"
+        },
+        "volume": {
+            "ml": "мл"
+        }
+    },
+    "buttons": {
+        "save": "Сохранить"
+    }
+}

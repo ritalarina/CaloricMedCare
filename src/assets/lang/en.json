@@ -1,0 +1,96 @@
+{
+    "headings": {
+        "title": "Burn Patient Nutrition Calculator"
+    },
+    "forms": {
+        "fields": {
+            "gender": "Gender",
+            "age": "Age",
+            "weight": "Weight (kg)",
+            "height": "Height (cm)",
+            "temperature": "Body Temperature (°C)",
+            "burns": "Total Burn Surface Area (%)",
+            "days-after-trauma": "Days Since Trauma",
+            "enteral-nutrition-day": "Day of enteral nutrition",
+            "energy-intake": "Energy Intake (kcal)",
+            "conditions": "Other conditions"
+        },
+        "genders": {
+            "female": "Female",
+            "male": "Male"
+        },
+        "validation": {}
+    },
+    "cards": {
+        "bmr": "BMR",
+        "required-calories": "Required Energy",
+        "required-protein": "Required Protein"
+    },
+    "tables": {
+        "nutrition-summary": {
+            "headers": {
+                "order": "Order",
+                "nutrition-name": "Nutrition Name",
+                "required-quantity": "Required Quantity",
+                "provided-calories": "Provided Energy",
+                "provided-protein": "Provided Protein"
+            },
+            "rows": {
+                "total": "Total",
+                "diff": "Difference (%)"
+            }
+        }
+    },
+    "feeding-speed-block": {
+        "heading": "Feeding Speed",
+        "drop-down-description": "Select Feeding Speed:",
+        "drop-down-options": {
+            "recommended": "Recommended",
+            "min": "Minimum (25 ml/h)",
+            "med": "Medium (50 ml/h)",
+            "max": "Maximum (80 ml/h)"
+        },
+        "selection-recommendation": "Adjust feeding speed based on patient tolerance.",
+        "results-description": "Projected intake over 24 hours at the chosen speed (compared to recommended):",
+        "progress-bar-labels": {
+            "volume": "Volume",
+            "energy": "Energy",
+            "protein": "Protein"
+        }
+    },
+    "settings-modal": {
+        "heading": "Settings",
+        "language-settings": {
+            "language-drop-down-label": "Interface Language"
+        }
+    },
+    "illnesses": {
+        "diabetes": "diabetes",
+        "constipation": "constipation",
+        "swelling": "swelling",
+        "liver-failure": "liver failure",
+        "malnutrition": "malnutrition (refeeding risk)"
+    },
+    "units": {
+        "energy": {
+            "kcal": "kcal"
+        },
+        "time": {
+            "day": "24h",
+            "hour": "h"
+        },
+        "mass": {
+            "kg": "kg",
+            "g": "g"
+        },
+        "length": {
+            "cm": "cm"
+        },
+        "volume": {
+            "ml": "ml"
+        }
+    },
+    "buttons": {
+        "save": "Save"
+    }
+}
