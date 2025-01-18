@@ -1,36 +1,25 @@
 # CaloricMedCare
 
+## Disclaimer
+CaloricMedCare is an open-source tool provided "as-is," without warranties or guarantees of any kind. While it is designed to assist medical professionals in estimating nutritional needs for burn patients, **it is not a certified medical device** under EU or other regulations and should not be relied upon as the sole source of clinical decision-making. Users are responsible for verifying the accuracy of its calculations and for ensuring they align with established medical guidelines and practices. 
+
+The creators of CaloricMedCare assume no liability for any outcomes resulting from the use of this application.
+
 ## Description
-**CaloricMedCare** is a tool designed for medical professionals to calculate the caloric needs and nutritional intake of burn patients. This application takes patient data, calculates daily caloric requirements using established formulas, and determines the required nutrition formula volumes.
+**CaloricMedCare** is an open-source tool intended to assist with estimating caloric needs and nutritional intake for burn patients. It is designed for research and educational purposes and may be useful as a supplementary resource for healthcare professionals. This app is not certified as a medical device and should not replace professional clinical judgment.
 
-## Input
-  - **Gender** (Male/Female)
-  - **Age** (0-120 years)
-  - **Weight** (1-300 kg, precision up to 0.1 kg)
-  - **Height** (50-300 cm)
-  - **Body Temperature** (in °C, precision up to 0.1°C)
-  - **Total Burn Surface Area** (1-100%)
-  - **Days Since Trauma** (0 or more days)
-  - **Enteral nutrition day** (0 or more days)
-  - **Energy Intake** (500-5000 kcal)
-  - **Other Conditions** (multiple-choice options)
-  - **Feeding speed** (will recommend speed by default, other options are 25 ml/h, 50 ml/h, 80 ml/h)
+## Usage
+Once the app is running, you can input patient-related data to calculate estimated caloric needs and nutrition requirements:
+1. Enter the patient's gender, age, weight, height, body temperature, and burn surface area. Specify the number of days since the trauma and other conditions.
+2. The app will provide estimates for:
+   - Basal Metabolic Rate (BMR),
+   - Necessary kcal intake during treatment,
+   - Protein requirements,
+   - Suggested nutrition formulas and their volumes,
+   - Recommended feeding speed, and
+   - Estimated volume, calories, and protein intake at the chosen feeding speed.
 
-## Output
-- **BMR Calculation**: Calculates Basal Metabolic Rate (BMR) using the **Harris-Benedict formula**.
-- **Kcal Requirement**: Calculates daily caloric intake using the **Toronto formula for major burns**.
-- **Protein Requirement**:
-  - 1.5-2 g protein per kg of body weight for 1-15 days post-trauma.
-  - 1.2-1.5 g protein per kg of body weight after 15 days.
-- **Nutrition Volume**: Based on patient data, the algorithm selects nutrition formulas, determines their feeding order and calculates amount of each so that the total calories and proteins fit within 10% of the daily need.
-- **Total Volume**: Total volume of nutrition formulas.
-- **Total Calories**: Total calories provided by the formulas.
-- **Total Protein**: Total protein amount from the formulas.
-- **Difference (%)**: The percentage difference between the calculated totals and the patient’s required intake. Deviations over 10% are highlighted in red.
-- **Recommended Feeding Speed**: Selected based on enteral nutrition day and presence of malnutrition. Can be changed to other feeding speed if needed.
-   - In case of malnutrtion, recommended feeding speed will be 25 ml/h on days 0-2 of enteral nutrition, 50 ml/h on days 3-5 of enteral nutrition and 80 ml/h afterwards.
-   - In other cases recommended feeding speed will be 50 ml/h in the first day of enteral nutritions and 80 ml/h afterwards.
-- **Needs met at chosen feeding speed**: Calculates total volume, protein and calories fed to the patient in 24h at chosen feeding speed taking into account order of feeding.
+**Important:** All outputs should be independently reviewed and validated by qualified professionals before use in clinical practice.
 
 ### About the algorithm
 To calculate volume of each nutrition needed linear programming is used to minimize total nutrition volume while sticking to certain constraints:
@@ -92,6 +81,5 @@ Once the app is running, input the following data to calculate patient caloric n
 This project is licensed under the GPL 3.0 License.
 
 ## Credits
-- The app created based on an idea of Larisa Ramoniene and with her help.
-- The app is used and tested by the Latvian National Burn Center (Slimnīca "Biķernieki", Riga, Latvia).
+- The app was created based on an idea by Larisa Ramoniene, who contributed to its development.
 - Icon used in this app is by [Freepik - Flaticon](https://www.flaticon.com/free-icons/nutrient).
